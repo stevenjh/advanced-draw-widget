@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Advanced Draw</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
+    <style type="text/css">
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font: 14px sans-serif;
+    }
+    #bc {
+        width: 100%;
+        height: 100%;
+    }
+    #left {
+        width: 360px;
+        z-index: 1;
+    }
+    #map {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        padding: 0;
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body class="claro">
+    <div id="bc"></div>
+    <script>
+        dojoConfig = {
+            async: true,
+            packages: [{
+                name: 'src',
+                location: location.pathname.replace(/[^\/]+$/, '') + 'src'
+            }]
+        };
+    </script>
+    <script src="//js.arcgis.com/3.10compact/"></script>
+    <script>
+        var app;
+        require([
+            'esri/map',
+            'dijit/layout/BorderContainer',
+            'dijit/layout/ContentPane',
+            'xstyle/css!dijit/themes/claro/claro.css',
+            'xstyle/css!esri/css/esri.css',
+            'dojo/domReady!'
+        ], function (Map, BC, CP) {
+            // layout
+            var bc = new BC({
+                gutters: true,
+                liveSplitters: false
+            }, 'bc');
+            bc.startup();
+            bc.addChild(new CP({
+                id: 'left',
+                region: 'left',
+                content: '<div id="advanced-draw"></div>'
+            }));
+            bc.addChild(new CP({
+                id: 'map',
+                region: 'center'
+            }));
+
+            // the map
+            app.map = new Map('map', {
+                basemap: 'topo',
+                zoom: 12,
+                center: [-123, 45]
+            });
+        });
+    </script>
+</body>
+</html>
