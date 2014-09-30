@@ -1,2 +1,1 @@
-cmv-contrib-AdvancedDraw
-========================
+advanced-draw-widget
