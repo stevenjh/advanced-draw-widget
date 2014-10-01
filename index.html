@@ -15,6 +15,7 @@
     }
     body {
         font: 14px sans-serif;
+        color: #333;
     }
     #bc {
         width: 100%;
@@ -46,15 +47,20 @@
     </script>
     <script src="//js.arcgis.com/3.10compact/"></script>
     <script>
-        var app;
+        var app = {};
         require([
             'esri/map',
+
+            'src/helper', // toolbar, tooltip and map event helpers and testbed
+
+            'src/AdvancedDraw', // the draw widget
+
             'dijit/layout/BorderContainer',
             'dijit/layout/ContentPane',
             'xstyle/css!dijit/themes/claro/claro.css',
             'xstyle/css!esri/css/esri.css',
             'dojo/domReady!'
-        ], function (Map, BC, CP) {
+        ], function (Map, helper, AdvancedDraw, BC, CP) {
             // layout
             var bc = new BC({
                 gutters: true,
@@ -77,6 +83,15 @@
                 zoom: 12,
                 center: [-123, 45]
             });
+
+            // some assistance
+            helper.initialize(app.map);
+
+            // the widget
+            app.advancedDraw = new AdvancedDraw({
+                map: app.map
+            }, 'advanced-draw');
+            app.advancedDraw.startup();
         });
     </script>
 </body>
