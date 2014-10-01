@@ -18,7 +18,7 @@ define([
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    './AdvancedDraw/_AdvancedDrawMixin', // menus and such
+    './AdvancedDraw/AdvancedDrawMixin', // menus and such
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     // layer and graphic
@@ -57,7 +57,7 @@ define([
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    _AdvancedDrawMixin,
+    AdvancedDrawMixin,
     template,
 
     FeatureLayer,
@@ -70,7 +70,7 @@ define([
     MenuSeparator
 ) {
     
-    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _AdvancedDrawMixin], {
+    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, AdvancedDrawMixin], {
         map: null,
         templateString: template,
         baseClass: 'AdvancedDrawWidget',
