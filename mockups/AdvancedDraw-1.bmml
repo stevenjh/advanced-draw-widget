@@ -1,0 +1,150 @@
+<mockup version="1.0" skin="sketch" measuredW="1767" measuredH="843" mockupW="1721" mockupH="842">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Image" x="46" y="46" w="335" h="521" measuredW="335" measuredH="521" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/base.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TabBar" x="59" y="235" w="303" h="268" measuredW="248" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Point%2C%20Polyline%2C%20Polygon</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::ColorPicker" x="114" y="327" w="-1" h="-1" measuredW="26" measuredH="28" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="163" y="322" w="-1" h="-1" measuredW="73" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Point%20Color</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::VSlider" x="114" y="377" w="-1" h="93" measuredW="11" measuredH="33" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="163" y="384" w="73" h="20" measuredW="68" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Point%20Size</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::StickyNote" x="280" y="173" w="129" h="154" measuredW="109" measuredH="123" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tab%20corresponding%20to%20draw%20mode%20is%20selected</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Image" x="1432" y="47" w="335" h="521" measuredW="335" measuredH="521" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/base.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TabBar" x="1446" y="253" w="293" h="252" measuredW="256" measuredH="100" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%2C%20Export%2C%20Download</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::StickyNote" x="1502" y="315" w="201" h="157" measuredW="109" measuredH="123" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20tab%20for%20each%20plugin.%20%20Developer%20is%20responsible%20for%20plugin%20UI</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Button" x="1632" y="160" w="-1" h="-1" measuredW="87" measuredH="28" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gear%20Icon</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Arrow" x="1687" y="188" w="22" h="88" measuredW="150" measuredH="100" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>top</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="93" y="286" w="-1" h="-1" measuredW="155" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Default%20Point%20Symbology</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Label" x="89" y="473" w="-1" h="-1" measuredW="173" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <color>6710886</color>
+        <italic>true</italic>
+        <text>will%20be%20applied%20to%20new%20items</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::CallOut" x="1432" y="1" w="-1" h="-1" measuredW="93" measuredH="39" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plugins%20UI</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::CallOut" x="58" y="1" w="-1" h="-1" measuredW="167" measuredH="40" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Default%20Symbology%20UI</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Image" x="443" y="244" w="-1" h="-1" measuredW="780" measuredH="576" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/map-graphic-polygon.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Canvas" x="674" y="386" w="141" h="181" measuredW="100" measuredH="70" zOrder="17" locked="false" isInGroup="-1"/>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::List" x="682" y="405" w="127" h="126" measuredW="100" measuredH="126" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <hasHeader>true</hasHeader>
+        <selectedIndex>-1</selectedIndex>
+        <text>menu%0AEdit%20symbology%0AEdit%20vertices%0AMove%0ACopy%0ADelete</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::TitleWindow" x="832" y="443" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <close>true</close>
+        <minimize>true</minimize>
+        <text>Edit%20Symbology</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Button" x="1205" y="786" w="-1" h="-1" measuredW="59" measuredH="28" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apply</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::ColorPicker" x="864" y="515" w="-1" h="-1" measuredW="26" measuredH="28" zOrder="21" locked="false" isInGroup="-1"/>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="864" y="485" w="-1" h="-1" measuredW="52" measuredH="25" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Outline</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::ComboBox" x="894" y="515" w="-1" h="-1" measuredW="60" measuredH="72" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>solid%0Adashed%0Anone</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::HSlider" x="1045" y="526" w="160" h="-1" measuredW="33" measuredH="11" zOrder="24" locked="false" isInGroup="-1"/>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::ColorPicker" x="858" y="622" w="-1" h="-1" measuredW="26" measuredH="28" zOrder="25" locked="false" isInGroup="-1"/>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="858" y="592" w="-1" h="-1" measuredW="24" measuredH="25" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fill</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::ComboBox" x="888" y="622" w="-1" h="-1" measuredW="60" measuredH="92" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>solid%0Astripped%20-%20angle%0Astripped%20-%20vert%0Astrippped%20-%20hor</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Label" x="991" y="520" w="-1" h="-1" measuredW="54" measuredH="25" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Opacity</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::HSlider" x="1045" y="628" w="160" h="-1" measuredW="33" measuredH="11" zOrder="29" locked="false" isInGroup="-1"/>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="991" y="622" w="-1" h="-1" measuredW="54" measuredH="25" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Opacity</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::CallOut" x="880" y="301" w="-1" h="-1" measuredW="233" measuredH="39" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Edit%20Existing%20Feature%20Symbology</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
