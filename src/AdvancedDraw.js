@@ -18,7 +18,7 @@ define([
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    './AdvancedDraw/AdvancedDrawMixin', // menus and such
+    './AdvancedDraw/_AdvancedDrawMixin', // menus and such
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     // layer and graphic
@@ -57,7 +57,7 @@ define([
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    AdvancedDrawMixin,
+    _AdvancedDrawMixin,
     template,
 
     FeatureLayer,
@@ -70,13 +70,14 @@ define([
     MenuSeparator
 ) {
     
-    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, AdvancedDrawMixin], {
+    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _AdvancedDrawMixin], {
         map: null,
         templateString: template,
         baseClass: 'AdvancedDrawWidget',
 
         constructor: function (params) {
             params = params || {};
+            this._drawButtonClickHandler = null;
         },
 
         postCreate: function () {
@@ -87,10 +88,18 @@ define([
 
             // options menu
             this._initOptionsMenu();
+
+            // draw menu
+            this._initDrawMenu();
+
+            // wire up click handler
+            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', 'point', 'Point'));
         },
 
-        _draw: function () {
-
+        _draw: function (type, label) {
+        	this._drawButtonClickHandler.remove();
+            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', type, label));
+            this.drawButtonNode.set('label', label);
         }
     });
 
