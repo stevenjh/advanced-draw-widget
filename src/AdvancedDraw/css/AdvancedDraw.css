@@ -1,0 +1,9 @@
+.AdvancedDrawWidget {}
+
+.AdvancedDrawWidget .drawTools {
+    margin-bottom: 10px;
+}
+
+.AdvancedDrawWidget .drawStatus {
+    margin: 10px 0;
+}
