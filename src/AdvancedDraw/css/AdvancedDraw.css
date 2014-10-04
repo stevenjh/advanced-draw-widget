@@ -1,0 +1,17 @@
+.AdvancedDrawWidget {}
+
+.AdvancedDrawWidget .dijitIcon {
+    font-family: FontAwesome;
+}
+
+.AdvancedDrawWidget .iconFixedWidth {
+	width: 1em;
+}
+
+.AdvancedDrawWidget .drawTools {
+    margin-bottom: 10px;
+}
+
+.AdvancedDrawWidget .drawStatus {
+    margin: 10px 0;
+}
