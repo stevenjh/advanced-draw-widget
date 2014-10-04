@@ -1,5 +1,7 @@
+// the default configuration of symbols, layers, etc
 define([], function () {
     return {
+        // default symbols
         defaultPolygonSymbol: {
             color: [255, 0, 0, 32],
             outline: {
@@ -11,27 +13,24 @@ define([], function () {
             type: 'esriSFS',
             style: 'esriSFSSolid'
         },
-
         defaultPolylineSymbol: {
-            color: [0, 0, 255, 255],
+            color: [0, 255, 0, 255],
             width: 3,
             type: 'esriSLS',
             style: 'esriSLSSolid'
         },
-
         defaultPointSymbol: {
-            color: [50, 205, 50, 255],
+            color: [0, 0, 255, 255],
             size: 10.5,
             type: 'esriSMS',
             style: 'esriSMSCircle',
             outline: {
-                color: [0, 0, 0, 255],
-                width: 0.75,
+                color: [255, 255, 255, 255],
+                width: 1.5,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
             }
         },
-
         defaultTextSymbol: {
             color: [0, 0, 0, 255],
             type: 'esriTS',
@@ -48,13 +47,11 @@ define([], function () {
                 family: 'sans-serif'
             }
         },
-
         defaultTempSymbol: {
             color: [255, 255, 255, 192],
             type: 'esriSFS',
             style: 'esriSFSSolid'
         },
-
         // advanced settings
         //   changing may (probably will) cause errors
         _layerDefinition: {
@@ -67,6 +64,9 @@ define([], function () {
                 type: 'esriFieldTypeOID'
             }, {
                 name: 'draw_type',
+                type: 'esriFieldTypeString'
+            }, {
+                name: 'draw_text_string',
                 type: 'esriFieldTypeString'
             }]
         }

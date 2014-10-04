@@ -1,3 +1,4 @@
+// http://dojotoolkit.org/reference-guide/1.10/dojo/i18n.html
 define({
 	root: {
 		draw: 'Draw',
@@ -6,10 +7,10 @@ define({
 		polygon: 'Polygon',
 		text: 'Text',
 		freehand: 'Freehand',
-		freehandPolyline: 'Freehand Polyline',
-		freehandPolygon: 'Freehand Polygon',
+		freehandpolyline: 'Freehand Polyline',
+		freehandpolygon: 'Freehand Polygon',
 		shapes: 'Shapes',
-		retangle: 'Rectangle',
+		rectangle: 'Rectangle',
 		circle: 'Circle',
 		cancel: 'Cancel',
 		undo: 'Undo',

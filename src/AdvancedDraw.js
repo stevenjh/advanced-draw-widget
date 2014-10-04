@@ -4,18 +4,22 @@ define([
     'dojo/_base/lang',
     //'dojo/_base/array',
 
+    // dom
+    'dojo/dom-class',
+
     // events
     //'dojo/topic',
     'dojo/on',
 
     // default config
-    './AdvancedDraw/modules/_AdvancedDrawConfig',
+    './AdvancedDraw/modules/_defaultConfig',
 
     // widget mixins and template
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    './AdvancedDraw/modules/_AdvancedDrawInit', // initialization mixin (layers, menus, etc)
+    './AdvancedDraw/modules/_Init', // initialization mixin (layers, menus, etc)
+    './AdvancedDraw/modules/_Draw', // draw mixin (the actual drawing methods)
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     //i18n
@@ -25,40 +29,45 @@ define([
     'dijit/layout/StackContainer',
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
-    'dijit/Toolbar',
-    'dijit/ToolbarSeparator',
     'dijit/form/Button',
-    'dijit/form/DropDownButton',
+    //'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
+    'dijit/form/ToggleButton',
     'xstyle/css!./AdvancedDraw/css/AdvancedDraw.css'
 ], function (
     declare,
     lang,
     //array,
 
+    domClass,
+
     //topic,
     on,
 
-    _AdvancedDrawConfig,
+    _defaultConfig,
 
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    _AdvancedDrawInit,
+    _Init,
+    _Draw,
     template,
 
-    bundle
+    i18n
 ) {
     // the AdvancedDraw widget
-    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _AdvancedDrawInit], {
-        // class
+    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Init, _Draw], {
+        // class params
         map: null,
         config: null,
         stickyLayers: true,
         stickyPosition: 'bottom',
 
+        // i18n
+        i18n: i18n,
+
         //undocumented or unused
-        manualLayerLoad: false, // unused - enhancement - don't initLayers when true - add public method to init layers at devs discretion
+        manualLayerLoad: false, // unused - enhancement - don't _initLayers when true - add public method to init layers at devs discretion
 
         // widget
         templateString: template,
@@ -66,20 +75,16 @@ define([
 
         constructor: function () {
             // mixed into widget config param ==> this.config
-            //   will always have the default config if needed
-            this.defaultConfig = _AdvancedDrawConfig;
+            this.defaultConfig = _defaultConfig;
 
             // uncomment to inspect i18n strings
-            console.log(bundle);
+            //console.log(i18n);
         },
 
         postCreate: function () {
             this.inherited(arguments);
         },
 
-        ///////////////////////
-        // widget operations //
-        ///////////////////////
         // select a pane in the stack container
         //   simply calling or as a click evt callback will return to default pane
         _setPane: function (pane, evt) {
@@ -97,26 +102,13 @@ define([
             this.drawButtonNode.set('label', label);
         },
 
-        /////////////////
-        // the drawing //
-        /////////////////
-        // initiate standard geometry draw
-        _draw: function (type, label) {
-            this._setDrawButton('_draw', type, label);
-
-
-            this._drawTb.activate(type);
-
-        },
-
-        // initiate text draw
-        _drawText: function (label) {
-            this._setDrawButton('_drawText', null, label);
-        },
-
-        // initiate extent draw (converted to polygon)
-        _drawRectangle: function (label) {
-            this._setDrawButton('_drawRectangle', null, label);
+        // temp method for snapping button
+        _toggleSnapping: function (checked) {
+            if (checked) {
+                domClass.add(this.snappingToggleNode.iconNode, 'fa-check');
+            } else {
+                domClass.remove(this.snappingToggleNode.iconNode, 'fa-check');
+            }
         }
     });
 

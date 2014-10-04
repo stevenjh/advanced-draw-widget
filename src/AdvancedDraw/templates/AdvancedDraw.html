@@ -7,41 +7,24 @@
         <div data-dojo-attach-point="defaultPane" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="doLayout:false">
 
             <!-- the main draw tab -->
-            <div data-dojo-attach-point="drawTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Draw'">
+            <div data-dojo-attach-point="drawTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: '${i18n.draw}'">
 
                 <!-- control bar -->
                 <div class="drawTools">
-                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: 'Undo'">Undo</button>
-                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: 'Redo'">Redo</button>
+                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.undo}'">${i18n.undo}</button>
+                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.redo}'">${i18n.redo}</button>
+                    <button data-dojo-attach-point="snappingToggleNode" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass: 'fa fa-check iconFixedWidth', checked: true" data-dojo-attach-event="change: _toggleSnapping">Snapping</button>
                 </div>
 
                 <!-- the draw combo and cancel buttons -->
                 <div data-dojo-attach-point="drawButtonNode" data-dojo-type="dijit/form/ComboButton" data-dojo-props="autoWidth: false">
-                    <span>Point</span>
+                    <span>${i18n.point}</span>
                 </div>
-                <button data-dojo-type="dijit/form/Button" data-dojo-props="disabled: true">Cancel</button>
+                <button  data-dojo-attach-point="cancelButtonNode" data-dojo-type="dijit/form/Button" data-dojo-props="disabled: true" data-dojo-attach-event="click: _drawCancel">${i18n.cancel}</button>
 
-                <!-- messages for the user -->
-                <div data-dojo-attach-point="drawStatusNode" class="drawStatus"><b>Active Draw Tool:</b> None</div>
+                <!-- active draw tool -->
+                <div class="drawStatus"><b>${i18n.activeDrawTool}</b>&nbsp;<span data-dojo-attach-point="drawStatusNode">${i18n.none}</span></div>
             </div>
-<!--
-            <div data-dojo-attach-point="settingsTab" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="title: 'Settings', nested: true, doLayout:false">
-                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Options'">
-                    Draw Options
-                </div>
-                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Options'">
-                    Draw Options
-                </div>
-            </div>
-
-            <div data-dojo-attach-point="importExportTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Import/Export'">
-                Import
-            </div>
-
-            <div data-dojo-attach-point="helpTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: 'Help'">
-                Help
-            </div>
--->
         </div>
 
         <!-- additional programmatic panes here -->

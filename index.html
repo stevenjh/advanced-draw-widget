@@ -78,43 +78,27 @@
 
             // the map
             app.map = new Map('map', {
-                basemap: 'topo',
+                basemap: 'satellite',
                 zoom: 12,
                 center: [-123, 45]
             });
 
-            // test layer positioning
+            // test sticky layers
             app.map.addLayer(new GraphicsLayer({id: 'temp1'}));
             app.map.addLayer(new GraphicsLayer({id: 'temp2'}));
             app.map.addLayer(new GraphicsLayer({id: 'temp3'}));
-
             app.addLayer = function () {
                 app.map.addLayer(new GraphicsLayer({id: 'temp4'}), 0);
                 app.map.addLayer(new GraphicsLayer({id: 'temp5'}), 0);
                 app.map.addLayer(new GraphicsLayer({id: 'temp6'}));
             };
-
             app.addLayers = function () {
                 app.map.addLayers([new GraphicsLayer({id: 'temp7'}), new GraphicsLayer({id: 'temp8'}), new GraphicsLayer({id: 'temp9'})]);
             };
 
             // the widget
             app.advancedDraw = new AdvancedDraw({
-                map: app.map,
-                config: {
-                    defaultPoint: {
-                        color: [0, 0, 0, 255],
-                        size: 40,
-                        type: 'esriSMS',
-                        style: 'esriSMSCircle',
-                        outline: {
-                            color: [255, 255, 255, 255],
-                            width: 4.5,
-                            type: 'esriSLS',
-                            style: 'esriSLSSolid'
-                        }
-                    }
-                }
+                map: app.map
             }, 'advanced-draw');
             app.advancedDraw.startup();
         });
