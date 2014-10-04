@@ -40,7 +40,7 @@ define([], function () {
             rotated: false,
             kerning: true,
             font: {
-                size: 12,
+                size: 14,
                 style: 'normal',
                 variant: 'normal',
                 weight: 'bold',
@@ -53,7 +53,8 @@ define([], function () {
             style: 'esriSFSSolid'
         },
         // advanced settings
-        //   changing may (probably will) cause errors
+        //   changing in widget params may (probably will) cause errors
+        // default layer definition
         _layerDefinition: {
             objectIdField: 'OBJECTID',
             type: 'Feature Layer',
@@ -69,6 +70,11 @@ define([], function () {
                 name: 'draw_text_string',
                 type: 'esriFieldTypeString'
             }]
+        },
+        // screen offsets for text tooltip dialog
+        _textTooltipDialogOffset: {
+            x: -12,
+            y: 0
         }
     };
 });

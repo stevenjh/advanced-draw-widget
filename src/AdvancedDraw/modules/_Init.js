@@ -259,7 +259,7 @@ define([
             }));
             menu.addChild(new MenuItem({
                 label: i18n.text,
-                onClick: lang.hitch(this, '_drawText', i18n.text)
+                onClick: lang.hitch(this, '_draw', 'text', i18n.text)
             }));
             var freehand = new Menu();
             freehand.addChild(new MenuItem({
@@ -278,7 +278,7 @@ define([
             var shapes = new Menu();
             shapes.addChild(new MenuItem({
                 label: i18n.rectangle,
-                onClick: lang.hitch(this, '_drawRectangle', i18n.rectangle)
+                onClick: lang.hitch(this, '_draw', 'extent', i18n.rectangle)
             }));
             shapes.addChild(new MenuItem({
                 label: i18n.circle,

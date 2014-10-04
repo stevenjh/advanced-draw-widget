@@ -1,17 +1,30 @@
+/* base class */
 .AdvancedDrawWidget {}
 
+/* dijit icons */
 .AdvancedDrawWidget .dijitIcon {
     font-family: FontAwesome;
 }
-
 .AdvancedDrawWidget .iconFixedWidth {
-	width: 1em;
+    width: 1em;
 }
 
+/* main draw pane */
 .AdvancedDrawWidget .drawTools {
     margin-bottom: 10px;
 }
-
 .AdvancedDrawWidget .drawStatus {
     margin: 10px 0;
+}
+
+/* text tooltip dialog */
+.AdvancedDrawTextTooltipDialog .dijitTooltipContainer {
+    padding: 10px;
+}
+.AdvancedDrawTextTooltipDialog .textTooltipInput {
+    margin-bottom: 10px;
+    font-size: 110%;
+}
+.AdvancedDrawTextTooltipDialog .textTooltipButtons {
+    text-align: center;
 }
