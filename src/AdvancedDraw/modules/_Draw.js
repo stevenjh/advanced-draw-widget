@@ -2,12 +2,14 @@ define([
     // dojo base
     'dojo/_base/declare',
     'dojo/_base/lang',
-    //'dojo/_base/array',
+    'dojo/_base/array',
+    'dojo/keys',
 
     // dom
     'dojo/html',
     'dojo/dom',
     'dojo/dom-geometry',
+    'dojo/dom-class',
 
     // events
     //'dojo/topic',
@@ -20,17 +22,21 @@ define([
     'esri/graphic',
     'esri/geometry/Polygon',
     'esri/geometry/screenUtils',
+    'esri/symbols/jsonUtils',
+    'esri/SnappingManager',
 
     // widgets
     './../widget/TextTooltipDialog'
 ], function (
     declare,
     lang,
-    //array,
+    array,
+    keys,
 
     html,
     dom,
     domGeom,
+    domClass,
 
     //topic,
     on,
@@ -40,20 +46,24 @@ define([
     Graphic,
     Polygon,
     screenUtils,
+    symUtil,
+    SnappingManager,
 
     TextTooltipDialog
 ) {
     var _Draw = declare([], {
+        _continousDraw: false, // one and done OR user cancel draw - need checkbox button
 
-        _continousDraw: false,
-
-        _isTextPoint: false,
+        _isTextPoint: false, // flag to handle text when point for text draw completes
 
         postCreate: function () {
             this.inherited(arguments);
 
             // init draw keys
             this._initDrawKeys();
+
+            // init snapping
+            this._initSnapping();
         },
 
         // any keys wired up for drawing
@@ -114,16 +124,19 @@ define([
                     type = 'polygon';
                 }
                 // add the graphic to the appropriate layer w/ the appropriate
-                this._layers[type].add(new Graphic(
+
+                var graphic = new Graphic(
                     (geoGeom) ? geoGeom : geom, // geometry
                     this._symbols[type], // symbol
                     {
-                        OBJECTID: new Date().getTime(), // a unique id
+                        //OBJECTID: new Date().getTime(), // a unique id
                         draw_type: type,
                         draw_text_string: null
                     }, // attributes
                     null // no infoTemplate ever
-                ));
+                );
+
+                this._layers[type].add(graphic);
             } else {
                 this._isTextPoint = false;
                 this._drawText(result);
@@ -166,7 +179,8 @@ define([
                 _graphic: graphic,
                 i18n: this.i18n
             });
-            // map and screen geometry
+            // map and screen geometry for placing tooltip
+            //   use `result.geometry` and not `result.geographicGeometry`
             var map = this.map,
                 sp = screenUtils.toScreenGeometry(map.extent, map.width, map.height, geom),
                 mp = domGeom.position(dom.byId(map.id), false);
@@ -184,7 +198,31 @@ define([
             //this._isTextPoint = false;
             this.cancelButtonNode.set('disabled', true);
             html.set(this.drawStatusNode, this.i18n.none);
+        },
+
+        //////////////
+        // snapping //
+        //////////////
+
+        _initSnapping: function () {
+            // init snapPointSymbol and snapKey
+            this.config._snappingOptions.snapPointSymbol = symUtil.fromJson(this.config._snappingOptions.snapPointSymbol);
+            this.config._snappingOptions.snapKey = keys.CTRL;
+            this._toggleSnapping(this.config._snappingOptions);
+            this.map.on('layer-add, layers-add-result', lang.hitch(this, '_toggleSnapping'));
+        },
+
+        _toggleSnapping: function () {
+            var checked = this.snappingToggleNode.checked;
+            if (checked) {
+                this.map.enableSnapping(this.config._snappingOptions.snapPointSymbol);
+                domClass.add(this.snappingToggleNode.iconNode, 'fa-check');
+            } else {
+                this.map.disableSnapping();
+                domClass.remove(this.snappingToggleNode.iconNode, 'fa-check');
+            }
         }
+
     });
 
     return _Draw;

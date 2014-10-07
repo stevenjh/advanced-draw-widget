@@ -75,6 +75,24 @@ define([], function () {
         _textTooltipDialogOffset: {
             x: -12,
             y: 0
+        },
+        // snapping manager options
+        _snappingOptions: {
+            snapPointSymbol: {
+                color: null,
+                size: 11.25,
+                type: 'esriSMS',
+                style: 'esriSMSCross',
+                outline: {
+                    color: [255, 0, 0, 192],
+                    width: 3.75,
+                    type: 'esriSLS',
+                    style: 'esriSLSSolid'
+                }
+            },
+            alwaysSnap: false,
+            snapKey: 'CTRL', // key string ==> keys['CTRL']
+            tolerance: 15
         }
     };
 });

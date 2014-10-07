@@ -157,20 +157,53 @@ define([
                 mode: 0 // SNAPSHOT
             });
 
+
+            _layers.point = new GraphicsLayer({
+                id: 'advanced_draw_point'
+            });
+
             // point
-            _layers.point = new Layer({
+            /*_layers.point = new Layer({
                 layerDefinition: lang.mixin(config._layerDefinition, {
                     geometryType: 'esriGeometryPoint',
                     name: 'AdvancedDrawPoint'
                 }),
                 featureSet: {
-                    features: []
+                    features: [{
+                        "geometry": {
+                            "x": -123.16942977905043,
+                            "y": 45.030822967362866,
+                            "spatialReference": {
+                                "wkid": 4326
+                            }
+                        },
+                        "attributes": {
+                            "draw_type": "point",
+                            "draw_text_string": null,
+                            "OBJECTID": 0
+                        },
+                        "symbol": {
+                            "color": [0, 0, 255, 255],
+                            "size": 10.5,
+                            "angle": 0,
+                            "xoffset": 0,
+                            "yoffset": 0,
+                            "type": "esriSMS",
+                            "style": "esriSMSCircle",
+                            "outline": {
+                                "color": [255, 255, 255, 255],
+                                "width": 1.5,
+                                "type": "esriSLS",
+                                "style": "esriSLSSolid"
+                            }
+                        }
+                    }]
                 },
                 showLegend: false
             }, {
                 id: 'advanced_draw_point',
                 mode: 0 // SNAPSHOT
-            });
+            });*/
 
             // text
             _layers.text = new Layer({

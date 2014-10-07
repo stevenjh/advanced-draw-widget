@@ -100,15 +100,6 @@ define([
                 this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, fnc, label));
             }
             this.drawButtonNode.set('label', label);
-        },
-
-        // temp method for snapping button
-        _toggleSnapping: function (checked) {
-            if (checked) {
-                domClass.add(this.snappingToggleNode.iconNode, 'fa-check');
-            } else {
-                domClass.remove(this.snappingToggleNode.iconNode, 'fa-check');
-            }
         }
     });
 
