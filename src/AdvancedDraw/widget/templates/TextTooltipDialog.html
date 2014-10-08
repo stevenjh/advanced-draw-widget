@@ -1,0 +1,16 @@
+<div role="alertdialog" tabIndex="-1">
+    <div class="dijitTooltipContainer" role="presentation">
+        <div data-dojo-attach-point="contentsNode" class="dijitTooltipContents dijitTooltipFocusNode">
+            <div data-dojo-attach-point="containerNode">
+                <div class="textTooltipInput">
+                    <input data-dojo-attach-point="textNode" data-dojo-type="dijit/form/TextBox" data-dojo-props="intermediateChanges: true, placeholder: '${i18n.textTooltipDialog.placeholder}'">
+                </div>
+                <div class="textTooltipButtons">
+                    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="click: _add">${i18n.textTooltipDialog.addText}</button>
+                    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="click: _cancel">${i18n.cancel}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dijitTooltipConnector" role="presentation" data-dojo-attach-point="connectorNode"></div>
+</div>

@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-connect": "0.7.x",
+    "grunt-contrib-jshint": "0.10.x",
+    "jshint-stylish": "0.2.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-newer": "0.7.x",
+    "grunt-open": "0.2.x",
+    "proxypage": "*"
+  },
+  "engine": "node >= 0.10"
+}

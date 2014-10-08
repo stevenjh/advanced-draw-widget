@@ -2,104 +2,113 @@ define([
     // dojo base
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dojo/_base/array',
-
-    // events
-    'dojo/topic',
-    'dojo/on',
+    //'dojo/_base/array',
 
     // dom
-    'dojo/dom',
-    'dojo/dom-attr',
     'dojo/dom-class',
-    'dojo/html',
+
+    // events
+    //'dojo/topic',
+    'dojo/on',
+
+    // default config
+    './AdvancedDraw/modules/_defaultConfig',
 
     // widget mixins and template
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    './AdvancedDraw/_AdvancedDrawMixin', // menus and such
+    './AdvancedDraw/modules/_Init', // initialization mixin (layers, menus, etc)
+    './AdvancedDraw/modules/_Draw', // draw mixin (the actual drawing methods)
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
-    // layer and graphic
-    'esri/layers/FeatureLayer',
-    'esri/graphic',
-
-    // menu
-    'dijit/popup',
-    'dijit/Menu',
-    'dijit/MenuItem',
-    'dijit/PopupMenuItem',
-    'dijit/MenuSeparator',
+    //i18n
+    'dojo/i18n!./AdvancedDraw/nls/resource',
 
     // in template widgets and css
     'dijit/layout/StackContainer',
+    'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
-    'dijit/Toolbar',
-    'dijit/ToolbarSeparator',
     'dijit/form/Button',
-    'dijit/form/DropDownButton',
+    //'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
-    'xstyle/css!./AdvancedDraw/AdvancedDraw.css'
+    'dijit/form/ToggleButton',
+    'xstyle/css!./AdvancedDraw/css/AdvancedDraw.css'
 ], function (
     declare,
     lang,
-    array,
+    //array,
 
-    topic,
+    domClass,
+
+    //topic,
     on,
 
-    dom,
-    domAttr,
-    domClass,
-    html,
+    _defaultConfig,
 
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    _AdvancedDrawMixin,
+    _Init,
+    _Draw,
     template,
 
-    FeatureLayer,
-    Graphic,
-
-    popup,
-    Menu,
-    MenuItem,
-    PopupMenuItem,
-    MenuSeparator
+    i18n
 ) {
-    
-    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _AdvancedDrawMixin], {
+    // the AdvancedDraw widget
+    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _Init, _Draw], {
+        // class params
         map: null,
+        config: null,
+        stickyLayers: true,
+        stickyPosition: 'bottom',
+
+        // i18n
+        i18n: i18n,
+
+        //undocumented or unused
+        manualLayerLoad: false, // unused - enhancement - don't _initLayers when true - add public method to init layers at devs discretion
+
+        // widget
         templateString: template,
         baseClass: 'AdvancedDrawWidget',
 
-        constructor: function (params) {
-            params = params || {};
-            this._drawButtonClickHandler = null;
+        constructor: function () {
+            // mixed into widget config param ==> this.config
+            this.defaultConfig = _defaultConfig;
+
+            // uncomment to inspect i18n strings
+            //console.log(i18n);
         },
 
         postCreate: function () {
             this.inherited(arguments);
-
-            // stack containers in templated widgets must be started - bug?
-            this.stackNode.startup();
-
-            // options menu
-            this._initOptionsMenu();
-
-            // draw menu
-            this._initDrawMenu();
-
-            // wire up click handler
-            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', 'point', 'Point'));
         },
 
-        _draw: function (type, label) {
-        	this._drawButtonClickHandler.remove();
-            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', type, label));
+        // select a pane in the stack container
+        //   simply calling or as a click evt callback will return to default pane
+        _setPane: function (pane, evt) {
+            this.stackNode.selectChild((evt) ? pane : this.defaultPane);
+        },
+
+        // set draw button click and label
+        _setDrawButton: function (fnc, type, label) {
+            this._drawButtonClickHandler.remove();
+            if (type) {
+                this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, fnc, type, label));
+            } else {
+                this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, fnc, label));
+            }
             this.drawButtonNode.set('label', label);
+        },
+
+        // temp method for snapping button
+        _toggleSnapping: function (checked) {
+            if (checked) {
+                domClass.add(this.snappingToggleNode.iconNode, 'fa-check');
+            } else {
+                domClass.remove(this.snappingToggleNode.iconNode, 'fa-check');
+            }
         }
     });
 
