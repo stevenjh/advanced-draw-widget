@@ -3,6 +3,7 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     //'dojo/_base/array',
+    'dojo/_base/Color',
 
     // dom
     'dojo/dom-class',
@@ -13,6 +14,9 @@ define([
 
     // default config
     './AdvancedDraw/modules/_defaultConfig',
+
+    // test
+    './AdvancedDraw/widget/ColorPickerDialog',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -38,6 +42,7 @@ define([
     declare,
     lang,
     //array,
+    Color,
 
     domClass,
 
@@ -45,6 +50,9 @@ define([
     on,
 
     _defaultConfig,
+
+    //test
+    ColorPickerDialog,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -83,6 +91,13 @@ define([
 
         postCreate: function () {
             this.inherited(arguments);
+
+            this.colorPicker = new ColorPickerDialog( null, this.testNode );
+            this.colorPicker.startup();
+            this.colorPicker.watch("color", function(name, oldValue, value){
+                console.log( 'New Color: ', value );
+            });
+            this.colorPicker.set( 'color', '#e5e5e5' );
         },
 
         // select a pane in the stack container
