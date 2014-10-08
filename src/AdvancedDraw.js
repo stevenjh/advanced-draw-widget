@@ -2,34 +2,25 @@ define([
     // dojo base
     'dojo/_base/declare',
     'dojo/_base/lang',
-    //'dojo/_base/array',
-
-    // dom
-    'dojo/dom-class',
-
     // events
-    //'dojo/topic',
     'dojo/on',
-
     // default config
     './AdvancedDraw/modules/_defaultConfig',
-
     // widget mixins and template
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
     './AdvancedDraw/modules/_Init', // initialization mixin (layers, menus, etc)
-    './AdvancedDraw/modules/_Draw', // draw mixin (the actual drawing methods)
+    './AdvancedDraw/modules/_Draw', // draw mixin (the drawing related properties methods)
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
-
     //i18n
     'dojo/i18n!./AdvancedDraw/nls/resource',
-
     // in template widgets and css
     'dijit/layout/StackContainer',
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
     'dijit/form/Button',
+    'dijit/form/CheckBox',
     //'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
     'dijit/form/ToggleButton',
@@ -37,22 +28,14 @@ define([
 ], function (
     declare,
     lang,
-    //array,
-
-    domClass,
-
-    //topic,
     on,
-
     _defaultConfig,
-
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
     _Init,
     _Draw,
     template,
-
     i18n
 ) {
     // the AdvancedDraw widget

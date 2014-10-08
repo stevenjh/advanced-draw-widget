@@ -3,10 +3,10 @@ define([], function () {
     return {
         // default symbols
         defaultPolygonSymbol: {
-            color: [255, 0, 0, 32],
+            color: [0, 0, 0, 64],
             outline: {
-                color: [255, 0, 0, 255],
-                width: 3,
+                color: [0, 0, 0, 255],
+                width: 2,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
             },
@@ -14,13 +14,13 @@ define([], function () {
             style: 'esriSFSSolid'
         },
         defaultPolylineSymbol: {
-            color: [0, 255, 0, 255],
-            width: 3,
+            color: [0, 0, 0, 255],
+            width: 2,
             type: 'esriSLS',
             style: 'esriSLSSolid'
         },
         defaultPointSymbol: {
-            color: [0, 0, 255, 255],
+            color: [0, 0, 0, 255],
             size: 10.5,
             type: 'esriSMS',
             style: 'esriSMSCircle',
@@ -53,7 +53,7 @@ define([], function () {
             style: 'esriSFSSolid'
         },
         // advanced settings
-        //   changing in widget params may (probably will) cause errors
+        //   changing via widget params may (probably will) cause errors
         // default layer definition
         _layerDefinition: {
             objectIdField: 'OBJECTID',
