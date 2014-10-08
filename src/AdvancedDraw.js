@@ -3,8 +3,9 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     //'dojo/_base/array',
-    'dojo/_base/Color',
 
+    'dojo/_base/Color',
+    
     // dom
     'dojo/dom-class',
 
@@ -23,7 +24,7 @@ define([
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
     './AdvancedDraw/modules/_Init', // initialization mixin (layers, menus, etc)
-    './AdvancedDraw/modules/_Draw', // draw mixin (the actual drawing methods)
+    './AdvancedDraw/modules/_Draw', // draw mixin (the drawing related properties methods)
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     //i18n
@@ -34,6 +35,7 @@ define([
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
     'dijit/form/Button',
+    'dijit/form/CheckBox',
     //'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
     'dijit/form/ToggleButton',

@@ -61,6 +61,7 @@
         require([
             'esri/map',
             'esri/layers/GraphicsLayer',
+            'esri/layers/FeatureLayer',
 
             'src/AdvancedDraw', // the draw widget
 
@@ -69,7 +70,7 @@
             'xstyle/css!dijit/themes/claro/claro.css',
             'xstyle/css!esri/css/esri.css',
             'dojo/domReady!'
-        ], function (Map, GraphicsLayer, AdvancedDraw, BC, CP) {
+        ], function (Map, GraphicsLayer, FeatureLayer, AdvancedDraw, BC, CP) {
             // layout
             var bc = new BC({
                 gutters: true,
@@ -92,6 +93,13 @@
                 zoom: 12,
                 center: [-123, 45]
             });
+
+            // test w/ feature layer\
+            app.map.addLayer(new FeatureLayer('http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0', {
+                mode: 1,
+                outFields: ['*']
+            }));
+
 
             // test sticky layers
             app.map.addLayer(new GraphicsLayer({id: 'temp1'}));
