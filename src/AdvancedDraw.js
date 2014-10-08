@@ -97,7 +97,7 @@ define([
             this.colorPicker.watch("color", function(name, oldValue, value){
                 console.log( 'New Color: ', value );
             });
-            this.colorPicker.set( 'color', '#e5e5e5' );
+            this.colorPicker.set( 'color', new Color( '#e5e5e5' ) );
         },
 
         // select a pane in the stack container
