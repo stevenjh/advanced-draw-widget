@@ -1,66 +1,46 @@
 define([
-    // dojo base
-    'dojo/_base/declare',
+    'dojo/_base/declare', // dojo base
     'dojo/_base/lang',
-    'dojo/Stateful',
-
-    // events
-    'dojo/on',
-
-    // esri toolbars
-    'esri/toolbars/draw',
+    'dojo/on', // events
+    'esri/toolbars/draw', // esri toolbars
     'esri/toolbars/edit',
-
-    // esri layers
-    'esri/layers/GraphicsLayer',
+    'esri/layers/GraphicsLayer', // esri layers
     'esri/layers/FeatureLayer',
-
-    // esri symbols the easy way
-    'esri/symbols/jsonUtils',
-
-    // menu
-    'dijit/Menu',
+    'esri/symbols/jsonUtils', // esri symbols the easy way
+    'dijit/Menu', // menu
     'dijit/MenuItem',
     'dijit/PopupMenuItem'
 ], function (
     declare,
     lang,
-    Stateful,
-
     on,
-
     Draw,
     Edit,
-
     GraphicsLayer,
     FeatureLayer,
-
     symUtil,
-
     Menu,
     MenuItem,
     PopupMenuItem
 ) {
     var _Init = declare([], {
-        // hash of layers
         _layers: {
             polygon: null,
             polyline: null,
             point: null,
             text: null,
             temp: null
-        },
+        }, // hash of layers
 
         _layersLoaded: false, // what is says
-
-        // hash of symbols
+        
         _symbols: {
             polygon: null,
             polyline: null,
             point: null,
             text: null,
             temp: null
-        },
+        }, // hash of symbols
 
         postCreate: function () {
             this.inherited(arguments);
@@ -120,15 +100,10 @@ define([
 
         // add feature layers, a graphic layer and add layers to map
         //   NOTES:
-        //   spatial reference set by map unless WM where sr = 4326
-        //   unlike symbols, layers have 
+        //   spatial reference set by map unless WM where wkid: 4326 
         _initLayers: function (config, map, _layers) {
-            // mixin Stateful and possible custom/override methods (new Class?)
-            var Layer = declare([FeatureLayer, Stateful]);
-
-            // create layers
             // polygon
-            _layers.polygon = new Layer({
+            _layers.polygon = new FeatureLayer({
                 layerDefinition: lang.mixin(config._layerDefinition, {
                     geometryType: 'esriGeometryPolygon',
                     name: 'AdvancedDrawPolygon'
@@ -143,7 +118,7 @@ define([
             });
 
             // polyline
-            _layers.polyline = new Layer({
+            _layers.polyline = new FeatureLayer({
                 layerDefinition: lang.mixin(config._layerDefinition, {
                     geometryType: 'esriGeometryPolyline',
                     name: 'AdvancedDrawPolyline'
@@ -158,7 +133,7 @@ define([
             });
 
             // point
-            _layers.point = new Layer({
+            _layers.point = new FeatureLayer({
                 layerDefinition: lang.mixin(config._layerDefinition, {
                     geometryType: 'esriGeometryPoint',
                     name: 'AdvancedDrawPoint'
@@ -173,7 +148,7 @@ define([
             });
 
             // text
-            _layers.text = new Layer({
+            _layers.text = new FeatureLayer({
                 layerDefinition: lang.mixin(config._layerDefinition, {
                     geometryType: 'esriGeometryPoint',
                     name: 'AdvancedDrawText'
@@ -259,7 +234,7 @@ define([
             }));
             menu.addChild(new MenuItem({
                 label: i18n.text,
-                onClick: lang.hitch(this, '_drawText', i18n.text)
+                onClick: lang.hitch(this, '_draw', 'text', i18n.text)
             }));
             var freehand = new Menu();
             freehand.addChild(new MenuItem({
@@ -278,7 +253,7 @@ define([
             var shapes = new Menu();
             shapes.addChild(new MenuItem({
                 label: i18n.rectangle,
-                onClick: lang.hitch(this, '_drawRectangle', i18n.rectangle)
+                onClick: lang.hitch(this, '_draw', 'extent', i18n.rectangle)
             }));
             shapes.addChild(new MenuItem({
                 label: i18n.circle,
