@@ -8,12 +8,12 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/ColorPickerDialog.html',
+            'dojo/text!./templates/ColorPicker.html',
             'dijit/form/DropDownButton',
             'dijit/TooltipDialog',
             'dojox/widget/ColorPicker',
             'xstyle/css!dojox/widget/ColorPicker/ColorPicker.css',
-            'xstyle/css!./css/ColorPickerDialog.css'
+            'xstyle/css!./css/ColorPicker.css'
 
         ],
         function( declare,
@@ -62,10 +62,10 @@ define( [
 
                 },
 
-                _updateColorSwatch: function ( value ) {
+                _updateColorSwatch: function ( hexValue ) {
 
                     if ( this.colorSwatchNode ) {
-                        domStyle.set( this.colorSwatchNode, 'backgroundColor', value )
+                        domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue )
                     }
 
                 }

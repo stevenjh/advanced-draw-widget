@@ -17,7 +17,7 @@ define([
     './AdvancedDraw/modules/_defaultConfig',
 
     // test
-    './AdvancedDraw/widget/ColorPickerDialog',
+    './AdvancedDraw/widget/ColorPicker',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -54,7 +54,7 @@ define([
     _defaultConfig,
 
     //test
-    ColorPickerDialog,
+    ColorPicker,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -94,7 +94,7 @@ define([
         postCreate: function () {
             this.inherited(arguments);
 
-            this.colorPicker = new ColorPickerDialog( null, this.testNode );
+            this.colorPicker = new ColorPicker( null, this.testNode );
             this.colorPicker.startup();
             this.colorPicker.watch("color", function(name, oldValue, value){
                 console.log( 'New Color: ', value );
