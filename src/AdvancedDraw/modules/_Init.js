@@ -1,13 +1,13 @@
 define([
-    'dojo/_base/declare', // dojo base
+    'dojo/_base/declare',
     'dojo/_base/lang',
-    'dojo/on', // events
-    'esri/toolbars/draw', // esri toolbars
+    'dojo/on',
+    'esri/toolbars/draw',
     'esri/toolbars/edit',
-    'esri/layers/GraphicsLayer', // esri layers
+    'esri/layers/GraphicsLayer',
     'esri/layers/FeatureLayer',
-    'esri/symbols/jsonUtils', // esri symbols the easy way
-    'dijit/Menu', // menu
+    'esri/symbols/jsonUtils',
+    'dijit/Menu',
     'dijit/MenuItem',
     'dijit/PopupMenuItem'
 ], function (
@@ -191,6 +191,14 @@ define([
 
             // true
             this._layersLoaded = true;
+
+            // init layer events
+            //   _initLayerMenuEvents(layer) method inherited in _Draw.js
+            for (var i in _layers) {
+                if (_layers.hasOwnProperty(i) && i !== 'temp') {
+                    this._initLayerMenuEvents(_layers[i]);
+                }
+            }
         },
 
         // stick layers to proper position in the map's vectors stack

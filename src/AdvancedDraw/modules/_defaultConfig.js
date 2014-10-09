@@ -39,6 +39,10 @@ define([], function () {
             text: 'New Text',
             rotated: false,
             kerning: true,
+            //haloSize: 12, // no esrijs support - try to make it work
+            //haloColor: [255, 255, 255, 255], // no esrijs support - try to make it work
+            //borderLineSize: 12, // no esrijs support - try to make it work
+            //borderLineColor: [255, 0, 0, 255], // no esrijs support - try to make it work
             font: {
                 size: 14,
                 style: 'normal',
@@ -53,7 +57,8 @@ define([], function () {
             style: 'esriSFSSolid'
         },
         // advanced settings
-        //   changing via widget params may (probably will) cause errors
+        //   only change here or via widget params if you know what you're doing!
+        //
         // default layer definition
         _layerDefinition: {
             objectIdField: 'OBJECTID',
@@ -93,6 +98,12 @@ define([], function () {
             alwaysSnap: false,
             snapKey: 'CTRL', // key string ==> keys['CTRL']
             tolerance: 15
+        },
+        // geom editing edit toolbar options
+        _editGeometryOptions: {
+            allowAddVertices: true,
+            allowDeleteVertices: true,
+            uniformScaling: false
         }
     };
 });
