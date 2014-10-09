@@ -21,6 +21,7 @@ define([
     './AdvancedDraw/widget/LineStylePicker',
     './AdvancedDraw/widget/FillStylePicker',
     './AdvancedDraw/widget/MarkerStylePicker',
+    './AdvancedDraw/widget/NumericSlider',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -61,6 +62,7 @@ define([
     LineStylePicker,
     FillStylePicker,
     MarkerStylePicker,
+    NumericSlider,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -104,6 +106,7 @@ define([
             this._createLineStylePicker();
             this._createFillStylePicker();
             this._createMarkerStylePicker();
+            this._createNumericSlider();
 
         },
 
@@ -146,6 +149,19 @@ define([
               console.log( 'New markerStyle: ', newValue );
             } );
             this.markerStylePicker.set( 'markerStyle', 'esriSMSX');
+        },
+
+        _createNumericSlider: function () {
+
+            this.numericSlider = new NumericSlider( { min: 0,
+                                                      max: 20,
+                                                      value: 5
+                                                    }, this.numericSliderTestNode );
+            this.numericSlider.startup();
+            this.numericSlider.watch( 'value', function( name, oldValue, newValue ) {
+              console.log( 'New numeric value: ', newValue );
+            } );
+            this.numericSlider.set( 'value', 0.75 );
         },
 
         // select a pane in the stack container
