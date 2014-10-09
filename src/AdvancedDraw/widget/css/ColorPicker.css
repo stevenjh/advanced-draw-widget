@@ -1,12 +1,12 @@
-.colorPickerDialogDijit {
+.colorPickerDijit {
 
 }
 
-.colorPickerDialogDijit .dijitButtonText {
+.colorPickerDijit .dijitButtonText {
     padding-left: 20px;
 }
 
-.colorPickerDialogDijit .colorSwatch {
+.colorPickerDijit .colorSwatch {
     height: 14px;
     width: 14px;
     display: inline-block;
