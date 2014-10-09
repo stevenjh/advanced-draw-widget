@@ -6,6 +6,7 @@ define( [
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
             'dojo/text!./templates/MarkerStylePicker.html',
+            'dojo/i18n!../nls/resource',
             'dijit/form/Select',
             'xstyle/css!./css/MarkerStylePicker.css'
 
@@ -16,7 +17,8 @@ define( [
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
-                  template
+                  template,
+                  i18n
             ) {
 
             var MarkerStylePicker = declare( [ _WidgetBase,
@@ -28,6 +30,7 @@ define( [
                 widgetsInTemplate: true,
                 templateString: template,
                 markerStyle: 'esriSFSSolid',
+                i18n: i18n,
 
                 constructor: function() {
                     //TODO implementation

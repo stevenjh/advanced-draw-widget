@@ -8,6 +8,7 @@ define( [
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
             'dojo/text!./templates/ColorPicker.html',
+            'dojo/i18n!../nls/resource',
             'dijit/form/DropDownButton',
             'dijit/TooltipDialog',
             'dojox/widget/ColorPicker',
@@ -23,7 +24,8 @@ define( [
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
-                  template
+                  template,
+                  i18n
             ) {
 
             var ColorPickerDialog = declare( [ _WidgetBase,
@@ -34,6 +36,7 @@ define( [
                 widgetsInTemplate: true,
                 templateString: template,
                 color: '#0000FF',
+                i18n: i18n,
 
                 constructor: function() {
                     //TODO implementation
