@@ -5,9 +5,9 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/LineStylePicker.html',
+            'dojo/text!./templates/MarkerStylePicker.html',
             'dijit/form/Select',
-            'xstyle/css!./css/LineStylePicker.css'
+            'xstyle/css!./css/MarkerStylePicker.css'
 
         ],
         function( declare,
@@ -19,7 +19,7 @@ define( [
                   template
             ) {
 
-            var LineStylePicker = declare( [ _WidgetBase,
+            var MarkerStylePicker = declare( [ _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin
             ],
@@ -27,18 +27,18 @@ define( [
 
                 widgetsInTemplate: true,
                 templateString: template,
-                fillStyle: 'esriSLSDash',
+                markerStyle: 'esriSFSSolid',
 
                 constructor: function() {
                     //TODO implementation
-                    this.set( 'lineStyle', 'esriSLSSolid' );
+                    this.set( 'markerStyle', 'esriSMSCircle' );
 
                 },
 
-                _setLineStyleAttr: function ( value ) {
+                _setMarkerStyleAttr: function ( value ) {
 
                     this._updateSelectDijit( value );
-                    this._set( 'lineStyle', value );
+                    this._set( 'markerStyle', value );
 
                 },
 
@@ -53,13 +53,13 @@ define( [
                 _onSelectDijitChange: function( newIndex ) {
 
                     var value = this.selectDijit.get( 'value' );
-                    this._set( 'lineStyle', value );
+                    this._set( 'markerStyle', value );
 
                 }
 
             } );
 
-            return LineStylePicker;
+            return MarkerStylePicker;
 
         }
 

@@ -18,6 +18,9 @@ define([
 
     // test
     './AdvancedDraw/widget/ColorPicker',
+    './AdvancedDraw/widget/LineStylePicker',
+    './AdvancedDraw/widget/FillStylePicker',
+    './AdvancedDraw/widget/MarkerStylePicker',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -55,6 +58,9 @@ define([
 
     //test
     ColorPicker,
+    LineStylePicker,
+    FillStylePicker,
+    MarkerStylePicker,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -94,12 +100,52 @@ define([
         postCreate: function () {
             this.inherited(arguments);
 
-            this.colorPicker = new ColorPicker( null, this.testNode );
+            this._createColorPicker();
+            this._createLineStylePicker();
+            this._createFillStylePicker();
+            this._createMarkerStylePicker();
+
+        },
+
+        _createColorPicker: function () {
+
+            this.colorPicker = new ColorPicker( null, this.colorPickerTestNode );
             this.colorPicker.startup();
             this.colorPicker.watch("color", function(name, oldValue, value){
                 console.log( 'New Color: ', value );
             });
             this.colorPicker.set( 'color', new Color( '#e5e5e5' ) );
+
+        },
+
+        _createLineStylePicker: function () {
+
+            this.lineStylePicker = new LineStylePicker( null, this.lineStylePickerTestNode );
+            this.lineStylePicker.startup();
+            this.lineStylePicker.watch( 'lineStyle', function( name, oldValue, newValue ) {
+              console.log( 'New linestyle: ', newValue );
+            } );
+            this.lineStylePicker.set( 'lineStyle', 'esriSLSDashDotDot');
+        },
+
+        _createFillStylePicker: function () {
+
+            this.fillStylePicker = new FillStylePicker( null, this.fillStylePickerTestNode );
+            this.fillStylePicker.startup();
+            this.fillStylePicker.watch( 'fillStyle', function( name, oldValue, newValue ) {
+              console.log( 'New fillStyle: ', newValue );
+            } );
+            this.fillStylePicker.set( 'fillStyle', 'esriSFSVertical');
+        },
+
+        _createMarkerStylePicker: function () {
+
+            this.markerStylePicker = new MarkerStylePicker( null, this.markerStylePickerTestNode );
+            this.markerStylePicker.startup();
+            this.markerStylePicker.watch( 'markerStyle', function( name, oldValue, newValue ) {
+              console.log( 'New markerStyle: ', newValue );
+            } );
+            this.markerStylePicker.set( 'markerStyle', 'esriSMSX');
         },
 
         // select a pane in the stack container
