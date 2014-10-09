@@ -1,0 +1,19 @@
+<div data-dojo-attach-point="colorPickerNode"
+        class="colorPickerDialogDijit">
+
+    <div data-dojo-type="dijit/form/DropDownButton"
+            data-dojo-attach-point="colorPickerDropdown" >
+        <div>
+            Color
+        </div>
+        <div data-dojo-type="dijit/TooltipDialog">
+            <div data-dojo-type="dojox/widget/ColorPicker"
+                    data-dojo-attach-point="colorPickerDijit"
+                    data-dojo-attach-event="onChange:_onColorPickerChange"
+                    data-dojo-props="value:'${color}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-attach-point="colorSwatchNode"
+            class="colorSwatch"></div>
+</div>

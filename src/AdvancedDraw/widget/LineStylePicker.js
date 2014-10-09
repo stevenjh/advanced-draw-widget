@@ -8,12 +8,11 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/ColorPicker.html',
+            'dojo/text!./templates/LineStylePicker.html',
             'dijit/form/DropDownButton',
             'dijit/TooltipDialog',
-            'dojox/widget/ColorPicker',
-            'xstyle/css!dojox/widget/ColorPicker/ColorPicker.css',
-            'xstyle/css!./css/ColorPicker.css'
+            'dojox/widget/ColorPicker',,
+            'xstyle/css!./css/LineStylePicker.css'
 
         ],
         function( declare,
