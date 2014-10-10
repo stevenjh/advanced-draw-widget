@@ -10,11 +10,14 @@
 }
 
 /* main draw pane */
-.AdvancedDrawWidget .drawTools {
+.AdvancedDrawWidget .drawToolsTop {
     margin-bottom: 10px;
 }
 .AdvancedDrawWidget .drawStatus {
     margin: 10px 0;
+}
+.AdvancedDrawWidget .drawToolsBottom {
+    margin-top: 10px;
 }
 
 /* text tooltip dialog */
