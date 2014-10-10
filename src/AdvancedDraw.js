@@ -28,7 +28,7 @@ define([
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
     './AdvancedDraw/modules/_Init', // initialization mixin (layers, menus, etc)
-    './AdvancedDraw/modules/_Draw', // draw mixin (the drawing related properties methods)
+    './AdvancedDraw/modules/_Draw', // draw mixin (the drawing related properties and methods including geom edit)
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     //i18n
