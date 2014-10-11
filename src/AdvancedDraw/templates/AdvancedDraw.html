@@ -10,8 +10,8 @@
             <div data-dojo-attach-point="drawTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: '${i18n.draw}'">
 
                 <div class="drawToolsTop">
-                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.undo}'">${i18n.undo}</button>
-                    <button data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.redo}'">${i18n.redo}</button>
+                    <button data-dojo-attach-point="undoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.undo}'">${i18n.undo}</button>
+                    <button data-dojo-attach-point="redoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.redo}'">${i18n.redo}</button>
                 </div>
 
                 <!-- the draw combo and cancel buttons -->

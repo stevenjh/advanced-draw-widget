@@ -20,6 +20,13 @@ define({
         textTooltipDialog: {
             placeholder: 'Add text',
             addText: 'Add Text'
+        },
+        graphicMenu: {
+
+        },
+        undoManager: {
+            addGraphic: 'Add graphic',
+            deleteGraphic: 'Delete graphic'
         }
     }
 });
