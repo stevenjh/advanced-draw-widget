@@ -126,12 +126,12 @@ define( [
 
                                          _initFillColorPicker: function () {
 
-                                             this.symbolColorPicker = new SymColorPicker( {
+                                             this.fillColorPicker = new SymColorPicker( {
                                                  color: new Color( this.symbol.color ),
                                                  class: 'symbolEditorControl'
                                              } );
 
-                                             this.symbolColorPicker.watch( 'color', lang.hitch( this, function ( name, oldValue, value ) {
+                                             this.fillColorPicker.watch( 'color', lang.hitch( this, function ( name, oldValue, value ) {
 
                                                  var symbol = lang.clone( this.symbol );
                                                  var colorsArray = value.toRgba();
@@ -142,7 +142,7 @@ define( [
 
                                              } ) );
 
-                                             this.fillPane.addChild( this.symbolColorPicker );
+                                             this.fillPane.addChild( this.fillColorPicker );
 
                                          },
 
@@ -223,8 +223,11 @@ define( [
                                          _setSymbolAttr: function ( value ) {
 
                                              this.symbol = value;
-                                             this.symbolColorPicker.set( 'value', new Color( this.symbol.color ) );
-                                             this.sizeSlider.set( 'value', this.symbol.size );
+                                             this.fillColorPicker.set( 'value', Color.fromArray( this.symbol.color ) );
+                                             this.fillStylePicker.set( 'value', this.symbol.style );
+                                             this.outlineColorPicker.set( 'value', Color.fromArray( this.symbol.outline.color ) );
+                                             this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
+                                             this..outlineStylePicker.set( 'value', this.symbol.outline.style );
 
                                          }
 

@@ -247,7 +247,11 @@ define( [
 
                                              this.symbol = value;
                                              this.symbolColorPicker.set( 'value', new Color( this.symbol.color ) );
-                                             this.sizeSlider.set( 'value', this.symbol.size );
+                                             this.symbolSizeSlider.set( 'value', this.symbol.size );
+                                             this.symbolStylePicker.set( 'value', this.symbol.style );
+                                             this.outlineColorPicker.set( 'value', Color.fromArray( this.symbol.outline.color ) );
+                                             this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
+                                             this..outlineStylePicker.set( 'value', this.symbol.outline.style );
 
                                          }
 

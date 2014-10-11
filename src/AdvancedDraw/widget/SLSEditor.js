@@ -177,7 +177,8 @@ define( [
 
                                              this.symbol = value;
                                              this.outlineColorPicker.set( 'value', new Color( this.symbol.color ) );
-                                             this.sizeSlider.set( 'value', this.symbol.size );
+                                             this.outlineWidthSlider.set( 'value', this.symbol.width );
+                                             this.outlineStylePicker.set( 'value', this.symbol.style );
 
                                          }
 
