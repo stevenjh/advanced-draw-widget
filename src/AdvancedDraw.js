@@ -17,11 +17,13 @@ define([
     './AdvancedDraw/modules/_defaultConfig',
 
     // test
-    './AdvancedDraw/widget/ColorPicker',
+    './AdvancedDraw/widget/SymColorPicker',
     './AdvancedDraw/widget/LineStylePicker',
     './AdvancedDraw/widget/FillStylePicker',
     './AdvancedDraw/widget/MarkerStylePicker',
     './AdvancedDraw/widget/NumericSlider',
+    './AdvancedDraw/widget/SMSEditor',
+    './AdvancedDraw/widget/SLSEditor',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -58,11 +60,13 @@ define([
     _defaultConfig,
 
     //test
-    ColorPicker,
+    SymColorPicker,
     LineStylePicker,
     FillStylePicker,
     MarkerStylePicker,
     NumericSlider,
+    SMSEditor,
+    SLSEditor,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -102,22 +106,41 @@ define([
         postCreate: function () {
             this.inherited(arguments);
 
-            this._createColorPicker();
+            this._createSMSEditor();
+            this._createSLSEditor();
+
+            /*this._createColorPicker();
             this._createLineStylePicker();
             this._createFillStylePicker();
             this._createMarkerStylePicker();
-            this._createNumericSlider();
+            this._createNumericSlider();*/
 
+        },
+
+        _createSMSEditor: function () {
+
+            this.smsEditor = new SMSEditor( null, this.defaultPointSymbolEditorNode );
+            this.smsEditor.watch( 'symbol', function ( name, oldValue, value ) {
+                console.log( 'default marker symbol updated: ', value );
+            } );
+        },
+
+        _createSLSEditor: function () {
+
+            this.slsEditor = new SLSEditor( null, this.defaultPolylineSymbolEditorNode );
+            this.slsEditor.watch( 'symbol', function ( name, oldValue, value ) {
+                console.log( 'default line symbol updated: ', value );
+            } );
         },
 
         _createColorPicker: function () {
 
-            this.colorPicker = new ColorPicker( null, this.colorPickerTestNode );
-            this.colorPicker.startup();
-            this.colorPicker.watch("color", function(name, oldValue, value){
+            this.symbolColorPicker = new SymColorPicker( null, this.colorPickerTestNode );
+            this.symbolColorPicker.startup();
+            this.symbolColorPicker.watch("color", function(name, oldValue, value){
                 console.log( 'New Color: ', value );
             });
-            this.colorPicker.set( 'color', new Color( '#e5e5e5' ) );
+            this.symbolColorPicker.set( 'color', new Color( '#e5e5e5' ) );
 
         },
 
@@ -143,12 +166,12 @@ define([
 
         _createMarkerStylePicker: function () {
 
-            this.markerStylePicker = new MarkerStylePicker( null, this.markerStylePickerTestNode );
-            this.markerStylePicker.startup();
-            this.markerStylePicker.watch( 'markerStyle', function( name, oldValue, newValue ) {
+            this.symbolStylePicker = new MarkerStylePicker( null, this.markerStylePickerTestNode );
+            this.symbolStylePicker.startup();
+            this.symbolStylePicker.watch( 'markerStyle', function( name, oldValue, newValue ) {
               console.log( 'New markerStyle: ', newValue );
             } );
-            this.markerStylePicker.set( 'markerStyle', 'esriSMSX');
+            this.symbolStylePicker.set( 'markerStyle', 'esriSMSX');
         },
 
         _createNumericSlider: function () {

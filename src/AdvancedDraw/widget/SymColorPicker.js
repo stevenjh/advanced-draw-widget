@@ -7,13 +7,13 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/ColorPicker.html',
+            'dojo/text!./templates/SymColorPicker.html',
             'dojo/i18n!../nls/resource',
             'dijit/form/DropDownButton',
             'dijit/TooltipDialog',
             'dojox/widget/ColorPicker',
             'xstyle/css!dojox/widget/ColorPicker/ColorPicker.css',
-            'xstyle/css!./css/ColorPicker.css'
+            'xstyle/css!./css/SymColorPicker.css'
 
         ],
         function( declare,
@@ -35,18 +35,22 @@ define( [
 
                 widgetsInTemplate: true,
                 templateString: template,
-                color: '#0000FF',
+                color: null,
+                alpha: 1,
                 i18n: i18n,
+                baseClass: 'colorPicker',
 
-                constructor: function() {
-                    //TODO implementation
-                    this.set( 'color', new Color( '#00F000' ) );
+                constructor: function( options ) {
+
+                    options = options || {};
+                    lang.mixin( this, options );
+                    this.color = new Color( '#FFFFFF' );
 
                 },
 
                 _setColorAttr: function ( value ) {
 
-                    if ( this.colorPickerDijit ) {
+                    if ( this.colorPickerDijit && value ) {
                         this.colorPickerDijit.set( 'value', value.toHex() );
                     }
 
@@ -56,10 +60,34 @@ define( [
 
                 },
 
+                _onAlphaSliderChange: function( value ) {
+
+                    var colorsArray = this.color.toRgb();
+                    colorsArray.push( value );
+                    this._set( 'color', Color.fromArray( colorsArray ) );
+
+                },
+
                 _onColorPickerChange: function( value ) {
 
-                    this._set( 'color', new Color( value ) );
+                    var colorsArray = Color.fromHex( value ).toRgb();
+
+                    colorsArray.push( this._getAlphaValue() );
+
+                    this._set( 'color', Color.fromArray( colorsArray ) );
                     this._updateColorSwatch( value );
+
+                },
+
+                _getAlphaValue: function () {
+
+                    var alpha = 255;
+
+                    if ( this.alphaSlider ) {
+                        alpha = this.alphaSlider.get( 'value' );
+                    }
+
+                    return alpha;
 
                 },
 

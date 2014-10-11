@@ -1,6 +1,7 @@
 // http://dojotoolkit.org/reference-guide/1.10/dojo/i18n.html
 define({
     root: {
+        symbols: 'Symbols',
         draw: 'Draw',
         point: 'Point',
         polyline: 'Polyline',
@@ -22,7 +23,7 @@ define({
             addText: 'Add Text'
         },
         widgets: {
-            colorPicker: {
+            symbolColorPicker: {
                 label: 'Color'
             }
         },
