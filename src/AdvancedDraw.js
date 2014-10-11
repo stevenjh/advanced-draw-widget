@@ -24,6 +24,7 @@ define([
     './AdvancedDraw/widget/NumericSlider',
     './AdvancedDraw/widget/SMSEditor',
     './AdvancedDraw/widget/SLSEditor',
+    './AdvancedDraw/widget/SFSEditor',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -67,6 +68,7 @@ define([
     NumericSlider,
     SMSEditor,
     SLSEditor,
+    SFSEditor,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -108,6 +110,7 @@ define([
 
             this._createSMSEditor();
             this._createSLSEditor();
+            this._createSFSEditor();
 
             /*this._createColorPicker();
             this._createLineStylePicker();
@@ -130,6 +133,14 @@ define([
             this.slsEditor = new SLSEditor( null, this.defaultPolylineSymbolEditorNode );
             this.slsEditor.watch( 'symbol', function ( name, oldValue, value ) {
                 console.log( 'default line symbol updated: ', value );
+            } );
+        },
+
+        _createSFSEditor: function () {
+
+            this.sfsEditor = new SFSEditor( null, this.defaultPolygonSymbolEditorNode );
+            this.sfsEditor.watch( 'symbol', function ( name, oldValue, value ) {
+                console.log( 'default fill symbol updated: ', value );
             } );
         },
 
