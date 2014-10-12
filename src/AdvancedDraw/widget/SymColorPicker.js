@@ -53,6 +53,9 @@ define( [
                     if ( this.colorPickerDijit && value ) {
                         this.colorPickerDijit.set( 'value', value.toHex() );
                     }
+                    if ( this.alphaSlider ) {
+                        this.alphaSlider.set( 'value', value.a );
+                    }
 
                     this._updateColorSwatch( value.toHex() );
 

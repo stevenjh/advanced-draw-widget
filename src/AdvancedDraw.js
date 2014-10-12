@@ -17,14 +17,7 @@ define([
     './AdvancedDraw/modules/_defaultConfig',
 
     // test
-    './AdvancedDraw/widget/SymColorPicker',
-    './AdvancedDraw/widget/LineStylePicker',
-    './AdvancedDraw/widget/FillStylePicker',
-    './AdvancedDraw/widget/MarkerStylePicker',
-    './AdvancedDraw/widget/NumericSlider',
-    './AdvancedDraw/widget/SMSEditor',
-    './AdvancedDraw/widget/SLSEditor',
-    './AdvancedDraw/widget/SFSEditor',
+    './AdvancedDraw/widget/DefaultSymbolEditors',
 
     // widget mixins and template
     'dijit/_WidgetBase',
@@ -61,14 +54,7 @@ define([
     _defaultConfig,
 
     //test
-    SymColorPicker,
-    LineStylePicker,
-    FillStylePicker,
-    MarkerStylePicker,
-    NumericSlider,
-    SMSEditor,
-    SLSEditor,
-    SFSEditor,
+    DefaultSymbolEditors,
 
     _WidgetBase,
     _TemplatedMixin,
@@ -107,95 +93,14 @@ define([
 
         postCreate: function () {
             this.inherited(arguments);
-
-            this._createSMSEditor();
-            this._createSLSEditor();
-            this._createSFSEditor();
-
-            /*this._createColorPicker();
-            this._createLineStylePicker();
-            this._createFillStylePicker();
-            this._createMarkerStylePicker();
-            this._createNumericSlider();*/
-
+            this._initDefaultSymbolEditor();
         },
 
-        _createSMSEditor: function () {
+        _initDefaultSymbolEditor: function () {
 
-            this.smsEditor = new SMSEditor( null, this.defaultPointSymbolEditorNode );
-            this.smsEditor.watch( 'symbol', function ( name, oldValue, value ) {
-                console.log( 'default marker symbol updated: ', value );
-            } );
-        },
+            this.defaultSymbolEditors = new DefaultSymbolEditors( { symbols: this._symbols }, this.defaultSymbolEditorsNode );
+            this.defaultSymbolEditors.startup();
 
-        _createSLSEditor: function () {
-
-            this.slsEditor = new SLSEditor( null, this.defaultPolylineSymbolEditorNode );
-            this.slsEditor.watch( 'symbol', function ( name, oldValue, value ) {
-                console.log( 'default line symbol updated: ', value );
-            } );
-        },
-
-        _createSFSEditor: function () {
-
-            this.sfsEditor = new SFSEditor( null, this.defaultPolygonSymbolEditorNode );
-            this.sfsEditor.watch( 'symbol', function ( name, oldValue, value ) {
-                console.log( 'default fill symbol updated: ', value );
-            } );
-        },
-
-        _createColorPicker: function () {
-
-            this.symbolColorPicker = new SymColorPicker( null, this.colorPickerTestNode );
-            this.symbolColorPicker.startup();
-            this.symbolColorPicker.watch("color", function(name, oldValue, value){
-                console.log( 'New Color: ', value );
-            });
-            this.symbolColorPicker.set( 'color', new Color( '#e5e5e5' ) );
-
-        },
-
-        _createLineStylePicker: function () {
-
-            this.lineStylePicker = new LineStylePicker( null, this.lineStylePickerTestNode );
-            this.lineStylePicker.startup();
-            this.lineStylePicker.watch( 'lineStyle', function( name, oldValue, newValue ) {
-              console.log( 'New linestyle: ', newValue );
-            } );
-            this.lineStylePicker.set( 'lineStyle', 'esriSLSDashDotDot');
-        },
-
-        _createFillStylePicker: function () {
-
-            this.fillStylePicker = new FillStylePicker( null, this.fillStylePickerTestNode );
-            this.fillStylePicker.startup();
-            this.fillStylePicker.watch( 'fillStyle', function( name, oldValue, newValue ) {
-              console.log( 'New fillStyle: ', newValue );
-            } );
-            this.fillStylePicker.set( 'fillStyle', 'esriSFSVertical');
-        },
-
-        _createMarkerStylePicker: function () {
-
-            this.symbolStylePicker = new MarkerStylePicker( null, this.markerStylePickerTestNode );
-            this.symbolStylePicker.startup();
-            this.symbolStylePicker.watch( 'markerStyle', function( name, oldValue, newValue ) {
-              console.log( 'New markerStyle: ', newValue );
-            } );
-            this.symbolStylePicker.set( 'markerStyle', 'esriSMSX');
-        },
-
-        _createNumericSlider: function () {
-
-            this.numericSlider = new NumericSlider( { min: 0,
-                                                      max: 20,
-                                                      value: 5
-                                                    }, this.numericSliderTestNode );
-            this.numericSlider.startup();
-            this.numericSlider.watch( 'value', function( name, oldValue, newValue ) {
-              console.log( 'New numeric value: ', newValue );
-            } );
-            this.numericSlider.set( 'value', 0.75 );
         },
 
         // select a pane in the stack container
@@ -206,6 +111,7 @@ define([
 
         // set draw button click and label
         _setDrawButton: function (fnc, type, label) {
+            console.log( type );
             this._drawButtonClickHandler.remove();
             if (type) {
                 this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, fnc, type, label));
@@ -213,6 +119,7 @@ define([
                 this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, fnc, label));
             }
             this.drawButtonNode.set('label', label);
+            this._showDefaultSymbolEditor( type );
         },
 
         // temp method for snapping button
@@ -221,6 +128,37 @@ define([
                 domClass.add(this.snappingToggleNode.iconNode, 'fa-check');
             } else {
                 domClass.remove(this.snappingToggleNode.iconNode, 'fa-check');
+            }
+        },
+
+        _showDefaultSymbolEditor: function ( type ) {
+
+            switch ( type ) {
+
+                case 'point':
+                    this.defaultSymbolEditors.showSMSEditor();
+                    break;
+                case 'polyline':
+                    this.defaultSymbolEditors.showSLSEditor();
+                    break;
+                case 'freehandpolyline':
+                    this.defaultSymbolEditors.showSLSEditor();
+                    break;
+                case 'polygon':
+                    this.defaultSymbolEditors.showSFSEditor();
+                    break;
+                case 'freehandpolygon':
+                    this.defaultSymbolEditors.showSFSEditor();
+                    break;
+                case 'extent':
+                    this.defaultSymbolEditors.showSFSEditor();
+                    break;
+                case 'circle':
+                    this.defaultSymbolEditors.showSFSEditor();
+                    break;
+                default:
+                    this.defaultSymbolEditors.showSMSEditor();
+                    break;
             }
         }
     });

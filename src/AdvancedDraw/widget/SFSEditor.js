@@ -227,7 +227,7 @@ define( [
                                              this.fillStylePicker.set( 'value', this.symbol.style );
                                              this.outlineColorPicker.set( 'value', Color.fromArray( this.symbol.outline.color ) );
                                              this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
-                                             this..outlineStylePicker.set( 'value', this.symbol.outline.style );
+                                             this.outlineStylePicker.set( 'value', this.symbol.outline.style );
 
                                          }
 

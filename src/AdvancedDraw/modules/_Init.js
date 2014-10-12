@@ -66,12 +66,26 @@ define([
             // config mixin
             this.config = lang.mixin(this.defaultConfig, this.config || {});
 
+            this._initSymbols();
+
             // check for loaded map and go
             if (this.map.loaded) {
                 this._initialize(this.config, this.map);
             } else {
                 this.map.on('load', lang.hitch(this, '_initialize', this.config, this.map));
             }
+        },
+
+        _initSymbols: function () {
+
+            // default symbols from config
+            var config = this.config;
+            this._symbols.polygon = symUtil.fromJson(config.defaultPolygonSymbol);
+            this._symbols.polyline = symUtil.fromJson(config.defaultPolylineSymbol);
+            this._symbols.point = symUtil.fromJson(config.defaultPointSymbol);
+            this._symbols.text = symUtil.fromJson(config.defaultTextSymbol);
+            this._symbols.temp = symUtil.fromJson(config.defaultTempSymbol);
+
         },
 
         // fire it up
@@ -83,13 +97,6 @@ define([
 
             // init layers
             this._initLayers(config, map, this._layers);
-
-            // default symbols from config
-            this._symbols.polygon = symUtil.fromJson(config.defaultPolygonSymbol);
-            this._symbols.polyline = symUtil.fromJson(config.defaultPolylineSymbol);
-            this._symbols.point = symUtil.fromJson(config.defaultPointSymbol);
-            this._symbols.text = symUtil.fromJson(config.defaultTextSymbol);
-            this._symbols.temp = symUtil.fromJson(config.defaultTempSymbol);
 
             // init draw menu
             //   can be used elsewhere like a map context menu or a dropdown

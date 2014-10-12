@@ -128,7 +128,7 @@ define([
                         draw_type: type,
                         draw_text_string: null
                     }, // attributes
-                    null // no infoTemplate ever
+                    null // no infoTemplate ever - haha
                 );
 
                 this._layers[type].add(graphic);

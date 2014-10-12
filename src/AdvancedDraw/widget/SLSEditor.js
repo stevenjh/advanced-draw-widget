@@ -102,9 +102,9 @@ define( [
                                          _initOutlineStylePicker: function () {
 
                                              this.outlineStylePicker = new LineStylePicker( {
-                                                                                                 lineStyle: this.symbol.style,
-                                                                                                 class: 'symbolEditorControl'
-                                                                                             } );
+                                                 lineStyle: this.symbol.style,
+                                                 class: 'symbolEditorControl'
+                                             } );
 
                                              this.outlineStylePicker.watch( 'lineStyle', lang.hitch( this, function ( name, oldValue, value ) {
 

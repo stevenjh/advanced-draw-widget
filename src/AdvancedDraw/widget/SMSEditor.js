@@ -128,7 +128,7 @@ define( [
                                          _initSymbolColorPicker: function () {
 
                                              this.symbolColorPicker = new SymColorPicker( {
-                                                 color: new Color( this.symbol.color ),
+                                                 color: this._esriColorToDojoColor( this.symbol.color ),
                                                  class: 'symbolEditorControl'
                                              } );
 
@@ -245,13 +245,23 @@ define( [
 
                                          _setSymbolAttr: function ( value ) {
 
-                                             this.symbol = value;
-                                             this.symbolColorPicker.set( 'value', new Color( this.symbol.color ) );
+                                             debugger
+                                             this.symbolColorPicker.set( 'value', this._esriColorToDojoColor( value.color ) );
                                              this.symbolSizeSlider.set( 'value', this.symbol.size );
                                              this.symbolStylePicker.set( 'value', this.symbol.style );
-                                             this.outlineColorPicker.set( 'value', Color.fromArray( this.symbol.outline.color ) );
+                                             this.outlineColorPicker.set( 'value', this._esriColorToDojoColor( value.outline.color ) );
                                              this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
-                                             this..outlineStylePicker.set( 'value', this.symbol.outline.style );
+                                             this.outlineStylePicker.set( 'value', this.symbol.outline.style );
+                                             this._set( 'symbol', value );
+
+                                         },
+
+                                         _esriColorToDojoColor: function ( esriColor ) {
+
+                                             esriColor[ 3 ] = esriColor[ 3 ] / 255;
+                                             var color = Color.fromArray( esriColor );
+
+                                             return color;
 
                                          }
 
