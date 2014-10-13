@@ -2,15 +2,16 @@ define ( [
              'intern!object',
              'intern/chai!assert',
              'dojo/_base/Color',
-             'adw/widget/SymColorPicker'
+             'adw/widget/SMSEditor',
+             'adw/modules/_defaultConfig'
          ],
-         function ( registerSuite, assert, Color, Widget ) {
+         function ( registerSuite, assert, Color, Widget, defaultConfig ) {
 
              registerSuite ( {
-                                 name: 'SymColorPicker module test',
+                                 name: 'SMSEditor module test',
 
                                  setup: function () {
-
+                                    // do nothing
                                  },
 
                                  // before each test executes
@@ -32,38 +33,45 @@ define ( [
                                      if ( this.widget ) {
                                          this.widget.destroy();
                                      };
-
+                                     
                                  },
 
                                  'constructorOptionsTest': function () {
 
                                      var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { color: color } );
+                                     this.widget = new Widget( { symbol: defaultConfig.defaultPointSymbol } );
                                      this.widget.startup();
 
-                                     var expected = color;
-                                     var actual = this.widget.get( 'color' );
+                                     var expected = defaultConfig.defaultPointSymbol;
+                                     var actual = this.widget.get( 'symbol' );
 
                                      assert.deepEqual ( actual,
                                                           expected,
-                                                          '.get( color ) should return same color as passed into constructor.'
+                                                          '.get( symbol ) should return same symbol as passed into constructor.'
                                      );
                                  },
 
-                                 'setColorTest': function () {
+                                 'setOutliineWidthTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );this.widget = new Widget();
+                                     var width = 5;
+                                     this.widget = new Widget();
                                      this.widget.startup();
-                                     this.widget.set( 'color', color );
+                                     this.widget.outlineWidthSlider._onSliderDijitChange( width );
 
-                                     var expected = color;
-                                     var actual = this.widget.get( 'color' );
+                                     var expected = defaultConfig.defaultPointSymbol;
+                                     expected.outline.width = width;
+                                     console.log( 'expected: ', expected );
 
-                                     assert.strictEqual ( actual,
+                                     var actual = this.widget.get( 'symbol' );
+                                     console.log( 'actual: ', actual );
+
+                                     console.log( this.widget );
+
+                                     assert.deepEqual ( actual,
                                                           expected,
-                                                          '.get( color ) should return same color as passed into .set( color, value ).'
+                                                          '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
                                      );
-                                 },
+                                 }/*,
 
                                  'alphaSliderChangeTest': function () {
 
@@ -97,7 +105,7 @@ define ( [
                                                         expected,
                                                         '.get( color ) should return new value of color picker.'
                                      );
-                                 }
+                                 }*/
 
                              }
              );

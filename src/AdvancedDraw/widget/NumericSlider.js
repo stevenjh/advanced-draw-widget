@@ -63,7 +63,7 @@ define( [
                 _setValueAttr: function ( value ) {
 
                     this._updateSliderDijit( value );
-                    this._set( 'value', value );
+                    this.value = value;
 
                 },
 
