@@ -1,11 +1,12 @@
 define ( [
              'intern!object',
              'intern/chai!assert',
+             'dojo/_base/lang',
              'dojo/_base/Color',
              'adw/widget/SMSEditor',
              'adw/modules/_defaultConfig'
          ],
-         function ( registerSuite, assert, Color, Widget, defaultConfig ) {
+         function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
 
              registerSuite ( {
                                  name: 'SMSEditor module test',
@@ -39,10 +40,10 @@ define ( [
                                  'constructorOptionsTest': function () {
 
                                      var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { symbol: defaultConfig.defaultPointSymbol } );
+                                     this.widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
                                      this.widget.startup();
 
-                                     var expected = defaultConfig.defaultPointSymbol;
+                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      var actual = this.widget.get( 'symbol' );
 
                                      assert.deepEqual ( actual,
@@ -51,24 +52,21 @@ define ( [
                                      );
                                  },
 
-                                 'setOutliineWidthTest': function () {
+                                 'setOutlineWidthTest': function () {
 
-                                     var width = 5;
-                                     this.widget = new Widget();
+                                     var width = 6.3;
+                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected.outline.width = width;
+
+                                     this.widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
                                      this.widget.startup();
+
                                      this.widget.outlineWidthSlider._onSliderDijitChange( width );
 
-                                     var expected = defaultConfig.defaultPointSymbol;
-                                     expected.outline.width = width;
-                                     console.log( 'expected: ', expected );
-
                                      var actual = this.widget.get( 'symbol' );
-                                     console.log( 'actual: ', actual );
 
-                                     console.log( this.widget );
-
-                                     assert.deepEqual ( actual,
-                                                          expected,
+                                     assert.strictEqual ( actual.outline.width,
+                                                        expected.outline.width,
                                                           '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
                                      );
                                  }/*,
