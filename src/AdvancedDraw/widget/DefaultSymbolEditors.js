@@ -62,8 +62,8 @@ define( [
                         }
                     } ) );
                     this.stackContainerNode.addChild( this.smsEditor );
-                    debugger
                     this.smsEditor.set( 'symbol', this.symbols.point.toJson() );
+
                 },
 
                 _createSLSEditor: function () {
@@ -73,6 +73,7 @@ define( [
                         console.log( 'default line symbol updated: ', value );
                     } );
                     this.stackContainerNode.addChild( this.slsEditor );
+
                 },
 
                 _createSFSEditor: function () {
@@ -82,6 +83,7 @@ define( [
                         console.log( 'default fill symbol updated: ', value );
                     } );
                     this.stackContainerNode.addChild( this.sfsEditor );
+
                 },
 
                 showSMSEditor: function () {
