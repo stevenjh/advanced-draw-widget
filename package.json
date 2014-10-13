@@ -9,5 +9,9 @@
     "grunt-open": "0.2.x",
     "proxypage": "*"
   },
-  "engine": "node >= 0.10"
+  "engine": "node >= 0.10",
+  "devDependencies": {
+    "inter": "^1.3.0",
+    "intern": "^2.1.1"
+  }
 }
