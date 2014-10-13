@@ -13,6 +13,7 @@ define( [
             'src/AdvancedDraw/widget/FillStylePicker',
             'src/AdvancedDraw/widget/MarkerStylePicker',
             'src/AdvancedDraw/widget/NumericSlider',
+            'src/AdvancedDraw/widget/_ColorMixin',
             'dojo/text!./templates/SymbolEditor.html',
             'dojo/i18n!../nls/resource',
             '../modules/_defaultConfig',
@@ -33,6 +34,7 @@ define( [
                   FillStylePicker,
                   MarkerStylePicker,
                   NumericSlider,
+                  _ColorMixin,
                   template,
                   i18n,
                   defaultConfig
@@ -40,7 +42,8 @@ define( [
 
             var SMSEditor = declare( [ _WidgetBase,
                                        _TemplatedMixin,
-                                       _WidgetsInTemplateMixin
+                                       _WidgetsInTemplateMixin,
+                                       _ColorMixin
                                      ],
                                      {
 
@@ -54,6 +57,7 @@ define( [
                                              options = options || {};
                                              lang.mixin( this, options );
                                              this.defaultSymbol = defaultConfig.defaultPolylineSymbol;
+                                             this.initialized = false;
 
                                          },
 
@@ -76,6 +80,8 @@ define( [
                                              this._initOutlineStylePicker();
                                              this._initOutlineColorPicker();
                                              this._initOutlineWidthSlider();
+
+                                             this.initialized = true;
 
                                          },
 
@@ -108,10 +114,7 @@ define( [
 
                                              this.outlineStylePicker.watch( 'lineStyle', lang.hitch( this, function ( name, oldValue, value ) {
 
-                                                 var symbol = lang.clone( this.symbol );
-                                                 symbol.style = value;
-
-                                                 this._set( 'symbol', symbol );
+                                                 this._updateSymbolAtt();
 
                                              } ) );
 
@@ -122,19 +125,13 @@ define( [
                                          _initOutlineColorPicker: function () {
 
                                              this.outlineColorPicker = new SymColorPicker( {
-                                                  color: new Color( this.symbol.color ),
+                                                  color: this._esriColorArrayToDojoColor( this.symbol.color ),
                                                   class: 'symbolEditorControl'
                                              } );
 
                                              this.outlineColorPicker.watch( 'color', lang.hitch( this, function ( name, oldValue, value ) {
 
-                                                 var colorsArray = value.toRgba();
-                                                 colorsArray[ 3 ] = Math.round( colorsArray[ 3 ] * 255 );
-
-                                                 var symbol = lang.clone( this.symbol );
-                                                 symbol.color = colorsArray;
-
-                                                 this._set( 'symbol', symbol );
+                                                 this._updateSymbolAtt();
 
                                              } ) );
 
@@ -145,18 +142,15 @@ define( [
                                          _initOutlineWidthSlider: function () {
 
                                              this.outlineWidthSlider = new NumericSlider( {
-                                                 value: this.symbol.size,
+                                                 value: this.symbol.width,
                                                  min: 1,
-                                                 max: 20,
+                                                 max: 10,
                                                  class: 'symbolEditorControl'
                                              });
 
                                              this.outlineWidthSlider.watch( 'value', lang.hitch( this, function ( name, oldValue, value ) {
 
-                                                 var symbol = lang.clone( this.symbol );
-                                                 symbol.width = value;
-
-                                                 this._set( 'symbol', symbol );
+                                                 this._updateSymbolAtt();
 
                                              } ) );
 
@@ -173,12 +167,37 @@ define( [
                                              return contentPane;
                                          },
 
+                                         _updateSymbolAtt: function () {
+
+                                             if ( !this.initialized ) {
+                                                 return;
+                                             }
+
+                                             var symbol = lang.clone( this.symbol );
+
+                                             var lineStyle = this.outlineStylePicker.get( 'lineStyle' );
+                                             symbol.style = lineStyle;
+
+                                             var lineColor = this.outlineColorPicker.get( 'color' );
+                                             symbol.color = this._dojoColorToEsriColorArray( lineColor );
+
+                                             var lineWidth = this.outlineWidthSlider.get( 'value' );
+                                             symbol.width = lineWidth;
+
+                                             this._set( 'symbol', symbol );
+                                         },
+
                                          _setSymbolAttr: function ( value ) {
 
+                                             if ( this.initialized ) {
+
+                                                 this.outlineColorPicker.set( 'color', this._esriColorArrayToDojoColor( value.color ) );
+                                                 this.outlineWidthSlider.set( 'value', this.symbol.width );
+                                                 this.outlineStylePicker.set( 'lineStyle', this.symbol.style );
+
+                                             }
+
                                              this.symbol = value;
-                                             this.outlineColorPicker.set( 'value', new Color( this.symbol.color ) );
-                                             this.outlineWidthSlider.set( 'value', this.symbol.width );
-                                             this.outlineStylePicker.set( 'value', this.symbol.style );
 
                                          }
 

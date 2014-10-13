@@ -229,7 +229,7 @@ define( [
                                          _updateSymbolAtt: function () {
 
                                              if ( !this.initialized ) {
-                                                 return symbol;
+                                                 return;
                                              }
 
                                              var symbol = lang.clone( this.symbol );
@@ -257,13 +257,18 @@ define( [
 
                                          _setSymbolAttr: function ( value ) {
 
-                                             this.symbolColorPicker.set( 'value', this._esriColorArrayToDojoColor( value.color ) );
-                                             this.symbolSizeSlider.set( 'value', this.symbol.size );
-                                             this.symbolStylePicker.set( 'value', this.symbol.style );
-                                             this.outlineColorPicker.set( 'value', this._esriColorArrayToDojoColor( value.outline.color ) );
-                                             this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
-                                             this.outlineStylePicker.set( 'value', this.symbol.outline.style );
-                                             this._set( 'symbol', value );
+                                             if ( this.initialized ) {
+
+                                                 this.symbolColorPicker.set( 'color', this._esriColorArrayToDojoColor( value.color ) );
+                                                 this.symbolSizeSlider.set( 'value', this.symbol.size );
+                                                 this.symbolStylePicker.set( 'markerStyle', this.symbol.style );
+                                                 this.outlineColorPicker.set( 'color', this._esriColorArrayToDojoColor( value.outline.color ) );
+                                                 this.outlineWidthSlider.set( 'value', this.symbol.outline.width );
+                                                 this.outlineStylePicker.set( 'lineStyle', this.symbol.outline.style );
+
+                                             }
+
+                                             this.symbol = value;
 
                                          }
 

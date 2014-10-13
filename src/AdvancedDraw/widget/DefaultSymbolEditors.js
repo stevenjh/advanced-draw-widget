@@ -68,21 +68,31 @@ define( [
 
                 _createSLSEditor: function () {
 
-                    this.slsEditor = new SLSEditor( null, this.slsEditorNode );
-                    this.slsEditor.watch( 'symbol', function ( name, oldValue, value ) {
+                    this.slsEditor = new SLSEditor();
+                    this.slsEditor.watch( 'symbol', lang.hitch( this, function ( name, oldValue, value ) {
                         console.log( 'default line symbol updated: ', value );
-                    } );
+                        if ( this.symbols ) {
+                            console.log( 'updating default polyline sym' );
+                            this.symbols.polyline = symUtil.fromJson ( value );
+                        }
+                    } ) );
                     this.stackContainerNode.addChild( this.slsEditor );
+                    this.slsEditor.set( 'symbol', this.symbols.polyline.toJson() );
 
                 },
 
                 _createSFSEditor: function () {
 
-                    this.sfsEditor = new SFSEditor( null, this.sfsEditorNode );
-                    this.sfsEditor.watch( 'symbol', function ( name, oldValue, value ) {
+                    this.sfsEditor = new SFSEditor();
+                    this.sfsEditor.watch( 'symbol', lang.hitch( this, function ( name, oldValue, value ) {
                         console.log( 'default fill symbol updated: ', value );
-                    } );
+                        if ( this.symbols ) {
+                            console.log( 'updating default polygon sym' );
+                            this.symbols.polygon = symUtil.fromJson( value );
+                        }
+                    } ) );
                     this.stackContainerNode.addChild( this.sfsEditor );
+                    this.sfsEditor.set( 'symbol', this.symbols.polygon.toJson() );
 
                 },
 

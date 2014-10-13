@@ -3,15 +3,15 @@ define([], function () {
     return {
         // default symbols
         defaultPolygonSymbol: {
-            color: [0, 0, 0, 64],
+            color: [0, 255, 0, 64],
             outline: {
-                color: [0, 0, 0, 255],
+                color: [255, 0, 0, 255],
                 width: 2,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
             },
             type: 'esriSFS',
-            style: 'esriSFSSolid'
+            style: 'esriSFSForwardDiagonal'
         },
         defaultPolylineSymbol: {
             color: [0, 0, 0, 255],
