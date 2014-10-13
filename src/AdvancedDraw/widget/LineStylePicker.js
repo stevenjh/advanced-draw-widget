@@ -32,16 +32,24 @@ define( [
                 lineStyle: 'esriSLSDash',
                 i18n: i18n,
 
-                constructor: function() {
-                    //TODO implementation
-                    this.set( 'lineStyle', 'esriSLSSolid' );
+                constructor: function( options ) {
+
+                    options = options || {};
+                    lang.mixin( this, options );
+
+                },
+
+                postCreate: function () {
+
+                    this.inherited( arguments );
+                    this._set( 'lineStyle', this.lineStyle );
 
                 },
 
                 _setLineStyleAttr: function ( value ) {
 
                     this._updateSelectDijit( value );
-                    this._set( 'lineStyle', value );
+                    this.lineStyle = value;
 
                 },
 

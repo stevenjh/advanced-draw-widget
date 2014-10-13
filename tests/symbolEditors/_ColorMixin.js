@@ -25,17 +25,29 @@ define ( [
 
                                  '_esriColorArrayToDojoColor': function () {
 
-                                     var testArray = [ 255, 0, 0, 127.5 ];
-
-                                     var actual = _colorMixin._esriColorArrayToDojoColor( testArray );
-                                     console.log( 'actual result', actual );
-
                                      var expected = Color.fromArray( [ 255, 0, 0, 0.5 ] );
                                      console.log( 'expected result', expected );
+
+                                     var actual = _colorMixin._esriColorArrayToDojoColor( [ 255, 0, 0, 127.5 ] );
+                                     console.log( 'actual result', actual );
 
                                      assert.deepEqual ( actual,
                                                           expected,
                                                           '_ColorMixin._esriColorArrayToDojoColor should return an equivalent dojo Color mapping alpha values 0-255 to rgba alpha values 0-1'
+                                     );
+                                 },
+
+                                 '_dojoColorToEsriColorArray': function () {
+
+                                     var expected = [ 255, 0, 0, 128 ];
+                                     console.log( 'expected result', expected );
+
+                                     var actual = _colorMixin._dojoColorToEsriColorArray( Color.fromArray( [ 255, 0, 0, .5 ] ) );
+                                     console.log( 'actual result', actual );
+
+                                     assert.deepEqual ( actual,
+                                                        expected,
+                                                        '_ColorMixin._dojoColorToEsriColorArray should return an equivalent esri array mapping alpha values 0-1 to rgba alpha values 0-255'
                                      );
                                  }
                              }

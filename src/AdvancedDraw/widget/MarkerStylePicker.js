@@ -29,19 +29,27 @@ define( [
 
                 widgetsInTemplate: true,
                 templateString: template,
-                markerStyle: 'esriSFSSolid',
+                markerStyle: 'esriSMSCircle',
                 i18n: i18n,
 
-                constructor: function() {
-                    //TODO implementation
-                    this.set( 'markerStyle', 'esriSMSCircle' );
+                constructor: function( options ) {
+
+                    options = options || {};
+                    lang.mixin( this, options );
+
+                },
+
+                postCreate: function () {
+
+                    this.inherited( arguments );
+                    this._set( 'markerStyle', this.markerStyle );
 
                 },
 
                 _setMarkerStyleAttr: function ( value ) {
 
                     this._updateSelectDijit( value );
-                    this._set( 'markerStyle', value );
+                    this.markerStyle = value;
 
                 },
 

@@ -80,7 +80,14 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: [ 'tests/symbolEditors/_ColorMixin' ],
+	suites: [
+        'tests/symbolEditors/_ColorMixin',
+        'tests/symbolEditors/FillStylePicker',
+        'tests/symbolEditors/LineStylePicker',
+        'tests/symbolEditors/MarkerStylePicker',
+        'tests/symbolEditors/NumericSlider',
+        'tests/symbolEditors/SymColorPicker'
+    ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
 	functionalSuites: [ /* 'myPackage/tests/functional' */ ],

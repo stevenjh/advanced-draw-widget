@@ -44,7 +44,10 @@ define( [
 
                     options = options || {};
                     lang.mixin( this, options );
-                    this.color = new Color( '#FFFFFF' );
+
+                    if ( !this.color ){
+                        this.color = new Color( '#FFFFFF' );
+                    }
 
                 },
 
