@@ -49,12 +49,32 @@ define({
 	loader: {
 		// Packages that should be registered with the loader in each testing environment
 		packages: [ {
-                        name: 'dojo',
-                        location: 'dojo'
-                    },
-                    {
                         name: 'adw',
                         location: 'src/AdvancedDraw'
+                    }, {
+                        name: 'tests',
+                        location: 'tests'
+                    }, {
+                        name: 'esri',
+                        location: 'esri'
+                    }, {
+                        name: 'dgrid',
+                        location: 'dgrid'
+                    }, {
+                        name: 'put-selector',
+                        location: 'put-selector'
+                    }, {
+                        name: 'xstyle',
+                        location: 'xstyle'
+                    }, {
+                        name: 'dojo',
+                        location: 'dojo'
+                    }, {
+                        name: 'dojox',
+                        location: 'dojox'
+                    }, {
+                        name: 'dijit',
+                        location: 'dijit'
                     }
         ]
 	},
@@ -66,5 +86,5 @@ define({
 	functionalSuites: [ /* 'myPackage/tests/functional' */ ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(?:tests|node_modules)\//
+	excludeInstrumentation: /^(?:tests|node_modules|esri|dojo)\//
 });
