@@ -37,6 +37,23 @@ module.exports = function (grunt) {
         }
       }
     },
+    intern: {
+       dev: {
+           options: {
+               runType: 'runner',
+               config: 'tests/intern'
+           }
+       }
+    },
+    esri_slurp: {
+       dev: {
+           options: {
+               version: '3.10',
+               packageLocation: 'esri',
+               beautify: true
+           }
+       }
+    },
     watch: {
       files: ['src/**'],
       tasks: ['jshint']
@@ -65,7 +82,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-open');
 
-  // define the tasks
+  // Loading using a local copy
+  grunt.loadNpmTasks('intern');
+  grunt.loadNpmTasks('grunt-esri-slurp');
+
+  // download Esri JSAPI
+  grunt.registerTask('slurp', ['esri_slurp']);
+
+  // Register a test task
+  grunt.registerTask('test', ['intern']);
+
+
+    // define the tasks
   grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a web server and opens default browser to preview.', ['jshint', 'connect:server', 'open:server', 'watch']);
-  grunt.registerTask('hint', 'Run simple jshint.', ['jshint']);
+  grunt.registerTask('hint', 'Run simple jshint.', ['jshint', 'watch']);
 };

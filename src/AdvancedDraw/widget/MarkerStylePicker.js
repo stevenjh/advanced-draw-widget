@@ -1,7 +1,6 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
@@ -13,7 +12,6 @@ define( [
         ],
         function( declare,
                   lang,
-                  array,
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
@@ -29,19 +27,27 @@ define( [
 
                 widgetsInTemplate: true,
                 templateString: template,
-                markerStyle: 'esriSFSSolid',
+                markerStyle: 'esriSMSCircle',
                 i18n: i18n,
 
-                constructor: function() {
-                    //TODO implementation
-                    this.set( 'markerStyle', 'esriSMSCircle' );
+                constructor: function( options ) {
+
+                    options = options || {};
+                    lang.mixin( this, options );
+
+                },
+
+                postCreate: function () {
+
+                    this.inherited( arguments );
+                    this._set( 'markerStyle', this.markerStyle );
 
                 },
 
                 _setMarkerStyleAttr: function ( value ) {
 
                     this._updateSelectDijit( value );
-                    this._set( 'markerStyle', value );
+                    this.markerStyle = value;
 
                 },
 
@@ -53,7 +59,7 @@ define( [
 
                 },
 
-                _onSelectDijitChange: function( newIndex ) {
+                _onSelectDijitChange: function() {
 
                     var value = this.selectDijit.get( 'value' );
                     this._set( 'markerStyle', value );

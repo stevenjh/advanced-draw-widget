@@ -1,19 +1,17 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/FillStylePicker.html',
-            'dojo/i18n!../nls/resource',
+            'dojo/text!src/AdvancedDraw/widget/templates/FillStylePicker.html',
+            'dojo/i18n!src/AdvancedDraw/nls/resource',
             'dijit/form/Select',
-            'xstyle/css!./css/FillStylePicker.css'
+            'xstyle/css!src/AdvancedDraw/widget/css/FillStylePicker.css'
 
         ],
         function( declare,
                   lang,
-                  array,
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
@@ -32,16 +30,24 @@ define( [
                 fillStyle: 'esriSFSSolid',
                 i18n: i18n,
 
-                constructor: function() {
-                    //TODO implementation
-                    this.set( 'fillStyle', 'esriSFSSolid' );
+                constructor: function( options ) {
+
+                    options = options || {};
+                    lang.mixin( this, options );
+
+                },
+
+                postCreate: function () {
+
+                    this.inherited( arguments );
+                    this._set( 'fillStyle', this.fillStyle );
 
                 },
 
                 _setFillStyleAttr: function ( value ) {
 
                     this._updateSelectDijit( value );
-                    this._set( 'fillStyle', value );
+                    this.fillStyle = value;
 
                 },
 
@@ -53,7 +59,7 @@ define( [
 
                 },
 
-                _onSelectDijitChange: function( newIndex ) {
+                _onSelectDijitChange: function() {
 
                     var value = this.selectDijit.get( 'value' );
                     this._set( 'fillStyle', value );
