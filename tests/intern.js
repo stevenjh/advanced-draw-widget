@@ -87,7 +87,8 @@ define({
         'tests/symbolEditors/MarkerStylePicker',
         'tests/symbolEditors/NumericSlider',
         'tests/symbolEditors/SymColorPicker',
-        'tests/symbolEditors/SMSEditor'
+        'tests/symbolEditors/SMSEditor',
+        'tests/symbolEditors/SLSEditor'
     ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed

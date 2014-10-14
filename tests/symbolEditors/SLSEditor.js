@@ -11,7 +11,7 @@ define ( [
              var widget;
              
              registerSuite ( {
-                                 name: 'SMSEditor module test',
+                                 name: 'SLSEditor module test',
 
                                  setup: function () {
                                     // do nothing
@@ -20,7 +20,7 @@ define ( [
                                  // before each test executes
                                  beforeEach: function() {
                                      
-                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
+                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPolylineSymbol ) } );
                                      widget.startup();
 
                                  },
@@ -58,41 +58,45 @@ define ( [
 
                                  'setSymbolStyleTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.style = 'esriSMSSquare';
+                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
+                                     expected.style = 'esriSLSDashDotDot';
 
-                                     widget.outlineStylePicker._onSelectDijitChange( 3 );
+                                     widget.outlineStylePicker._onSelectDijitChange( 'esriSLSDashDotDot' );
 
                                      var actual = widget.get( 'symbol' );
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                          expected.outline.width,
-                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
+                                     console.log( 'expected/actual: ', expected, actual );
+
+                                     assert.deepEqual ( actual,
+                                                          expected,
+                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSLSDashDotDot ).'
                                      );
                                  },
 
                                  'setOutlineWidthTest': function () {
 
                                      var width = 6.3;
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.outline.width = width;
+                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
+                                     expected.width = width;
 
                                      widget.outlineWidthSlider._onSliderDijitChange( width );
 
                                      var actual = widget.get( 'symbol' );
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                        expected.outline.width,
+                                     console.log( 'expected/actual: ', expected, actual );
+
+                                     assert.deepEqual ( actual,
+                                                        expected,
                                                           '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
                                      );
                                  },
 
                                  'alphaSliderChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
                                      expected.color = [ 255, 0, 0, 191 ];
 
-                                     widget.symbolColorPicker._onAlphaSliderChange( 0.75 );
+                                     widget.outlineColorPicker._onAlphaSliderChange( 0.75 );
 
                                      var actual = widget.get( 'symbol' );
 
@@ -106,10 +110,10 @@ define ( [
 
                                  'colorPickerChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.color = [ 0, 0, 0, 200 ];
+                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
+                                     expected.color = [ 0, 0, 0, 255 ];
 
-                                     widget.symbolColorPicker._onColorPickerChange( '#000000' );
+                                     widget.outlineColorPicker._onColorPickerChange( '#000000' );
 
                                      var actual = widget.get( 'symbol' );
 

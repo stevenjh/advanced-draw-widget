@@ -14,7 +14,7 @@ define([], function () {
             style: 'esriSFSForwardDiagonal'
         },
         defaultPolylineSymbol: {
-            color: [0, 0, 0, 255],
+            color: [255, 0, 0, 255],
             width: 2,
             type: 'esriSLS',
             style: 'esriSLSSolid'

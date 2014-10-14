@@ -47,26 +47,21 @@ define( [
                                          constructor: function( options ) {
 
                                              options = options || {};
+
+                                             if ( !options.symbol ) {
+                                                 options.symbol = defaultConfig.defaultPolylineSymbol;
+                                             }
                                              lang.mixin( this, options );
-                                             this.defaultSymbol = defaultConfig.defaultPolylineSymbol;
+
                                              this.initialized = false;
 
-                                         },
-
-                                         _getDefaultSymbol: function () {
-
-                                             var symbol = this.defaultSymbol;
-                                             return symbol;
+                                             this._set( 'symbol', this.symbol );
 
                                          },
 
                                          postCreate: function () {
 
                                              this.inherited( arguments );
-
-                                             if ( !this.symbol ) {
-                                                 this.symbol = this._getDefaultSymbol();
-                                             }
 
                                              this._initTabContainer();
                                              this._initOutlineStylePicker();
@@ -117,7 +112,7 @@ define( [
                                          _initOutlineColorPicker: function () {
 
                                              this.outlineColorPicker = new SymColorPicker( {
-                                                  color: this._esriColorArrayToDojoColor( this.symbol.color ),
+                                                  color: this.symbol.color,
                                                   baseClass: 'symbolEditorControl'
                                              } );
 
@@ -171,7 +166,7 @@ define( [
                                              symbol.style = lineStyle;
 
                                              var lineColor = this.outlineColorPicker.get( 'color' );
-                                             symbol.color = this._dojoColorToEsriColorArray( lineColor );
+                                             symbol.color = lineColor;
 
                                              var lineWidth = this.outlineWidthSlider.get( 'value' );
                                              symbol.width = lineWidth;
@@ -179,13 +174,24 @@ define( [
                                              this._set( 'symbol', symbol );
                                          },
 
+                                         _getSymbolAttr: function () {
+
+                                             if ( this.symbol ) {
+                                                 this.symbol.color = this._dojoColorToEsriColorArray( this.symbol.color );
+                                             }
+
+                                             return this.symbol;
+                                         },
+
                                          _setSymbolAttr: function ( value ) {
+
+                                             value.color = this._esriColorArrayToDojoColor( value.color );
 
                                              if ( this.initialized ) {
 
-                                                 this.outlineColorPicker.set( 'color', this._esriColorArrayToDojoColor( value.color ) );
-                                                 this.outlineWidthSlider.set( 'value', this.symbol.width );
-                                                 this.outlineStylePicker.set( 'lineStyle', this.symbol.style );
+                                                 this.outlineColorPicker.set( 'color', value.color );
+                                                 this.outlineWidthSlider.set( 'value', value.width );
+                                                 this.outlineStylePicker.set( 'lineStyle', value.style );
 
                                              }
 

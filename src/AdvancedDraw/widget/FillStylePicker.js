@@ -59,10 +59,9 @@ define( [
 
                 },
 
-                _onSelectDijitChange: function() {
+                _onSelectDijitChange: function( newValue ) {
 
-                    var value = this.selectDijit.get( 'value' );
-                    this._set( 'fillStyle', value );
+                    this._set( 'fillStyle', newValue );
 
                 }
 
