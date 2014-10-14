@@ -4,7 +4,6 @@ define([
     'dojo/_base/lang',
     //'dojo/_base/array',
 
-    'dojo/_base/Color',
     
     // dom
     'dojo/dom-class',
@@ -44,7 +43,6 @@ define([
     declare,
     lang,
     //array,
-    Color,
 
     domClass,
 

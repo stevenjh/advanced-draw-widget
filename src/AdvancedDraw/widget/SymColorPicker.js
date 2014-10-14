@@ -1,7 +1,6 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
             'dojo/_base/Color',
             'dojo/dom-style',
             'dijit/_WidgetBase',
@@ -18,7 +17,6 @@ define( [
         ],
         function( declare,
                   lang,
-                  array,
                   Color,
                   domStyle,
                   _WidgetBase,
@@ -100,7 +98,7 @@ define( [
                 _updateColorSwatch: function ( hexValue ) {
 
                     if ( this.colorSwatchNode ) {
-                        domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue )
+                        domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue );
                     }
 
                 }

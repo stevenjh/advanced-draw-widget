@@ -95,5 +95,5 @@ module.exports = function (grunt) {
 
     // define the tasks
   grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a web server and opens default browser to preview.', ['jshint', 'connect:server', 'open:server', 'watch']);
-  grunt.registerTask('hint', 'Run simple jshint.', ['jshint']);
+  grunt.registerTask('hint', 'Run simple jshint.', ['jshint', 'watch']);
 };

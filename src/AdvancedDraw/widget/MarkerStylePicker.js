@@ -1,7 +1,6 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
@@ -13,7 +12,6 @@ define( [
         ],
         function( declare,
                   lang,
-                  array,
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
@@ -61,7 +59,7 @@ define( [
 
                 },
 
-                _onSelectDijitChange: function( newIndex ) {
+                _onSelectDijitChange: function() {
 
                     var value = this.selectDijit.get( 'value' );
                     this._set( 'markerStyle', value );

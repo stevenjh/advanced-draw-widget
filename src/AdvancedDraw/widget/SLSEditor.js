@@ -1,8 +1,6 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
-            'dojo/_base/Color',
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
@@ -10,8 +8,6 @@ define( [
             'dijit/layout/ContentPane',
             'src/AdvancedDraw/widget/SymColorPicker',
             'src/AdvancedDraw/widget/LineStylePicker',
-            'src/AdvancedDraw/widget/FillStylePicker',
-            'src/AdvancedDraw/widget/MarkerStylePicker',
             'src/AdvancedDraw/widget/NumericSlider',
             'src/AdvancedDraw/widget/_ColorMixin',
             'dojo/text!./templates/SymbolEditor.html',
@@ -22,8 +18,6 @@ define( [
         ],
         function( declare,
                   lang,
-                  array,
-                  Color,
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
@@ -31,8 +25,6 @@ define( [
                   ContentPane,
                   SymColorPicker,
                   LineStylePicker,
-                  FillStylePicker,
-                  MarkerStylePicker,
                   NumericSlider,
                   _ColorMixin,
                   template,
@@ -109,10 +101,10 @@ define( [
 
                                              this.outlineStylePicker = new LineStylePicker( {
                                                  lineStyle: this.symbol.style,
-                                                 class: 'symbolEditorControl'
+                                                 baseClass: 'symbolEditorControl'
                                              } );
 
-                                             this.outlineStylePicker.watch( 'lineStyle', lang.hitch( this, function ( name, oldValue, value ) {
+                                             this.outlineStylePicker.watch( 'lineStyle', lang.hitch( this, function () {
 
                                                  this._updateSymbolAtt();
 
@@ -126,10 +118,10 @@ define( [
 
                                              this.outlineColorPicker = new SymColorPicker( {
                                                   color: this._esriColorArrayToDojoColor( this.symbol.color ),
-                                                  class: 'symbolEditorControl'
+                                                  baseClass: 'symbolEditorControl'
                                              } );
 
-                                             this.outlineColorPicker.watch( 'color', lang.hitch( this, function ( name, oldValue, value ) {
+                                             this.outlineColorPicker.watch( 'color', lang.hitch( this, function () {
 
                                                  this._updateSymbolAtt();
 
@@ -145,10 +137,10 @@ define( [
                                                  value: this.symbol.width,
                                                  min: 1,
                                                  max: 10,
-                                                 class: 'symbolEditorControl'
+                                                 baseClass: 'symbolEditorControl'
                                              });
 
-                                             this.outlineWidthSlider.watch( 'value', lang.hitch( this, function ( name, oldValue, value ) {
+                                             this.outlineWidthSlider.watch( 'value', lang.hitch( this, function () {
 
                                                  this._updateSymbolAtt();
 
