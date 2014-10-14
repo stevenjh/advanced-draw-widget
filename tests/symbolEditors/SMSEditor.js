@@ -8,6 +8,8 @@ define ( [
          ],
          function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
 
+             var widget;
+             
              registerSuite ( {
                                  name: 'SMSEditor module test',
 
@@ -17,13 +19,16 @@ define ( [
 
                                  // before each test executes
                                  beforeEach: function() {
-                                     // do nothing
+                                     
+                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
+                                     widget.startup();
+
                                  },
 
                                  afterEach: function () {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
+                                     if ( widget ) {
+                                         widget.destroy();
                                      };
 
                                  },
@@ -31,24 +36,38 @@ define ( [
                                  // after the suite is done (all tests)
                                  teardown: function() {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
+                                     if ( widget ) {
+                                         widget.destroy();
                                      };
                                      
                                  },
 
                                  'constructorOptionsTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
-                                     this.widget.startup();
-
+                                     
                                      var expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     var actual = this.widget.get( 'symbol' );
+                                     var actual = widget.get( 'symbol' );
+
+                                     console.log( 'expected/actual: ', expected, actual );
 
                                      assert.deepEqual ( actual,
                                                           expected,
                                                           '.get( symbol ) should return same symbol as passed into constructor.'
+                                     );
+                                 },
+
+                                 'setSymbolStyleTest': function () {
+
+                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected.style = 'esriSMSSquare';
+
+                                     widget.symbolStylePicker._onSelectDijitChange( 3 );
+
+                                     var actual = widget.get( 'symbol' );
+
+                                     assert.strictEqual ( actual.outline.width,
+                                                          expected.outline.width,
+                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
                                      );
                                  },
 
@@ -58,52 +77,49 @@ define ( [
                                      var expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.outline.width = width;
 
-                                     this.widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
-                                     this.widget.startup();
+                                     widget.outlineWidthSlider._onSliderDijitChange( width );
 
-                                     this.widget.outlineWidthSlider._onSliderDijitChange( width );
-
-                                     var actual = this.widget.get( 'symbol' );
+                                     var actual = widget.get( 'symbol' );
 
                                      assert.strictEqual ( actual.outline.width,
                                                         expected.outline.width,
                                                           '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
                                      );
-                                 }/*,
+                                 },
 
                                  'alphaSliderChangeTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { color: color } );
-                                     this.widget.startup();
+                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected.color = [ 255, 0, 0, 191 ];
 
-                                     this.widget._onAlphaSliderChange( 0.75 );
+                                     widget.symbolColorPicker._onAlphaSliderChange( 0.75 );
 
-                                     var expected = Color.fromArray( [ 255, 0, 0, 0.75 ] );
-                                     var actual = this.widget.get( 'color' );
+                                     var actual = widget.get( 'symbol' );
+
+                                     console.log( 'expected/actual: ', expected, actual );
 
                                      assert.deepEqual ( actual,
                                                         expected,
-                                                        '.get( color ) should return color with alpha value modified by new slider value.'
+                                                        '.get( symbol ) should return symbol with color alpha value modified by new slider value.'
                                      );
                                  },
 
                                  'colorPickerChangeTest': function () {
 
-                                     var color = Color.fromHex( '#FF0000' );
-                                     this.widget = new Widget( { color: color } );
-                                     this.widget.startup();
+                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected.color = [ 0, 0, 0, 200 ];
 
-                                     this.widget._onColorPickerChange( '#0000FF' );
+                                     widget.symbolColorPicker._onColorPickerChange( '#000000' );
 
-                                     var expected = Color.fromHex( '#0000FF' );
-                                     var actual = this.widget.get( 'color' );
+                                     var actual = widget.get( 'symbol' );
+
+                                     console.log( 'expected/actual: ', expected, actual );
 
                                      assert.deepEqual ( actual,
                                                         expected,
-                                                        '.get( color ) should return new value of color picker.'
+                                                        '.get( symbol ) should return symbol with color value modified by new color picker color value.'
                                      );
-                                 }*/
+                                 }
 
                              }
              );

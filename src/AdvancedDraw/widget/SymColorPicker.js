@@ -62,7 +62,7 @@ define( [
 
                     this._updateColorSwatch( value.toHex() );
 
-                    this._set( 'color', value );
+                    this.color = value;
 
                 },
 
