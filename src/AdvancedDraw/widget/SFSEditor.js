@@ -49,26 +49,20 @@ define( [
                                          constructor: function( options ) {
 
                                              options = options || {};
+
+                                             if ( !options.symbol ) {
+                                                 options.symbol = defaultConfig.defaultPolygonSymbol;
+                                             }
                                              lang.mixin( this, options );
-                                             this.defaultSymbol = defaultConfig.defaultPolygonSymbol;
+
                                              this.initialized = false;
 
-                                         },
-
-                                         _getDefaultSymbol: function () {
-
-                                             var symbol = this.defaultSymbol;
-                                             return symbol;
+                                             this._set( 'symbol', this.symbol );
 
                                          },
-
                                          postCreate: function () {
 
                                              this.inherited( arguments );
-
-                                             if ( !this.symbol ) {
-                                                 this.symbol = this._getDefaultSymbol();
-                                             }
 
                                              this._initTabContainer();
                                              this._initFillStylePicker();
@@ -124,7 +118,7 @@ define( [
                                          _initFillColorPicker: function () {
 
                                              this.fillColorPicker = new SymColorPicker( {
-                                                 color: this._esriColorArrayToDojoColor( this.symbol.color ),
+                                                 color: this.symbol.color,
                                                  baseClass: 'symbolEditorControl'
                                              } );
 
@@ -158,7 +152,7 @@ define( [
                                          _initOutlineColorPicker: function () {
 
                                              this.outlineColorPicker = new SymColorPicker( {
-                                                  color: this._esriColorArrayToDojoColor( this.symbol.outline.color ),
+                                                  color: this.symbol.outline.color,
                                                   baseClass: 'symbolEditorControl'
                                              } );
 
@@ -212,13 +206,13 @@ define( [
                                              symbol.style = symStyle;
 
                                              var symColor = this.fillColorPicker.get( 'color' );
-                                             symbol.color = this._dojoColorToEsriColorArray( symColor );
+                                             symbol.color = symColor;
 
                                              var outlineStyle = this.outlineStylePicker.get( 'lineStyle' );
                                              symbol.outline.style = outlineStyle;
 
                                              var outlineColor = this.outlineColorPicker.get( 'color' );
-                                             symbol.outline.color = this._dojoColorToEsriColorArray( outlineColor );
+                                             symbol.outline.color = outlineColor;
 
                                              var outlineWidth = this.outlineWidthSlider.get( 'value' );
                                              symbol.outline.width = outlineWidth;
@@ -226,7 +220,20 @@ define( [
                                              this._set( 'symbol', symbol );
                                          },
 
+                                         _getSymbolAttr: function () {
+
+                                             if ( this.symbol ) {
+                                                 this.symbol.color = this._dojoColorToEsriColorArray( this.symbol.color );
+                                                 this.symbol.outline.color = this._dojoColorToEsriColorArray( this.symbol.outline.color );
+                                             }
+
+                                             return this.symbol;
+                                         },
+
                                          _setSymbolAttr: function ( value ) {
+
+                                             value.color = this._esriColorArrayToDojoColor( value.color );
+                                             value.outline.color = this._esriColorArrayToDojoColor( value.outline.color );
 
                                              if ( this.initialized ) {
 
