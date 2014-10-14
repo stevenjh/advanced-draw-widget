@@ -2,33 +2,29 @@
     
     <!-- a stack container layout -->
     <div data-dojo-attach-point="stackNode" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="doLayout:false">
-        
 
-        <div data-dojo-attach-point="defaultPane" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="doLayout:false">
+        <!-- the main draw pane -->
+        <div data-dojo-attach-point="defaultPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: '${i18n.draw}'">
 
-            <!-- the main draw tab -->
-            <div data-dojo-attach-point="drawTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title: '${i18n.draw}'">
-
-                <div class="drawToolsTop">
-                    <button data-dojo-attach-point="undoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.undo}'">${i18n.undo}</button>
-                    <button data-dojo-attach-point="redoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.redo}'">${i18n.redo}</button>
-                </div>
-
-                <!-- the draw combo and cancel buttons -->
-                <div data-dojo-attach-point="drawButtonNode" data-dojo-type="dijit/form/ComboButton" data-dojo-props="autoWidth: false">
-                    <span>${i18n.point}</span>
-                </div>
-                <button data-dojo-attach-point="cancelButtonNode" data-dojo-type="dijit/form/Button" data-dojo-props="disabled: true" data-dojo-attach-event="click: _drawCancel">${i18n.cancel}</button>
-
-                <!-- active draw tool -->
-                <div class="drawStatus"><b>${i18n.activeDrawTool}</b>&nbsp;<span data-dojo-attach-point="drawStatusNode">${i18n.none}</span></div>
-
-                <div class="drawToolsBottom">
-                    <button data-dojo-attach-point="snappingToggleNode" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass: 'fa fa-check iconFixedWidth', checked: true" data-dojo-attach-event="change: _toggleSnapping">Snapping</button>
-                    <button data-dojo-attach-point="continuousToggleNode" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass: 'fa iconFixedWidth', checked: false" data-dojo-attach-event="change: _toggleContinuousDraw">Continuous Draw</button>
-                </div>
-
+            <div class="drawToolsTop">
+                <button data-dojo-attach-point="undoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.undo}'">${i18n.undo}</button>
+                <button data-dojo-attach-point="redoButton" data-dojo-type="dijit/form/Button" data-dojo-props="title: '${i18n.redo}'">${i18n.redo}</button>
             </div>
+
+            <!-- the draw combo and cancel buttons -->
+            <div data-dojo-attach-point="drawButtonNode" data-dojo-type="dijit/form/ComboButton" data-dojo-props="autoWidth: false">
+                <span>${i18n.point}</span>
+            </div>
+            <button data-dojo-attach-point="cancelButtonNode" data-dojo-type="dijit/form/Button" data-dojo-props="disabled: true" data-dojo-attach-event="click: _drawCancel">${i18n.cancel}</button>
+
+            <!-- active draw tool -->
+            <div class="drawStatus"><b>${i18n.activeDrawTool}</b>&nbsp;<span data-dojo-attach-point="drawStatusNode">${i18n.none}</span></div>
+
+            <div class="drawToolsBottom">
+                <button data-dojo-attach-point="snappingToggleNode" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass: 'fa fa-check iconFixedWidth', checked: true" data-dojo-attach-event="change: _toggleSnapping">Snapping</button>
+                <button data-dojo-attach-point="continuousToggleNode" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass: 'fa iconFixedWidth', checked: false" data-dojo-attach-event="change: _toggleContinuousDraw">Continuous Draw</button>
+            </div>
+
         </div>
 
         <!-- additional programmatic panes here -->
