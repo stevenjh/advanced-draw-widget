@@ -34,6 +34,7 @@ define( [
                 min: 0,
                 max: 1,
                 i18n: i18n,
+                label: 'Line width:',
 
                 constructor: function( options ) {
 
@@ -49,7 +50,7 @@ define( [
                         minimun: this.min,
                         maximum: this.max,
                         intermediateChanges: true,
-                        showButtons: false,
+                        showButtons: false
                     }, this.numericSliderNode );
 
                     on( this.slider, 'change', lang.hitch( this, function ( value ) {
@@ -63,7 +64,7 @@ define( [
                 _setValueAttr: function ( value ) {
 
                     this._updateSliderDijit( value );
-                    this._set( 'value', value );
+                    this.value = value;
 
                 },
 

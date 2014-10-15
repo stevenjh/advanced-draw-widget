@@ -1,7 +1,6 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
-            'dojo/_base/array',
             'dojo/_base/Color',
             'dojo/dom-style',
             'dijit/_WidgetBase',
@@ -18,7 +17,6 @@ define( [
         ],
         function( declare,
                   lang,
-                  array,
                   Color,
                   domStyle,
                   _WidgetBase,
@@ -39,12 +37,16 @@ define( [
                 alpha: 1,
                 i18n: i18n,
                 baseClass: 'colorPicker',
+                label: 'Color and alpha:',
 
                 constructor: function( options ) {
 
                     options = options || {};
                     lang.mixin( this, options );
-                    this.color = new Color( '#FFFFFF' );
+
+                    if ( !this.color ){
+                        this.color = new Color( '#FFFFFF' );
+                    }
 
                 },
 
@@ -59,7 +61,7 @@ define( [
 
                     this._updateColorSwatch( value.toHex() );
 
-                    this._set( 'color', value );
+                    this.color = value;
 
                 },
 
@@ -97,7 +99,7 @@ define( [
                 _updateColorSwatch: function ( hexValue ) {
 
                     if ( this.colorSwatchNode ) {
-                        domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue )
+                        domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue );
                     }
 
                 }

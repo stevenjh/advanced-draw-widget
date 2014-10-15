@@ -1,212 +1,203 @@
-define( [
-            'dojo/_base/declare',
-            'dojo/_base/lang',
-            'dojo/_base/array',
-            'dojo/_base/Color',
-            'dijit/_WidgetBase',
-            'dijit/_TemplatedMixin',
-            'dijit/_WidgetsInTemplateMixin',
-            'dijit/layout/TabContainer',
-            'dijit/layout/ContentPane',
-            'src/AdvancedDraw/widget/SymColorPicker',
-            'src/AdvancedDraw/widget/LineStylePicker',
-            'src/AdvancedDraw/widget/FillStylePicker',
-            'src/AdvancedDraw/widget/MarkerStylePicker',
-            'src/AdvancedDraw/widget/NumericSlider',
-            'src/AdvancedDraw/widget/_ColorMixin',
-            'dojo/text!./templates/SymbolEditor.html',
-            'dojo/i18n!../nls/resource',
-            '../modules/_defaultConfig',
-            'xstyle/css!./css/SymbolEditor.css'
+define([
+    'dojo/_base/declare',
+    'dojo/_base/lang',
+    'dijit/_WidgetBase',
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetsInTemplateMixin',
+    'dijit/layout/TabContainer',
+    'dijit/layout/ContentPane',
+    './SymColorPicker',
+    './LineStylePicker',
+    './NumericSlider',
+    './_ColorMixin',
+    'dojo/text!./templates/SymbolEditor.html',
+    'dojo/i18n!../nls/resource',
+    './../advancedDrawConfig',
+    'xstyle/css!./css/SymbolEditor.css'
+], function (
+    declare,
+    lang,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    TabContainer,
+    ContentPane,
+    SymColorPicker,
+    LineStylePicker,
+    NumericSlider,
+    _ColorMixin,
+    template,
+    i18n,
+    advancedDrawConfig
+) {
 
-        ],
-        function( declare,
-                  lang,
-                  array,
-                  Color,
-                  _WidgetBase,
-                  _TemplatedMixin,
-                  _WidgetsInTemplateMixin,
-                  TabContainer,
-                  ContentPane,
-                  SymColorPicker,
-                  LineStylePicker,
-                  FillStylePicker,
-                  MarkerStylePicker,
-                  NumericSlider,
-                  _ColorMixin,
-                  template,
-                  i18n,
-                  defaultConfig
-            ) {
+    var SLSEditor = declare([_WidgetBase,
+        _TemplatedMixin,
+        _WidgetsInTemplateMixin,
+        _ColorMixin
+    ], {
 
-            var SMSEditor = declare( [ _WidgetBase,
-                                       _TemplatedMixin,
-                                       _WidgetsInTemplateMixin,
-                                       _ColorMixin
-                                     ],
-                                     {
+        widgetsInTemplate: true,
+        templateString: template,
+        i18n: i18n,
+        baseClass: 'symbolEditor',
 
-                                         widgetsInTemplate: true,
-                                         templateString: template,
-                                         i18n: i18n,
-                                         baseClass: 'symbolEditor',
+        constructor: function (options) {
 
-                                         constructor: function( options ) {
+            options = options || {};
 
-                                             options = options || {};
-                                             lang.mixin( this, options );
-                                             this.defaultSymbol = defaultConfig.defaultPolylineSymbol;
-                                             this.initialized = false;
+            if (!options.symbol) {
+                options.symbol = advancedDrawConfig.defaultPolylineSymbol;
+            }
+            lang.mixin(this, options);
 
-                                         },
+            this.initialized = false;
 
-                                         _getDefaultSymbol: function () {
+            this._set('symbol', this.symbol);
 
-                                             var symbol = this.defaultSymbol;
-                                             return symbol;
+        },
 
-                                         },
+        postCreate: function () {
 
-                                         postCreate: function () {
+            this.inherited(arguments);
 
-                                             this.inherited( arguments );
+            this._initTabContainer();
+            this._initOutlineStylePicker();
+            this._initOutlineColorPicker();
+            this._initOutlineWidthSlider();
 
-                                             if ( !this.symbol ) {
-                                                 this.symbol = this._getDefaultSymbol();
-                                             }
+            this.initialized = true;
 
-                                             this._initTabContainer();
-                                             this._initOutlineStylePicker();
-                                             this._initOutlineColorPicker();
-                                             this._initOutlineWidthSlider();
+        },
 
-                                             this.initialized = true;
+        startup: function () {
 
-                                         },
+            this.inherited(arguments);
+            this.tabContainer.resize();
 
-                                         startup: function () {
+        },
 
-                                             this.inherited( arguments );
-                                             this.tabContainer.resize();
+        _initTabContainer: function () {
 
-                                         },
+            this.tabContainer = new TabContainer({
+                style: 'height: 100%; width: 100%;',
+                doLayout: false,
+                tabPosition: 'top'
+            }, this.tabContainerNode);
 
-                                         _initTabContainer: function () {
+            this.outlinePane = this._getContentPane('Line Style');
+            this.tabContainer.addChild(this.outlinePane);
+            this.tabContainer.startup();
+        },
 
-                                             this.tabContainer = new TabContainer( {
-                                                    style: 'height: 100%; width: 100%;',
-                                                    doLayout: false,
-                                                    tabPosition: 'top'
-                                             }, this.tabContainerNode );
+        _initOutlineStylePicker: function () {
 
-                                             this.outlinePane = this._getContentPane( 'Line Style' );
-                                             this.tabContainer.addChild( this.outlinePane );
-                                             this.tabContainer.startup();
-                                         },
+            this.outlineStylePicker = new LineStylePicker({
+                lineStyle: this.symbol.style,
+                baseClass: 'symbolEditorControl'
+            });
 
-                                         _initOutlineStylePicker: function () {
+            this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
-                                             this.outlineStylePicker = new LineStylePicker( {
-                                                 lineStyle: this.symbol.style,
-                                                 class: 'symbolEditorControl'
-                                             } );
+                this._updateSymbolAtt();
 
-                                             this.outlineStylePicker.watch( 'lineStyle', lang.hitch( this, function ( name, oldValue, value ) {
+            }));
 
-                                                 this._updateSymbolAtt();
+            this.outlinePane.addChild(this.outlineStylePicker);
 
-                                             } ) );
+        },
 
-                                             this.outlinePane.addChild( this.outlineStylePicker );
+        _initOutlineColorPicker: function () {
 
-                                         },
+            this.outlineColorPicker = new SymColorPicker({
+                color: this.symbol.color,
+                baseClass: 'symbolEditorControl'
+            });
 
-                                         _initOutlineColorPicker: function () {
+            this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
-                                             this.outlineColorPicker = new SymColorPicker( {
-                                                  color: this._esriColorArrayToDojoColor( this.symbol.color ),
-                                                  class: 'symbolEditorControl'
-                                             } );
+                this._updateSymbolAtt();
 
-                                             this.outlineColorPicker.watch( 'color', lang.hitch( this, function ( name, oldValue, value ) {
+            }));
 
-                                                 this._updateSymbolAtt();
+            this.outlinePane.addChild(this.outlineColorPicker);
 
-                                             } ) );
+        },
 
-                                             this.outlinePane.addChild( this.outlineColorPicker );
+        _initOutlineWidthSlider: function () {
 
-                                         },
+            this.outlineWidthSlider = new NumericSlider({
+                value: this.symbol.width,
+                min: 1,
+                max: 10,
+                baseClass: 'symbolEditorControl'
+            });
 
-                                         _initOutlineWidthSlider: function () {
+            this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
-                                             this.outlineWidthSlider = new NumericSlider( {
-                                                 value: this.symbol.width,
-                                                 min: 1,
-                                                 max: 10,
-                                                 class: 'symbolEditorControl'
-                                             });
+                this._updateSymbolAtt();
 
-                                             this.outlineWidthSlider.watch( 'value', lang.hitch( this, function ( name, oldValue, value ) {
+            }));
 
-                                                 this._updateSymbolAtt();
+            this.outlinePane.addChild(this.outlineWidthSlider);
 
-                                             } ) );
+        },
 
-                                             this.outlinePane.addChild( this.outlineWidthSlider );
+        _getContentPane: function (title) {
 
-                                         },
+            var contentPane = new ContentPane({
+                title: title
+            });
 
-                                         _getContentPane: function ( title ) {
+            return contentPane;
+        },
 
-                                             var contentPane = new ContentPane( {
-                                                title: title
-                                             } );
+        _updateSymbolAtt: function () {
 
-                                             return contentPane;
-                                         },
+            if (!this.initialized) {
+                return;
+            }
 
-                                         _updateSymbolAtt: function () {
+            var symbol = lang.clone(this.symbol);
 
-                                             if ( !this.initialized ) {
-                                                 return;
-                                             }
+            var lineStyle = this.outlineStylePicker.get('lineStyle');
+            symbol.style = lineStyle;
 
-                                             var symbol = lang.clone( this.symbol );
+            var lineColor = this.outlineColorPicker.get('color');
+            symbol.color = lineColor;
 
-                                             var lineStyle = this.outlineStylePicker.get( 'lineStyle' );
-                                             symbol.style = lineStyle;
+            var lineWidth = this.outlineWidthSlider.get('value');
+            symbol.width = lineWidth;
 
-                                             var lineColor = this.outlineColorPicker.get( 'color' );
-                                             symbol.color = this._dojoColorToEsriColorArray( lineColor );
+            this._set('symbol', symbol);
+        },
 
-                                             var lineWidth = this.outlineWidthSlider.get( 'value' );
-                                             symbol.width = lineWidth;
+        _getSymbolAttr: function () {
 
-                                             this._set( 'symbol', symbol );
-                                         },
+            if (this.symbol) {
+                this.symbol.color = this._dojoColorToEsriColorArray(this.symbol.color);
+            }
 
-                                         _setSymbolAttr: function ( value ) {
+            return this.symbol;
+        },
 
-                                             if ( this.initialized ) {
+        _setSymbolAttr: function (value) {
 
-                                                 this.outlineColorPicker.set( 'color', this._esriColorArrayToDojoColor( value.color ) );
-                                                 this.outlineWidthSlider.set( 'value', this.symbol.width );
-                                                 this.outlineStylePicker.set( 'lineStyle', this.symbol.style );
+            value.color = this._esriColorArrayToDojoColor(value.color);
 
-                                             }
+            if (this.initialized) {
 
-                                             this.symbol = value;
+                this.outlineColorPicker.set('color', value.color);
+                this.outlineWidthSlider.set('value', value.width);
+                this.outlineStylePicker.set('lineStyle', value.style);
 
-                                         }
+            }
 
-                                     } );
-
-            return SMSEditor;
-
-
+            this.symbol = value;
 
         }
 
-);
+    });
+
+    return SLSEditor;
+});
