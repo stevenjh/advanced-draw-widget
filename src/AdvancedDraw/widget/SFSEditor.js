@@ -14,7 +14,7 @@ define([
 	'dojo/text!./templates/SymbolEditor.html',
 	'dojo/i18n!../nls/resource',
 	'./../advancedDrawConfig',
-	'xstyle/css!./css/SymbolEditor.css'
+	'xstyle/css!./css/SymbolEditors.css'
 ], function (
 	declare,
 	lang,
