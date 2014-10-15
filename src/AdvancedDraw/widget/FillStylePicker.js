@@ -4,10 +4,10 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!src/AdvancedDraw/widget/templates/FillStylePicker.html',
-            'dojo/i18n!src/AdvancedDraw/nls/resource',
+            'dojo/text!./templates/FillStylePicker.html',
+            'dojo/i18n!../nls/resource',
             'dijit/form/Select',
-            'xstyle/css!src/AdvancedDraw/widget/css/FillStylePicker.css'
+            'xstyle/css!./css/FillStylePicker.css'
 
         ],
         function( declare,
