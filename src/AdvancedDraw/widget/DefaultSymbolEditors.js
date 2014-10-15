@@ -4,14 +4,10 @@ define( [
             'src/AdvancedDraw/widget/SMSEditor',
             'src/AdvancedDraw/widget/SLSEditor',
             'src/AdvancedDraw/widget/SFSEditor',
-            'dijit/_WidgetBase',
-            'dijit/_TemplatedMixin',
-            'dijit/_WidgetsInTemplateMixin',
-            'dojo/text!./templates/DefaultSymbolEditors.html',
+            'dijit/layout/StackContainer',
             'dojo/i18n!../nls/resource',
             'esri/symbols/jsonUtils',
-            'xstyle/css!./css/DefaultSymbolEditors.css',
-            'dijit/layout/StackContainer'
+            'xstyle/css!./css/DefaultSymbolEditors.css'
 
         ],
         function( declare,
@@ -19,20 +15,15 @@ define( [
                   SMSEditor,
                   SLSEditor,
                   SFSEditor,
-                  _WidgetBase,
-                  _TemplatedMixin,
-                  _WidgetsInTemplateMixin,
-                  template,
+                  StackContainer,
                   i18n,
                   symUtil
 
             ) {
 
-            var DefaultSymbolEditors = declare( [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+            var DefaultSymbolEditors = declare( [ StackContainer ], {
 
                 i18n: i18n,
-                templateString: template,
-                widgetsInTemplate: true,
                 baseClass: 'defaultSymbolEditors',
 
                 constructor: function( options ) {
@@ -64,7 +55,7 @@ define( [
                         }
 
                     } ) );
-                    this.stackContainerNode.addChild( this.smsEditor );
+                    this.addChild( this.smsEditor );
                     this.smsEditor.set( 'symbol', this.symbols.point.toJson() );
 
                 },
@@ -81,7 +72,7 @@ define( [
                         }
 
                     } ) );
-                    this.stackContainerNode.addChild( this.slsEditor );
+                    this.addChild( this.slsEditor );
                     this.slsEditor.set( 'symbol', this.symbols.polyline.toJson() );
 
                 },
@@ -99,21 +90,21 @@ define( [
                         }
 
                     } ) );
-                    this.stackContainerNode.addChild( this.sfsEditor );
+                    this.addChild( this.sfsEditor );
                     this.sfsEditor.set( 'symbol', this.symbols.polygon.toJson() );
 
                 },
 
                 showSMSEditor: function () {
-                    this.stackContainerNode.selectChild( this.smsEditor );
+                    this.selectChild( this.smsEditor );
                 },
 
                 showSLSEditor: function () {
-                    this.stackContainerNode.selectChild( this.slsEditor );
+                    this.selectChild( this.slsEditor );
                 },
 
                 showSFSEditor: function () {
-                    this.stackContainerNode.selectChild( this.sfsEditor );
+                    this.selectChild( this.sfsEditor );
                 }
 
             } );
