@@ -1,0 +1,43 @@
+<div data-dojo-attach-point="colorPickerNode"
+        class="${baseClass}">
+
+    <label class="controlLabel">${label}</label>
+
+    <div class="colorPicker">
+
+        <div class="colorPickerDropdown">
+
+            <span data-dojo-type="dijit/form/DropDownButton"
+                 data-dojo-attach-point="colorPickerDropdown">
+                <div>
+                    ${i18n.widgets.symbolColorPicker.label}
+                </div>
+                <div data-dojo-type="dijit/TooltipDialog">
+                    <div data-dojo-type="dojox/widget/ColorPicker"
+                         data-dojo-attach-point="colorPickerDijit"
+                         data-dojo-attach-event="onChange:_onColorPickerChange"
+                         data-dojo-props="value:'${color}'"></div>
+                </div>
+            </span>
+
+            <div data-dojo-attach-point="colorSwatchNode"
+                 class="colorSwatch"></div>
+
+        </div>
+
+        <div class="colorPickerSlider">
+
+            <div data-dojo-type="dijit/form/HorizontalSlider"
+                 data-dojo-attach-point="alphaSlider"
+                 data-dojo-props="intermediateChanges: true, minimum: 0, maximum: 1, value: ${alpha}, showButtons: false"
+                 data-dojo-attach-event="onChange: _onAlphaSliderChange"
+                 class="alphaSlider"></div>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

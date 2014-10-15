@@ -1,0 +1,20 @@
+<div class="lineStylePickerDijit" class="${baseClass}">
+
+    <label class="controlLabel">${label}</label>
+
+    <select type="select"
+           data-dojo-type="dijit/form/Select"
+           data-dojo-props="class: 'dijitSelect',sortByLabel:false"
+           data-dojo-attach-point="selectDijit"
+           data-dojo-attach-event="onChange:_onSelectDijitChange" >
+
+        <option value="esriSLSSolid">${i18n.esriStyles.line.esriSLSSolid}</option>
+        <option value="esriSLSDash">${i18n.esriStyles.line.esriSLSDash}</option>
+        <option value="esriSLSDashDot">${i18n.esriStyles.line.esriSLSDashDot}</option>
+        <option value="esriSLSDashDotDot">${i18n.esriStyles.line.esriSLSDashDotDot}</option>
+        <option value="esriSLSDot">${i18n.esriStyles.line.esriSLSDot}</option>
+        <option value="esriSLSNull">${i18n.esriStyles.line.esriSLSNull}</option>
+
+    </select>
+
+</div>

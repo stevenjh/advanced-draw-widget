@@ -3,29 +3,29 @@ define([], function () {
     return {
         // default symbols
         defaultPolygonSymbol: {
-            color: [0, 0, 0, 64],
+            color: [0, 255, 0, 64],
             outline: {
-                color: [0, 0, 0, 255],
+                color: [255, 0, 0, 255],
                 width: 2,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
             },
             type: 'esriSFS',
-            style: 'esriSFSSolid'
+            style: 'esriSFSForwardDiagonal'
         },
         defaultPolylineSymbol: {
-            color: [0, 0, 0, 255],
+            color: [255, 0, 0, 255],
             width: 2,
             type: 'esriSLS',
             style: 'esriSLSSolid'
         },
         defaultPointSymbol: {
-            color: [0, 0, 0, 255],
+            color: [255, 0, 0, 200],
             size: 10.5,
             type: 'esriSMS',
             style: 'esriSMSCircle',
             outline: {
-                color: [255, 255, 255, 255],
+                color: [255, 0, 0, 255],
                 width: 1.5,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'

@@ -1,0 +1,8 @@
+.symbolEditor {
+    width: 100%;
+}
+
+.symbolEditor .symbolEditorControl {
+    margin-bottom: 5px;
+    margin-top: 3px;
+}

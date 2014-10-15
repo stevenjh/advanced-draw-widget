@@ -1,0 +1,28 @@
+.colorPicker {
+    display: inline-flex;
+    margin-bottom: -15px;
+}
+
+.colorPicker .dijitButtonText {
+    padding-left: 20px;
+}
+
+.colorPicker .colorSwatch {
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    position: relative;
+    left: 8px;
+    top: -21px;
+}
+
+.colorPicker .colorPickerDropdown {
+    display: inline-block;
+}
+
+
+.colorPicker .colorPickerSlider {
+    padding-left: 10px;
+    padding-top: 12px;
+    width: 100%;
+}

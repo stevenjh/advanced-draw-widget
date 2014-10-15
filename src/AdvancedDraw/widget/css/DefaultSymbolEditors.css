@@ -1,0 +1,12 @@
+.defaultSymbolEditors {
+    height: 100%;
+    width: 100%;
+}
+
+.symbolEditorControl .controlLabel {
+    font-weight: normal;
+    color: darkgray;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    display: block;
+}

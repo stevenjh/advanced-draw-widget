@@ -1,0 +1,22 @@
+<div class="fillStylePickerDijit" class="${baseClass}">
+
+    <label class="controlLabel">${label}</label>
+
+    <select type="select"
+           data-dojo-type="dijit/form/Select"
+           data-dojo-props="class: 'dijitSelect',sortByLabel:false"
+           data-dojo-attach-point="selectDijit"
+           data-dojo-attach-event="onChange:_onSelectDijitChange" >
+
+        <option value="esriSFSSolid">${i18n.esriStyles.fill.esriSFSSolid}</option>
+        <option value="esriSFSBackwardDiagonal">${i18n.esriStyles.fill.esriSFSBackwardDiagonal}</option>
+        <option value="esriSFSCross">${i18n.esriStyles.fill.esriSFSCross}</option>
+        <option value="esriSFSDiagonalCross">${i18n.esriStyles.fill.esriSFSDiagonalCross}</option>
+        <option value="esriSFSForwardDiagonal">${i18n.esriStyles.fill.esriSFSForwardDiagonal}</option>
+        <option value="esriSFSHorizontal">${i18n.esriStyles.fill.esriSFSHorizontal}</option>
+        <option value="esriSFSVertical">${i18n.esriStyles.fill.esriSFSVertical}</option>
+        <option value="esriSFSNull">${i18n.esriStyles.fill.esriSFSNull}</option>
+
+    </select>
+
+</div>

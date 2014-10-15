@@ -1,0 +1,20 @@
+<div class="markerStylePickerDijit" class="${baseClass}">
+
+    <label class="controlLabel">${label}</label>
+
+    <select type="select"
+           data-dojo-type="dijit/form/Select"
+           data-dojo-props="class: 'dijitSelect',sortByLabel:false"
+           data-dojo-attach-point="selectDijit"
+           data-dojo-attach-event="onChange:_onSelectDijitChange" >
+
+        <option value="esriSMSCircle">${i18n.esriStyles.marker.esriSMSCircle}</option>
+        <option value="esriSMSCross">${i18n.esriStyles.marker.esriSMSCross}</option>
+        <option value="esriSMSDiamond">${i18n.esriStyles.marker.esriSMSDiamond}</option>
+        <option value="esriSMSSquare">${i18n.esriStyles.marker.esriSMSSquare}</option>
+        <option value="esriSMSX">${i18n.esriStyles.marker.esriSMSX}</option>
+        <option value="esriSMSTriangle">${i18n.esriStyles.marker.esriSMSTriangle}</option>
+
+    </select>
+
+</div>

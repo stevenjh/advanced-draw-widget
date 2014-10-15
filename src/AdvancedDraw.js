@@ -37,6 +37,7 @@ define([
     './AdvancedDraw/undo/editGeometryGraphicOp',
 
     './AdvancedDraw/widget/TextTooltipDialog', // advanced draw widgets
+    './AdvancedDraw/widget/DefaultSymbolEditors',
 
     'dijit/popup', // programmatic dijits
     'dijit/Menu',
@@ -47,7 +48,10 @@ define([
     'dijit/layout/StackContainer',
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
+    'dijit/Toolbar',
+    'dijit/form/CheckBox',
     'dijit/form/Button',
+    'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
     'dijit/form/ToggleButton',
     'xstyle/css!./AdvancedDraw/css/AdvancedDraw.css'
@@ -56,23 +60,17 @@ define([
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
     template,
-
     advancedDrawConfig,
     i18n,
-
     declare,
     lang,
-
     on,
     //topic,
-
     keys,
-
     html,
     dom,
     domGeom,
     domClass,
-
     Draw,
     Edit,
     GraphicsLayer,
@@ -83,13 +81,11 @@ define([
     screenUtils,
     webMercatorUtils,
     UndoManager,
-
     AddGraphicOp,
     DeleteGraphicOp,
     EditGeometryGraphicOp,
-
     TextTooltipDialog,
-
+    DefaultSymbolEditors,
     popup,
     Menu,
     MenuItem,
@@ -174,16 +170,14 @@ define([
             // init layers
             this._initLayers(config, map, this._layers);
             // default symbols from config
-            this._symbols.polygon = symbolUtils.fromJson(config.defaultPolygonSymbol);
-            this._symbols.polyline = symbolUtils.fromJson(config.defaultPolylineSymbol);
-            this._symbols.point = symbolUtils.fromJson(config.defaultPointSymbol);
-            this._symbols.text = symbolUtils.fromJson(config.defaultTextSymbol);
-            this._symbols.temp = symbolUtils.fromJson(config.defaultTempSymbol);
+            this._initDefaultSymbols(config);
             // init draw menu
             //   can be used elsewhere like a map context menu or a dropdown
             this._drawMenu = this._initDrawMenu();
-            this.drawButtonNode.set('dropDown', this._drawMenu);
-            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', 'point', i18n.point));
+            this.drawButton.set('dropDown', this._drawMenu);
+
+            // init options menu
+
             // init draw keys
             this._initDrawKeys();
             // init snapping
@@ -316,33 +310,47 @@ define([
             this._stickyLayersHandler.resume();
         },
 
+        // init default symbol and editors
+        _initDefaultSymbols: function (config) {
+            this._symbols.polygon = symbolUtils.fromJson(config.defaultPolygonSymbol);
+            this._symbols.polyline = symbolUtils.fromJson(config.defaultPolylineSymbol);
+            this._symbols.point = symbolUtils.fromJson(config.defaultPointSymbol);
+            this._symbols.text = symbolUtils.fromJson(config.defaultTextSymbol);
+            this._symbols.temp = symbolUtils.fromJson(config.defaultTempSymbol);
+
+            this._defaultSymbolEditors = new DefaultSymbolEditors({
+                symbols: this._symbols
+            }, this.defaultSymbolEditorsNode);
+            this._defaultSymbolEditors.startup();
+        },
+
         // init draw menu
         _initDrawMenu: function () {
             var menu = new Menu();
             menu.addChild(new MenuItem({
                 label: i18n.point,
-                onClick: lang.hitch(this, '_draw', 'point', i18n.point)
+                onClick: lang.hitch(this, '_draw', 'point')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.polyline,
-                onClick: lang.hitch(this, '_draw', 'polyline', i18n.polyline)
+                onClick: lang.hitch(this, '_draw', 'polyline')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.polygon,
-                onClick: lang.hitch(this, '_draw', 'polygon', i18n.polygon)
+                onClick: lang.hitch(this, '_draw', 'polygon')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.text,
-                onClick: lang.hitch(this, '_draw', 'text', i18n.text)
+                onClick: lang.hitch(this, '_draw', 'text')
             }));
             var freehand = new Menu();
             freehand.addChild(new MenuItem({
                 label: i18n.polyline,
-                onClick: lang.hitch(this, '_draw', 'freehandpolyline', i18n.freehandpolyline)
+                onClick: lang.hitch(this, '_draw', 'freehandpolyline')
             }));
             freehand.addChild(new MenuItem({
                 label: i18n.polygon,
-                onClick: lang.hitch(this, '_draw', 'freehandpolygon', i18n.freehandpolygon)
+                onClick: lang.hitch(this, '_draw', 'freehandpolygon')
             }));
             freehand.startup();
             menu.addChild(new PopupMenuItem({
@@ -352,17 +360,28 @@ define([
             var shapes = new Menu();
             shapes.addChild(new MenuItem({
                 label: i18n.rectangle,
-                onClick: lang.hitch(this, '_draw', 'extent', i18n.rectangle)
+                onClick: lang.hitch(this, '_draw', 'extent')
             }));
             shapes.addChild(new MenuItem({
                 label: i18n.circle,
-                onClick: lang.hitch(this, '_draw', 'circle', i18n.circle)
+                onClick: lang.hitch(this, '_draw', 'circle')
             }));
             shapes.startup();
             menu.addChild(new PopupMenuItem({
                 label: i18n.shapes,
                 popup: shapes
             }));
+            menu.startup();
+            return menu;
+        },
+
+        // init options menu
+        _initOptionsMenu: function () {
+            var menu = new Menu();
+            menu.addChild(new MenuItem({
+                label: i18n.point
+            }));
+
             menu.startup();
             return menu;
         },
@@ -392,14 +411,29 @@ define([
         },
 
         // housekeeping and activate draw toolbar
-        _draw: function (type, label) {
-            this._drawButtonClickHandler.remove();
-            this._drawButtonClickHandler = on(this.drawButtonNode, 'click', lang.hitch(this, '_draw', type, label));
-            this.drawButtonNode.set('label', label);
+        _draw: function (type) {
             if (this._drawTb._geometryType) {
                 this._drawTb.deactivate();
             }
-            this.cancelButtonNode.set('disabled', false);
+            switch (type) {
+            case 'point':
+                this._defaultSymbolEditors.showSMSEditor();
+                break;
+            case 'polyline':
+            case 'freehandpolyline':
+                this._defaultSymbolEditors.showSLSEditor();
+                break;
+            case 'polygon':
+            case 'freehandpolygon':
+            case 'extent':
+            case 'circle':
+                this._defaultSymbolEditors.showSFSEditor();
+                break;
+            default:
+                this._defaultSymbolEditors.showSMSEditor();
+                break;
+            }
+            this.cancelButton.set('disabled', false);
             this.snappingToggleNode.set('disabled', true);
             this.continuousToggleNode.set('disabled', true);
             if (type === 'extent') {
@@ -507,7 +541,7 @@ define([
         // cancel drawing
         _drawCancel: function () {
             this._drawTb.deactivate();
-            this.cancelButtonNode.set('disabled', true);
+            this.cancelButton.set('disabled', true);
             this.snappingToggleNode.set('disabled', false);
             this.continuousToggleNode.set('disabled', false);
             html.set(this.drawStatusNode, i18n.none);
