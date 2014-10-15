@@ -18,6 +18,12 @@ define({
         redo: 'Redo',
         activeDrawTool: 'Active Draw Tool:',
         none: 'None',
+        options: 'Options',
+        optionsMenu: {
+            zoomAll: 'Zoom to All',
+            deleteAll: 'Delete All',
+            settings: 'Settings'
+        },
         textTooltipDialog: {
             placeholder: 'Add text',
             addText: 'Add Text'
