@@ -4,7 +4,7 @@ define ( [
              'dojo/_base/lang',
              'dojo/_base/Color',
              'adw/widget/SLSEditor',
-             'adw/modules/_defaultConfig'
+             'adw/advancedDrawConfig'
          ],
          function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
 
