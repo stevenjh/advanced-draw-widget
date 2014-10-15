@@ -34,6 +34,7 @@ define( [
                 min: 0,
                 max: 1,
                 i18n: i18n,
+                label: 'Line width:',
 
                 constructor: function( options ) {
 

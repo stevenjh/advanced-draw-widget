@@ -3,7 +3,7 @@ define ( [
              'intern/chai!assert',
              'dojo/_base/lang',
              'dojo/_base/Color',
-             'adw/widget/SLSEditor',
+             'adw/widget/SFSEditor',
              'adw/modules/_defaultConfig'
          ],
          function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
@@ -11,7 +11,7 @@ define ( [
              var widget;
              
              registerSuite ( {
-                                 name: 'SLSEditor module test',
+                                 name: 'SMSEditor module test',
 
                                  setup: function () {
                                     // do nothing
@@ -20,7 +20,7 @@ define ( [
                                  // before each test executes
                                  beforeEach: function() {
                                      
-                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPolylineSymbol ) } );
+                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPolygonSymbol ) } );
                                      widget.startup();
 
                                  },
@@ -45,7 +45,7 @@ define ( [
                                  'constructorOptionsTest': function () {
 
                                      
-                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
+                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
                                      var actual = widget.get( 'symbol' );
 
                                      console.log( 'expected/actual: ', expected, actual );
@@ -58,45 +58,41 @@ define ( [
 
                                  'setSymbolStyleTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
-                                     expected.style = 'esriSLSDashDotDot';
+                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
+                                     expected.style = 'esriSFSDiagonalCross';
 
-                                     widget.outlineStylePicker._onSelectDijitChange( 'esriSLSDashDotDot' );
+                                     widget.fillStylePicker._onSelectDijitChange( 3 );
 
                                      var actual = widget.get( 'symbol' );
 
-                                     console.log( 'expected/actual: ', expected, actual );
-
-                                     assert.deepEqual ( actual,
-                                                          expected,
-                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSLSDashDotDot ).'
+                                     assert.strictEqual ( actual.outline.width,
+                                                          expected.outline.width,
+                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
                                      );
                                  },
 
                                  'setOutlineWidthTest': function () {
 
                                      var width = 6.3;
-                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
-                                     expected.width = width;
+                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
+                                     expected.outline.width = width;
 
                                      widget.outlineWidthSlider._onSliderDijitChange( width );
 
                                      var actual = widget.get( 'symbol' );
 
-                                     console.log( 'expected/actual: ', expected, actual );
-
-                                     assert.deepEqual ( actual,
-                                                        expected,
+                                     assert.strictEqual ( actual.outline.width,
+                                                        expected.outline.width,
                                                           '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
                                      );
                                  },
 
                                  'alphaSliderChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
-                                     expected.color = [ 255, 0, 0, 191 ];
+                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
+                                     expected.color = [ 0, 255, 0, 191 ];
 
-                                     widget.outlineColorPicker._onAlphaSliderChange( 0.75 );
+                                     widget.fillColorPicker._onAlphaSliderChange( 0.75 );
 
                                      var actual = widget.get( 'symbol' );
 
@@ -110,10 +106,10 @@ define ( [
 
                                  'colorPickerChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
-                                     expected.color = [ 0, 0, 0, 255 ];
+                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
+                                     expected.color = [ 0, 0, 0, 64 ];
 
-                                     widget.outlineColorPicker._onColorPickerChange( '#000000' );
+                                     widget.fillColorPicker._onColorPickerChange( '#000000' );
 
                                      var actual = widget.get( 'symbol' );
 

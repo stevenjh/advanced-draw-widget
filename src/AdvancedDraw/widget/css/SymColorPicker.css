@@ -1,5 +1,6 @@
 .colorPicker {
     display: inline-flex;
+    margin-bottom: -15px;
 }
 
 .colorPicker .dijitButtonText {

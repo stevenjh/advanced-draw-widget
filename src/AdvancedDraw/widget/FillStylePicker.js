@@ -29,6 +29,7 @@ define( [
                 templateString: template,
                 fillStyle: 'esriSFSSolid',
                 i18n: i18n,
+                label: 'Fill style:',
 
                 constructor: function( options ) {
 
@@ -59,10 +60,9 @@ define( [
 
                 },
 
-                _onSelectDijitChange: function() {
+                _onSelectDijitChange: function( newValue ) {
 
-                    var value = this.selectDijit.get( 'value' );
-                    this._set( 'fillStyle', value );
+                    this._set( 'fillStyle', newValue );
 
                 }
 

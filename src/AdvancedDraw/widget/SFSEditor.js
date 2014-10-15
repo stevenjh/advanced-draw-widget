@@ -1,243 +1,253 @@
 define([
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dijit/_WidgetBase',
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetsInTemplateMixin',
-    'dijit/layout/TabContainer',
-    'dijit/layout/ContentPane',
-    './SymColorPicker',
-    './LineStylePicker',
-    './FillStylePicker',
-    './NumericSlider',
-    './_ColorMixin',
-    'dojo/text!./templates/SymbolEditor.html',
-    'dojo/i18n!../nls/resource',
-    './../advancedDrawConfig',
-    'xstyle/css!./css/SymbolEditor.css'
+	'dojo/_base/declare',
+	'dojo/_base/lang',
+	'dijit/_WidgetBase',
+	'dijit/_TemplatedMixin',
+	'dijit/_WidgetsInTemplateMixin',
+	'dijit/layout/TabContainer',
+	'dijit/layout/ContentPane',
+	'./SymColorPicker',
+	'./LineStylePicker',
+	'./FillStylePicker',
+	'./NumericSlider',
+	'./_ColorMixin',
+	'dojo/text!./templates/SymbolEditor.html',
+	'dojo/i18n!../nls/resource',
+	'./../advancedDrawConfig',
+	'xstyle/css!./css/SymbolEditor.css'
 ], function (
-    declare,
-    lang,
-    _WidgetBase,
-    _TemplatedMixin,
-    _WidgetsInTemplateMixin,
-    TabContainer,
-    ContentPane,
-    SymColorPicker,
-    LineStylePicker,
-    FillStylePicker,
-    NumericSlider,
-    _ColorMixin,
-    template,
-    i18n,
-    advancedDrawConfig
+	declare,
+	lang,
+	_WidgetBase,
+	_TemplatedMixin,
+	_WidgetsInTemplateMixin,
+	TabContainer,
+	ContentPane,
+	SymColorPicker,
+	LineStylePicker,
+	FillStylePicker,
+	NumericSlider,
+	_ColorMixin,
+	template,
+	i18n,
+	advancedDrawConfig
 ) {
 
-    var SMSEditor = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _ColorMixin], {
+	var SFSEditor = declare([_WidgetBase,
+		_TemplatedMixin,
+		_WidgetsInTemplateMixin,
+		_ColorMixin
+	], {
 
-        widgetsInTemplate: true,
-        templateString: template,
-        i18n: i18n,
-        baseClass: 'symbolEditor',
+		widgetsInTemplate: true,
+		templateString: template,
+		i18n: i18n,
+		baseClass: 'symbolEditor',
 
-        constructor: function (options) {
+		constructor: function (options) {
 
-            options = options || {};
-            lang.mixin(this, options);
-            this.defaultSymbol = advancedDrawConfig.defaultPolygonSymbol;
-            this.initialized = false;
+			options = options || {};
 
-        },
+			if (!options.symbol) {
+				options.symbol = advancedDrawConfig.defaultPolygonSymbol;
+			}
+			lang.mixin(this, options);
 
-        _getDefaultSymbol: function () {
+			this.initialized = false;
 
-            var symbol = this.defaultSymbol;
-            return symbol;
+			this._set('symbol', this.symbol);
 
-        },
+		},
+		postCreate: function () {
 
-        postCreate: function () {
+			this.inherited(arguments);
 
-            this.inherited(arguments);
+			this._initTabContainer();
+			this._initFillStylePicker();
+			this._initFillColorPicker();
 
-            if (!this.symbol) {
-                this.symbol = this._getDefaultSymbol();
-            }
+			this._initOutlineStylePicker();
+			this._initOutlineColorPicker();
+			this._initOutlineWidthSlider();
 
-            this._initTabContainer();
-            this._initFillStylePicker();
-            this._initFillColorPicker();
+			this.initialized = true;
 
-            this._initOutlineStylePicker();
-            this._initOutlineColorPicker();
-            this._initOutlineWidthSlider();
+		},
 
-            this.initialized = true;
+		startup: function () {
 
-        },
+			this.inherited(arguments);
+			this.tabContainer.resize();
 
-        startup: function () {
+		},
 
-            this.inherited(arguments);
-            this.tabContainer.resize();
+		_initTabContainer: function () {
 
-        },
+			this.tabContainer = new TabContainer({
+				style: 'height: 100%; width: 100%;',
+				doLayout: false,
+				tabPosition: 'top'
+			}, this.tabContainerNode);
 
-        _initTabContainer: function () {
+			this.fillPane = this._getContentPane('Fill');
+			this.outlinePane = this._getContentPane('Outline');
+			this.tabContainer.addChild(this.fillPane);
+			this.tabContainer.addChild(this.outlinePane);
+			this.tabContainer.startup();
+		},
 
-            this.tabContainer = new TabContainer({
-                style: 'height: 100%; width: 100%;',
-                doLayout: false,
-                tabPosition: 'top'
-            }, this.tabContainerNode);
+		_initFillStylePicker: function () {
 
-            this.fillPane = this._getContentPane('Fill');
-            this.outlinePane = this._getContentPane('Outline');
-            this.tabContainer.addChild(this.fillPane);
-            this.tabContainer.addChild(this.outlinePane);
-            this.tabContainer.startup();
-        },
+			this.fillStylePicker = new FillStylePicker({
+				fillStyle: this.symbol.style,
+				baseClass: 'symbolEditorControl'
+			});
 
-        _initFillStylePicker: function () {
+			this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
 
-            this.fillStylePicker = new FillStylePicker({
-                fillStyle: this.symbol.style,
-                baseClass: 'symbolEditorControl'
-            });
+				this._updateSymbolAtt();
 
-            this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
+			}));
 
-                this._updateSymbolAtt();
+			this.fillPane.addChild(this.fillStylePicker);
 
-            }));
+		},
 
-            this.fillPane.addChild(this.fillStylePicker);
+		_initFillColorPicker: function () {
 
-        },
+			this.fillColorPicker = new SymColorPicker({
+				color: this.symbol.color,
+				baseClass: 'symbolEditorControl'
+			});
 
-        _initFillColorPicker: function () {
+			this.fillColorPicker.watch('color', lang.hitch(this, function () {
 
-            this.fillColorPicker = new SymColorPicker({
-                color: this._esriColorArrayToDojoColor(this.symbol.color),
-                baseClass: 'symbolEditorControl'
-            });
+				this._updateSymbolAtt();
 
-            this.fillColorPicker.watch('color', lang.hitch(this, function () {
+			}));
 
-                this._updateSymbolAtt();
+			this.fillPane.addChild(this.fillColorPicker);
 
-            }));
+		},
 
-            this.fillPane.addChild(this.fillColorPicker);
+		_initOutlineStylePicker: function () {
 
-        },
+			this.outlineStylePicker = new LineStylePicker({
+				lineStyle: this.symbol.outline.style,
+				baseClass: 'symbolEditorControl'
+			});
 
-        _initOutlineStylePicker: function () {
+			this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
-            this.outlineStylePicker = new LineStylePicker({
-                lineStyle: this.symbol.outline.style,
-                baseClass: 'symbolEditorControl'
-            });
+				this._updateSymbolAtt();
 
-            this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
+			}));
 
-                this._updateSymbolAtt();
+			this.outlinePane.addChild(this.outlineStylePicker);
 
-            }));
+		},
 
-            this.outlinePane.addChild(this.outlineStylePicker);
+		_initOutlineColorPicker: function () {
 
-        },
+			this.outlineColorPicker = new SymColorPicker({
+				color: this.symbol.outline.color,
+				baseClass: 'symbolEditorControl'
+			});
 
-        _initOutlineColorPicker: function () {
+			this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
-            this.outlineColorPicker = new SymColorPicker({
-                color: this._esriColorArrayToDojoColor(this.symbol.outline.color),
-                baseClass: 'symbolEditorControl'
-            });
+				this._updateSymbolAtt();
 
-            this.outlineColorPicker.watch('color', lang.hitch(this, function () {
+			}));
 
-                this._updateSymbolAtt();
+			this.outlinePane.addChild(this.outlineColorPicker);
 
-            }));
+		},
 
-            this.outlinePane.addChild(this.outlineColorPicker);
+		_initOutlineWidthSlider: function () {
 
-        },
+			this.outlineWidthSlider = new NumericSlider({
+				value: this.symbol.outline.width,
+				min: 1,
+				max: 10,
+				baseClass: 'symbolEditorControl'
+			});
 
-        _initOutlineWidthSlider: function () {
+			this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
-            this.outlineWidthSlider = new NumericSlider({
-                value: this.symbol.outline.width,
-                min: 1,
-                max: 10,
-                baseClass: 'symbolEditorControl'
-            });
+				this._updateSymbolAtt();
 
-            this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
+			}));
 
-                this._updateSymbolAtt();
+			this.outlinePane.addChild(this.outlineWidthSlider);
 
-            }));
+		},
 
-            this.outlinePane.addChild(this.outlineWidthSlider);
+		_getContentPane: function (title) {
 
-        },
+			var contentPane = new ContentPane({
+				title: title
+			});
 
-        _getContentPane: function (title) {
+			return contentPane;
+		},
 
-            var contentPane = new ContentPane({
-                title: title
-            });
+		_updateSymbolAtt: function () {
 
-            return contentPane;
-        },
+			if (!this.initialized) {
+				return;
+			}
 
-        _updateSymbolAtt: function () {
+			var symbol = lang.clone(this.symbol);
 
-            if (!this.initialized) {
-                return;
-            }
+			var symStyle = this.fillStylePicker.get('fillStyle');
+			symbol.style = symStyle;
 
-            var symbol = lang.clone(this.symbol);
+			var symColor = this.fillColorPicker.get('color');
+			symbol.color = symColor;
 
-            var symStyle = this.fillStylePicker.get('fillStyle');
-            symbol.style = symStyle;
+			var outlineStyle = this.outlineStylePicker.get('lineStyle');
+			symbol.outline.style = outlineStyle;
 
-            var symColor = this.fillColorPicker.get('color');
-            symbol.color = this._dojoColorToEsriColorArray(symColor);
+			var outlineColor = this.outlineColorPicker.get('color');
+			symbol.outline.color = outlineColor;
 
-            var outlineStyle = this.outlineStylePicker.get('lineStyle');
-            symbol.outline.style = outlineStyle;
+			var outlineWidth = this.outlineWidthSlider.get('value');
+			symbol.outline.width = outlineWidth;
 
-            var outlineColor = this.outlineColorPicker.get('color');
-            symbol.outline.color = this._dojoColorToEsriColorArray(outlineColor);
+			this._set('symbol', symbol);
+		},
 
-            var outlineWidth = this.outlineWidthSlider.get('value');
-            symbol.outline.width = outlineWidth;
+		_getSymbolAttr: function () {
 
-            this._set('symbol', symbol);
-        },
+			if (this.symbol) {
+				this.symbol.color = this._dojoColorToEsriColorArray(this.symbol.color);
+				this.symbol.outline.color = this._dojoColorToEsriColorArray(this.symbol.outline.color);
+			}
 
-        _setSymbolAttr: function (value) {
+			return this.symbol;
+		},
 
-            if (this.initialized) {
+		_setSymbolAttr: function (value) {
 
-                this.fillColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.color));
-                this.fillStylePicker.set('value', this.symbol.style);
-                this.outlineColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.outline.color));
-                this.outlineWidthSlider.set('value', this.symbol.outline.width);
-                this.outlineStylePicker.set('value', this.symbol.outline.style);
+			value.color = this._esriColorArrayToDojoColor(value.color);
+			value.outline.color = this._esriColorArrayToDojoColor(value.outline.color);
 
-            }
+			if (this.initialized) {
 
-            this.symbol = value;
+				this.fillColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.color));
+				this.fillStylePicker.set('value', this.symbol.style);
+				this.outlineColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.outline.color));
+				this.outlineWidthSlider.set('value', this.symbol.outline.width);
+				this.outlineStylePicker.set('value', this.symbol.outline.style);
 
-        }
+			}
 
-    });
+			this.symbol = value;
 
-    return SMSEditor;
+		}
 
+	});
+
+	return SFSEditor;
 });
