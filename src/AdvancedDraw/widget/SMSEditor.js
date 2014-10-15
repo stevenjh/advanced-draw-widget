@@ -140,6 +140,7 @@ define( [
                                                  value: this.symbol.size,
                                                  min: 1,
                                                  max: 100,
+                                                 label: 'Symbol size:',
                                                  baseClass: 'symbolEditorControl'
                                              } );
 

@@ -29,6 +29,7 @@ define( [
                 templateString: template,
                 fillStyle: 'esriSFSSolid',
                 i18n: i18n,
+                label: 'Fill style:',
 
                 constructor: function( options ) {
 

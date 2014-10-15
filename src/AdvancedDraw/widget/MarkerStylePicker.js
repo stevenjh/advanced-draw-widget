@@ -29,6 +29,7 @@ define( [
                 templateString: template,
                 markerStyle: 'esriSMSCircle',
                 i18n: i18n,
+                label: 'Marker style',
 
                 constructor: function( options ) {
 

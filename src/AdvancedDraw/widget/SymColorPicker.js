@@ -37,6 +37,7 @@ define( [
                 alpha: 1,
                 i18n: i18n,
                 baseClass: 'colorPicker',
+                label: 'Color and alpha:',
 
                 constructor: function( options ) {
 

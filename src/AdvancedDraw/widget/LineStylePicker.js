@@ -29,6 +29,7 @@ define( [
                 templateString: template,
                 lineStyle: 'esriSLSDash',
                 i18n: i18n,
+                label: 'Line style:',
 
                 constructor: function( options ) {
 
