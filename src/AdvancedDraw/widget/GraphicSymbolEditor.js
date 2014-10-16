@@ -86,7 +86,6 @@ define( [
 
                 _createEditor: function ( Editor ) {
 
-                    var cp = new ContentPane();
 
                     this.editor = new Editor ( {
                         symbol: this.symbol
@@ -95,15 +94,20 @@ define( [
                     this.editor.watch('symbol', lang.hitch(this, function () {
 
                         var value = arguments[2];
-                        console.log( 'graphic symbol updated: ', value );
+
                         if ( this.symbol ) {
-                            console.log( 'updating default polygon sym' );
+
                             this.graphic.symbol = symUtil.fromJson( value );
-                            this.graphic._layer.refresh();
+
+                            if ( this.graphic._layer ) {
+                                this.graphic._layer.refresh();
+                            }
+
                         }
 
                     }));
 
+                    var cp = new ContentPane();
                     cp.addChild( this.editor );
                     this.addChild( cp );
 

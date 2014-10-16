@@ -90,7 +90,8 @@ define({
         'tests/symbolEditors/SMSEditor',
         'tests/symbolEditors/SLSEditor',
         'tests/symbolEditors/SFSEditor',
-        'tests/symbolEditors/_SymEditorMixin'
+        'tests/symbolEditors/_SymEditorMixin',
+        'tests/symbolEditors/GraphicSymbolEditor'
     ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
