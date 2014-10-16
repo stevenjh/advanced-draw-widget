@@ -94,25 +94,24 @@
                 center: [-123, 45]
             });
 
-            // test w/ feature layer\
-            app.map.addLayer(new FeatureLayer('http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0', {
-                mode: 1,
-                outFields: ['*']
-            }));
-
+            // test w/ feature layer
+            //app.map.addLayer(new FeatureLayer('http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0', {
+            //    mode: 1,
+            //    outFields: ['*']
+            //}));
 
             // test sticky layers
-            app.map.addLayer(new GraphicsLayer({id: 'temp1'}));
-            app.map.addLayer(new GraphicsLayer({id: 'temp2'}));
-            app.map.addLayer(new GraphicsLayer({id: 'temp3'}));
-            app.addLayer = function () {
-                app.map.addLayer(new GraphicsLayer({id: 'temp4'}), 0);
-                app.map.addLayer(new GraphicsLayer({id: 'temp5'}), 0);
-                app.map.addLayer(new GraphicsLayer({id: 'temp6'}));
-            };
-            app.addLayers = function () {
-                app.map.addLayers([new GraphicsLayer({id: 'temp7'}), new GraphicsLayer({id: 'temp8'}), new GraphicsLayer({id: 'temp9'})]);
-            };
+            //app.map.addLayer(new GraphicsLayer({id: 'temp1'}));
+            //app.map.addLayer(new GraphicsLayer({id: 'temp2'}));
+            //app.map.addLayer(new GraphicsLayer({id: 'temp3'}));
+            //app.addLayer = function () {
+            //    app.map.addLayer(new GraphicsLayer({id: 'temp4'}), 0);
+            //    app.map.addLayer(new GraphicsLayer({id: 'temp5'}), 0);
+            //    app.map.addLayer(new GraphicsLayer({id: 'temp6'}));
+            //};
+            //app.addLayers = function () {
+            //    app.map.addLayers([new GraphicsLayer({id: 'temp7'}), new GraphicsLayer({id: 'temp8'}), new GraphicsLayer({id: 'temp9'})]);
+            //};
 
             // the widget
             app.advancedDraw = new AdvancedDraw({

@@ -40,7 +40,6 @@ define([
     './AdvancedDraw/widget/DefaultSymbolEditors',
     './AdvancedDraw/widget/GraphicSymbolEditor',
 
-
     'dijit/popup', // programmatic dijits
     'dijit/Menu',
     'dijit/MenuItem',
@@ -598,7 +597,7 @@ define([
             // edit symbol
             menu.addChild(new MenuItem({
                 label: 'Edit Symbol',
-                onClick: lang.hitch(this, '_editGraphicSymbol', graphic )
+                onClick: lang.hitch(this, '_editGraphicSymbol', graphic)
             }));
             // edit geometry adding applicable operations to menu
             var editMenu = new Menu();
@@ -657,23 +656,9 @@ define([
             graphic._advancedDrawMenu = menu;
         },
 
-        _editGraphicSymbol: function (graphic) {
-
-            var editor = new GraphicSymbolEditor( {
-                graphic: graphic
-            } );
-
-            on( editor, 'hide', function(){
-                editor.destroy();
-            } );
-
-            editor.show();
-
-        },
-
-        ///////////////////////////
-        // edit graphic geometry //
-        ///////////////////////////
+        //////////////////////////////////////
+        // edit graphic geometry and symbol //
+        //////////////////////////////////////
         _editGraphicGeometry: function (graphic, tool, uniform) {
             var options = this.config._editGeometryOptions;
             if (tool === 4) {
@@ -699,9 +684,9 @@ define([
             layer.clear();
             layer.add(new Graphic(this.map.extent, symbolUtils.fromJson(this.config.defaultTempSymbol)));
             layer.add(new Graphic(graphic.geometry, graphic.symbol));
-            setTimeout(function () {
+            graphic._advancedDrawMenu.on('blur', function () {
                 layer.clear();
-            }, 1000);
+            });
         },
 
         // delete a graphic
@@ -712,6 +697,17 @@ define([
                 graphic: graphic
             }));
             layer.remove(graphic);
+        },
+
+        // edit graphic symbol
+        _editGraphicSymbol: function (graphic) {
+            var editor = new GraphicSymbolEditor({
+                graphic: graphic
+            });
+            on(editor, 'hide', function () {
+                editor.destroy();
+            });
+            editor.show();
         },
 
         //////////////////////////////////

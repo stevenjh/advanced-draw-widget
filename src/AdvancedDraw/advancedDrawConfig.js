@@ -52,7 +52,7 @@ define([], function () {
             }
         },
         defaultTempSymbol: {
-            color: [255, 255, 255, 192],
+            color: [255, 255, 255, 128],
             type: 'esriSFS',
             style: 'esriSFSSolid'
         },
