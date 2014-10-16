@@ -90,7 +90,7 @@ define ( [
                                  'alphaSliderChangeTest': function () {
 
                                      var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     expected.color = [ 0, 255, 0, 191 ];
+                                     expected.color = [ 0, 0, 0, 191 ];
 
                                      widget.fillColorPicker._onAlphaSliderChange( 0.75 );
 
