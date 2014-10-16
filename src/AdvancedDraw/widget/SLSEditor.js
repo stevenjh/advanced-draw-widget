@@ -1,45 +1,32 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dijit/_WidgetBase',
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetsInTemplateMixin',
-    'dijit/layout/TabContainer',
-    'dijit/layout/ContentPane',
+    'dijit/layout/AccordionContainer',
     './SymColorPicker',
     './LineStylePicker',
     './NumericSlider',
     './_ColorMixin',
-    'dojo/text!./templates/SymbolEditor.html',
+    './_SymEditorMixin',
     'dojo/i18n!../nls/resource',
     './../advancedDrawConfig',
     'xstyle/css!./css/SymbolEditor.css'
 ], function (
     declare,
     lang,
-    _WidgetBase,
-    _TemplatedMixin,
-    _WidgetsInTemplateMixin,
-    TabContainer,
-    ContentPane,
+    AccordionContainer,
     SymColorPicker,
     LineStylePicker,
     NumericSlider,
     _ColorMixin,
-    template,
+    _SymEditorMixin,
     i18n,
     advancedDrawConfig
 ) {
 
-    var SLSEditor = declare([_WidgetBase,
-        _TemplatedMixin,
-        _WidgetsInTemplateMixin,
-        _ColorMixin
-    ], {
+    var SLSEditor = declare([ AccordionContainer, _ColorMixin, _SymEditorMixin ], {
 
-        widgetsInTemplate: true,
-        templateString: template,
         i18n: i18n,
+        doLayout: false,
         baseClass: 'symbolEditor',
 
         constructor: function (options) {
@@ -61,7 +48,7 @@ define([
 
             this.inherited(arguments);
 
-            this._initTabContainer();
+            this._initContentPanes();
             this._initOutlineStylePicker();
             this._initOutlineColorPicker();
             this._initOutlineWidthSlider();
@@ -73,21 +60,14 @@ define([
         startup: function () {
 
             this.inherited(arguments);
-            this.tabContainer.resize();
+            this.resize();
 
         },
 
-        _initTabContainer: function () {
+        _initContentPanes: function () {
 
-            this.tabContainer = new TabContainer({
-                style: 'height: 100%; width: 100%;',
-                doLayout: false,
-                tabPosition: 'top'
-            }, this.tabContainerNode);
-
-            this.outlinePane = this._getContentPane('Line Style');
-            this.tabContainer.addChild(this.outlinePane);
-            this.tabContainer.startup();
+            this.outlinePane = this._getContentPane( i18n.widgets.slsEditor.outline );
+            this.addChild(this.outlinePane);
         },
 
         _initOutlineStylePicker: function () {
@@ -141,15 +121,6 @@ define([
 
             this.outlinePane.addChild(this.outlineWidthSlider);
 
-        },
-
-        _getContentPane: function (title) {
-
-            var contentPane = new ContentPane({
-                title: title
-            });
-
-            return contentPane;
         },
 
         _updateSymbolAtt: function () {

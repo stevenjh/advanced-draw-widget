@@ -38,6 +38,8 @@ define([
 
     './AdvancedDraw/widget/TextTooltipDialog', // advanced draw widgets
     './AdvancedDraw/widget/DefaultSymbolEditors',
+    './AdvancedDraw/widget/GraphicSymbolEditor',
+
 
     'dijit/popup', // programmatic dijits
     'dijit/Menu',
@@ -86,6 +88,7 @@ define([
     EditGeometryGraphicOp,
     TextTooltipDialog,
     DefaultSymbolEditors,
+    GraphicSymbolEditor,
     popup,
     Menu,
     MenuItem,
@@ -594,7 +597,8 @@ define([
             }
             // edit symbol
             menu.addChild(new MenuItem({
-                label: 'Edit Symbol'
+                label: 'Edit Symbol',
+                onClick: lang.hitch(this, '_editGraphicSymbol', graphic )
             }));
             // edit geometry adding applicable operations to menu
             var editMenu = new Menu();
@@ -651,6 +655,20 @@ define([
             menu.startup();
             menu.on('focus', lang.hitch(this, '_identifyGraphic', graphic));
             graphic._advancedDrawMenu = menu;
+        },
+
+        _editGraphicSymbol: function (graphic) {
+
+            var editor = new GraphicSymbolEditor( {
+                graphic: graphic
+            } );
+
+            on( editor, 'hide', function(){
+                editor.destroy();
+            } );
+
+            editor.show();
+
         },
 
         ///////////////////////////

@@ -38,6 +38,20 @@ define({
         widgets: {
             symbolColorPicker: {
                 label: 'Color'
+            },
+            smsEditor: {
+                symbol : 'Symbol style',
+                outline: 'Outline style'
+            },
+            sfsEditor: {
+                fill: 'Fill style',
+                outline: 'Outline style'
+            },
+            slsEditor: {
+                outline: 'Line style'
+            },
+            graphicSymbolEditor: {
+                title: 'Edit symbol'
             }
         },
         esriStyles: {

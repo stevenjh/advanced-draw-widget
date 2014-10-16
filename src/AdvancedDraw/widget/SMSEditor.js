@@ -1,47 +1,34 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dijit/_WidgetBase',
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetsInTemplateMixin',
-    'dijit/layout/TabContainer',
-    'dijit/layout/ContentPane',
+    'dijit/layout/AccordionContainer',
     './SymColorPicker',
     './LineStylePicker',
     './MarkerStylePicker',
     './NumericSlider',
     './_ColorMixin',
-    'dojo/text!./templates/SymbolEditor.html',
+    './_SymEditorMixin',
     'dojo/i18n!../nls/resource',
     './../advancedDrawConfig',
     'xstyle/css!./css/SymbolEditor.css'
 ], function (
     declare,
     lang,
-    _WidgetBase,
-    _TemplatedMixin,
-    _WidgetsInTemplateMixin,
-    TabContainer,
-    ContentPane,
+    AccordionContainer,
     SymColorPicker,
     LineStylePicker,
     MarkerStylePicker,
     NumericSlider,
     _ColorMixin,
-    template,
+    _SymEditorMixin,
     i18n,
     advancedDrawConfig
 ) {
 
-    var SMSEditor = declare([_WidgetBase,
-        _TemplatedMixin,
-        _WidgetsInTemplateMixin,
-        _ColorMixin
-    ], {
+    var SMSEditor = declare( [ AccordionContainer, _ColorMixin, _SymEditorMixin ], {
 
-        widgetsInTemplate: true,
-        templateString: template,
         i18n: i18n,
+        doLayout: false,
         baseClass: 'symbolEditor',
 
         constructor: function (options) {
@@ -63,7 +50,7 @@ define([
 
             this.inherited(arguments);
 
-            this._initTabContainer();
+            this._initContentPanes();
             this._initSymbolStylePicker();
             this._initSymbolColorPicker();
             this._initSymbolSizeSlider();
@@ -79,23 +66,16 @@ define([
         startup: function () {
 
             this.inherited(arguments);
-            this.tabContainer.resize();
+            this.resize();
 
         },
 
-        _initTabContainer: function () {
+        _initContentPanes: function () {
 
-            this.tabContainer = new TabContainer({
-                style: 'height: 100%; width: 100%;',
-                doLayout: false,
-                tabPosition: 'top'
-            }, this.tabContainerNode);
-
-            this.symbolPane = this._getContentPane('Symbol');
-            this.outlinePane = this._getContentPane('Outline');
-            this.tabContainer.addChild(this.symbolPane);
-            this.tabContainer.addChild(this.outlinePane);
-            this.tabContainer.startup();
+            this.symbolPane = this._getContentPane( i18n.widgets.smsEditor.symbol );
+            this.outlinePane = this._getContentPane( i18n.widgets.smsEditor.outline );
+            this.addChild(this.symbolPane);
+            this.addChild(this.outlinePane);
         },
 
         _initSymbolStylePicker: function () {
@@ -203,15 +183,6 @@ define([
 
             this.outlinePane.addChild(this.outlineWidthSlider);
 
-        },
-
-        _getContentPane: function (title) {
-
-            var contentPane = new ContentPane({
-                title: title
-            });
-
-            return contentPane;
         },
 
         _updateSymbolAtt: function () {

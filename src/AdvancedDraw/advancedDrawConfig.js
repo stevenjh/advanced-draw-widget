@@ -3,7 +3,7 @@ define([], function () {
     return {
         // default symbols
         defaultPolygonSymbol: {
-            color: [0, 255, 0, 64],
+            color: [0, 0, 0, 64],
             outline: {
                 color: [255, 0, 0, 255],
                 width: 2,
@@ -11,7 +11,7 @@ define([], function () {
                 style: 'esriSLSSolid'
             },
             type: 'esriSFS',
-            style: 'esriSFSForwardDiagonal'
+            style: 'esriSFSSolid'
         },
         defaultPolylineSymbol: {
             color: [255, 0, 0, 255],
