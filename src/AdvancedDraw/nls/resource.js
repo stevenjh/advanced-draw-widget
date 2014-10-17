@@ -33,7 +33,9 @@ define({
         },
         undoManager: {
             addGraphic: 'Add graphic',
-            deleteGraphic: 'Delete graphic'
+            deleteGraphic: 'Delete graphic',
+            editGeometry: 'Edit geometry',
+            editSymbol: 'Edit symbol'
         },
         widgets: {
             symbolColorPicker: {
