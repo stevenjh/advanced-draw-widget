@@ -77,7 +77,7 @@ define ( [
                                      var expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.outline.width = width;
 
-                                     widget.outlineWidthSlider._onSliderDijitChange( width );
+                                     widget.outlineWidthSlider.set( 'value', width );
 
                                      var actual = widget.get( 'symbol' );
 

@@ -38,6 +38,8 @@ define( [
                 i18n: i18n,
                 baseClass: 'colorPicker',
                 label: 'Color and alpha:',
+                buttonLabel: 'Marker color',
+                sliderLabel: 'Marker transparency',
 
                 constructor: function( options ) {
 

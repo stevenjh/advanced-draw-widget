@@ -79,7 +79,7 @@ define ( [
                                      var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
                                      expected.width = width;
 
-                                     widget.outlineWidthSlider._onSliderDijitChange( width );
+                                     widget.outlineWidthSlider.set( 'value', width );
 
                                      var actual = widget.get( 'symbol' );
 

@@ -13,7 +13,8 @@ define( [
                 _getContentPane: function (title) {
 
                     var contentPane = new ContentPane({
-                        title: title
+                        title: title,
+                        content: '<div></div>'
                     });
 
                     return contentPane;

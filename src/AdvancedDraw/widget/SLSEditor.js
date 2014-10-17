@@ -108,8 +108,8 @@ define([
 
             this.outlineWidthSlider = new NumericSlider({
                 value: this.symbol.width,
-                min: 1,
-                max: 10,
+                minimum: 1,
+                maximum: 10,
                 baseClass: 'symbolEditorControl'
             });
 

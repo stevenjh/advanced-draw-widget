@@ -103,6 +103,7 @@ define([
 			this.fillColorPicker.watch('color', lang.hitch(this, function () {
 
 				this._updateSymbolAtt();
+                this._updateColorPickerEnabled( arguments[ 2 ] );
 
 			}));
 
@@ -148,8 +149,8 @@ define([
 
 			this.outlineWidthSlider = new NumericSlider({
 				value: this.symbol.outline.width,
-				min: 1,
-				max: 10,
+				minimum: 1,
+				maximum: 10,
 				baseClass: 'symbolEditorControl'
 			});
 
@@ -162,6 +163,13 @@ define([
 			this.outlinePane.addChild(this.outlineWidthSlider);
 
 		},
+
+        _updateColorPickerEnabled: function ( style ) {
+
+            var enableColorPicker = style === 'esriSFSSolid';
+            this.fillColorPicker.disabled = !enableColorPicker;
+            
+        },
 
 		_updateSymbolAtt: function () {
 

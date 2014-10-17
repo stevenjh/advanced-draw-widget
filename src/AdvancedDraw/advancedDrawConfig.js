@@ -26,7 +26,7 @@ define([], function () {
             style: 'esriSMSCircle',
             outline: {
                 color: [255, 0, 0, 255],
-                width: 1.5,
+                width: 1.5, //2 pixels when it becomes graphic symbol / .75 factor
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
             }

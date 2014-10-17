@@ -1,7 +1,9 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dijit/layout/AccordionContainer',
+    'dojo/dom-construct',
+    'dojo/dom-style',
+    './_SymEditorBase',
     './SymColorPicker',
     './LineStylePicker',
     './MarkerStylePicker',
@@ -14,7 +16,9 @@ define([
 ], function (
     declare,
     lang,
-    AccordionContainer,
+    domConstruct,
+    domStyle,
+    _SymEditorBase,
     SymColorPicker,
     LineStylePicker,
     MarkerStylePicker,
@@ -25,11 +29,10 @@ define([
     advancedDrawConfig
 ) {
 
-    var SMSEditor = declare( [ AccordionContainer, _ColorMixin, _SymEditorMixin ], {
+    var SMSEditor = declare( [ _SymEditorBase, _ColorMixin, _SymEditorMixin ], {
 
         i18n: i18n,
         doLayout: false,
-        baseClass: 'symbolEditor',
 
         constructor: function (options) {
 
@@ -50,7 +53,6 @@ define([
 
             this.inherited(arguments);
 
-            this._initContentPanes();
             this._initSymbolStylePicker();
             this._initSymbolColorPicker();
             this._initSymbolSizeSlider();
@@ -63,44 +65,42 @@ define([
 
         },
 
-        startup: function () {
-
-            this.inherited(arguments);
-            this.resize();
-
-        },
-
-        _initContentPanes: function () {
-
-            this.symbolPane = this._getContentPane( i18n.widgets.smsEditor.symbol );
-            this.outlinePane = this._getContentPane( i18n.widgets.smsEditor.outline );
-            this.addChild(this.symbolPane);
-            this.addChild(this.outlinePane);
-        },
-
         _initSymbolStylePicker: function () {
+
+            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
 
             this.symbolStylePicker = new MarkerStylePicker({
                 markerStyle: this.symbol.style,
-                baseClass: 'symbolEditorControl'
-            });
+                baseClass: 'symbolEditorControl',
+                label: 'Style'
+            }, div );
 
             this.symbolStylePicker.watch('markerStyle', lang.hitch(this, function () {
 
                 this._updateSymbolAtt();
 
+                if ( arguments[ 2 ] !== 'esriSMSCircle' ) {
+                    domStyle.set( this.symbolColorPicker.domNode, 'display', 'none' );
+                } else {
+                    domStyle.set( this.symbolColorPicker.domNode, 'display', 'block' );
+                }
+
             }));
 
-            this.symbolPane.addChild(this.symbolStylePicker);
+            this.symbolStylePicker.startup();
 
         },
 
         _initSymbolColorPicker: function () {
 
+            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
+
             this.symbolColorPicker = new SymColorPicker({
                 color: this.symbol.color,
-                baseClass: 'symbolEditorControl'
-            });
+                baseClass: 'symbolEditorControl',
+                buttonLabel: 'Color',
+                sliderLabel: 'Transparency'
+            }, div );
 
             this.symbolColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -108,19 +108,21 @@ define([
 
             }));
 
-            this.symbolPane.addChild(this.symbolColorPicker);
+            this.symbolColorPicker.startup();
 
         },
 
         _initSymbolSizeSlider: function () {
 
+            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
+
             this.symbolSizeSlider = new NumericSlider({
                 value: this.symbol.size,
-                min: 1,
-                max: 100,
-                label: 'Symbol size:',
+                minimum: 1,
+                maximum: 100,
+                label: 'Size:',
                 baseClass: 'symbolEditorControl'
-            });
+            }, div );
 
             this.symbolSizeSlider.watch('value', lang.hitch(this, function () {
 
@@ -128,16 +130,19 @@ define([
 
             }));
 
-            this.symbolPane.addChild(this.symbolSizeSlider);
+            this.symbolSizeSlider.startup();
 
         },
 
         _initOutlineStylePicker: function () {
 
+            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
+
             this.outlineStylePicker = new LineStylePicker({
                 lineStyle: this.symbol.outline.style,
-                baseClass: 'symbolEditorControl'
-            });
+                baseClass: 'symbolEditorControl',
+                label: 'Style'
+            }, div );
 
             this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
@@ -145,16 +150,19 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineStylePicker);
+            this.outlineStylePicker.startup();
 
         },
 
         _initOutlineColorPicker: function () {
 
+            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
             this.outlineColorPicker = new SymColorPicker({
                 color: this.symbol.outline.color,
-                baseClass: 'symbolEditorControl'
-            });
+                baseClass: 'symbolEditorControl',
+                buttonLabel: 'Color',
+                sliderLabel: 'Transparency'
+            }, div );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -162,18 +170,20 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineColorPicker);
+            this.outlineColorPicker.startup();
 
         },
 
         _initOutlineWidthSlider: function () {
 
+            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
+
             this.outlineWidthSlider = new NumericSlider({
                 value: this.symbol.outline.width,
-                min: 1,
-                max: 10,
+                minimum: 1,
+                maximum: 10,
                 baseClass: 'symbolEditorControl'
-            });
+            }, div );
 
             this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
@@ -181,7 +191,7 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineWidthSlider);
+            this.outlineWidthSlider.startup();
 
         },
 

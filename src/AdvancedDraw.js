@@ -701,11 +701,14 @@ define([
 
         // edit graphic symbol
         _editGraphicSymbol: function (graphic) {
+
+            //capture undo point here
             var editor = new GraphicSymbolEditor({
                 graphic: graphic
             });
             on(editor, 'hide', function () {
                 editor.destroy();
+                //capture undo point here
             });
             editor.show();
         },

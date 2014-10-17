@@ -1,0 +1,59 @@
+.symbolEditorBase {
+    width: 100%;
+}
+
+.symbolEditorBase h4 {
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+.symbolEditorBase .list-inline {
+    padding-left: 0px;
+    margin-left: 5px;
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: none;
+}
+
+.symbolEditorBase .list-inline li {
+    padding-right: 5px;
+    padding-left: 5px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+
+.symbolEditorBase .list-inline li > div {
+    margin-left: 3px;
+}
+
+.symbolEditorBase .list-inline div label {
+    margin-top: 3px;
+}
+
+.symbolEditorBase .list-inline li > label {
+    width: 100%;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 2px;
+}
+
+.symbolEditorBase .symbolEditorControl {
+    margin-bottom: 2px;
+}
+
+.symbolEditorBase .leftHandControls, .symbolEditorBase .rightHandControls {
+    width: 125px;
+}
+
+.symbolEditorBase .controlLabel {
+    font-weight: normal;
+    color: rgba(95, 96, 97, 0.99);
+    margin-left: 5px;
+    margin-bottom: 5px;
+    display: block;
+    font-size: small;
+}
+

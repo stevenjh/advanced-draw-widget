@@ -40,8 +40,8 @@ define({
                 label: 'Color'
             },
             smsEditor: {
-                symbol : 'Symbol style',
-                outline: 'Outline style'
+                symbol : 'Symbol',
+                outline: 'Symbol outline'
             },
             sfsEditor: {
                 fill: 'Fill style',

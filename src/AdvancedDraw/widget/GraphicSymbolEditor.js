@@ -25,7 +25,7 @@ define( [
             var GraphicSymbolEditor = declare( ConfirmDialog, {
 
                 title: i18n.widgets.graphicSymbolEditor.title,
-                style: 'width: 300px;',
+                //style: 'width: 300px;',
                 id: 'graphicSymbolEditor',
                 doLayout: false,
 

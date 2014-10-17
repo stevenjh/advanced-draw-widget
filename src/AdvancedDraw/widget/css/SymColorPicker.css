@@ -1,6 +1,5 @@
 .colorPicker {
-    display: inline-flex;
-    margin-bottom: -15px;
+    margin-top: 3px;
 }
 
 .colorPicker .dijitButtonText {
@@ -10,19 +9,31 @@
 .colorPicker .colorSwatch {
     height: 14px;
     width: 14px;
-    display: inline-block;
     position: relative;
-    left: 8px;
-    top: -21px;
+    left: 10px;
+    top: -22px;
 }
 
 .colorPicker .colorPickerDropdown {
-    display: inline-block;
+    margin-bottom: -15px;
 }
 
 
 .colorPicker .colorPickerSlider {
-    padding-left: 10px;
-    padding-top: 12px;
+    padding-top: 5px;
+    margin-bottom: 10px;
     width: 100%;
+}
+
+/* claro overrides */
+
+.dijitAccordionTitle, .dijitAccordionTitleHover {
+    background-color: #efefef !important;
+    padding-bottom: 3px;
+    border-color: #efefef !important;
+}
+
+.dijitAccordionInnerContainerSelected, .dijitAccordionInnerContainerHover {
+    background-color: inherit !important;
+    border-color: #B5BCC7 !important;
 }
