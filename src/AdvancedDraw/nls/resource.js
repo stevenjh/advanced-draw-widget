@@ -19,6 +19,7 @@ define({
         activeDrawTool: 'Active Draw Tool:',
         none: 'None',
         options: 'Options',
+        snapping: 'Snapping',
         optionsMenu: {
             zoomAll: 'Zoom to All',
             deleteAll: 'Delete All',

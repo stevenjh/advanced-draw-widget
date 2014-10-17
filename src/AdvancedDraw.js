@@ -44,6 +44,7 @@ define([
     'dijit/Menu',
     'dijit/MenuItem',
     'dijit/PopupMenuItem',
+    'dijit/CheckedMenuItem',
 
     // in template dijits and css
     'dijit/layout/StackContainer',
@@ -91,7 +92,8 @@ define([
     popup,
     Menu,
     MenuItem,
-    PopupMenuItem
+    PopupMenuItem,
+    CheckedMenuItem
 ) {
     var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         // widget
@@ -118,6 +120,8 @@ define([
                 text: null,
                 temp: null
             }, // hash of symbols
+            _snappingMenuItem: null, // snapping toggle
+            _continuousDrawMenuItem: null, // continuous draw toggle
             _continuousDraw: false, // one and done OR user cancel draw
             _isTextPoint: false, // flag to handle text on draw-complete
             _drawMenu: null, // primary draw menu
@@ -177,9 +181,9 @@ define([
             //   can be used elsewhere like a map context menu or a dropdown
             this._drawMenu = this._initDrawMenu();
             this.drawButton.set('dropDown', this._drawMenu);
-
             // init options menu
-
+            this._optionsMenu = this._initOptionsMenu();
+            this.optionsButton.set('dropDown', this._optionsMenu);
             // init draw keys
             this._initDrawKeys();
             // init snapping
@@ -380,10 +384,11 @@ define([
         // init options menu
         _initOptionsMenu: function () {
             var menu = new Menu();
-            menu.addChild(new MenuItem({
-                label: i18n.point
-            }));
-
+            this._snappingMenuItem = new CheckedMenuItem({
+                checked: true,
+                label: i18n.snapping
+            });
+            menu.addChild(this._snappingMenuItem);
             menu.startup();
             return menu;
         },
@@ -714,9 +719,12 @@ define([
         // snapping and continuous draw //
         //////////////////////////////////
         _initSnapping: function () {
-            this.config._snappingOptions.snapPointSymbol = symbolUtils.fromJson(this.config._snappingOptions.snapPointSymbol);
-            this.config._snappingOptions.snapKey = keys.CTRL;
-            this.map.enableSnapping(this.config._snappingOptions);
+            var options = this.config._snappingOptions;
+            options.snapPointSymbol = symbolUtils.fromJson(options.snapPointSymbol);
+            if (options.snapKey) {
+                options.snapKey = keys[options.snapKey];
+            }
+            this.map.enableSnapping(options);
             this.map.on('layer-add, layers-add-result', lang.hitch(this, '_toggleSnapping'));
         },
         _toggleSnapping: function () {
