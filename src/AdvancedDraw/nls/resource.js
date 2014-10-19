@@ -49,6 +49,9 @@ define({
             symbolSizePicker: {
                 label: 'Size'
             },
+            symbolWidthPicker: {
+                label: 'Width'
+            },
             smsEditor: {
                 defaultEditorLabel : 'Default marker symbol',
                 graphicEditorLabel : 'Graphic marker symbol',
@@ -62,7 +65,9 @@ define({
                 rightHandControlsLabel: 'Outline properties'
             },
             slsEditor: {
-                outline: 'Line style'
+                defaultEditorLabel : 'Default line symbol',
+                graphicEditorLabel : 'Graphic line symbol',
+                leftHandControlsLabel: 'Line properties'
             },
             graphicSymbolEditor: {
                 title: 'Edit symbol'
