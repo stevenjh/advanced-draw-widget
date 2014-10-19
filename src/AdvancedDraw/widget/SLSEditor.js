@@ -26,8 +26,8 @@ define([
             lang.mixin(this, options);
 
             this.initialized = false;
-            this.editorLabel = 'Default line symbol';
-            this.leftHandControlsLabel = 'Line properties';
+            this.editorLabel = this.i18n.widgets.slsEditor.defaultEditorLabel;
+            this.leftHandControlsLabel = this.i18n.widgets.slsEditor.leftHandControlsLabel;
 
             this._set('symbol', this.symbol);
 
@@ -51,7 +51,8 @@ define([
 
             this.outlineStylePicker = new LineStylePicker({
                 lineStyle: this.symbol.style,
-                baseClass: 'symbolEditorControl'
+                baseClass: 'symbolEditorControl',
+                label: this.i18n.widgets.symbolStylePicker.label
             }, this.createLeftHandControlsDiv() );
 
             this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
@@ -68,7 +69,9 @@ define([
 
             this.outlineColorPicker = new SymColorPicker({
                 color: this.symbol.color,
-                baseClass: 'symbolEditorControl'
+                baseClass: 'symbolEditorControl',
+                buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
             }, this.createLeftHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {
@@ -87,7 +90,8 @@ define([
                 value: this.symbol.width,
                 minimum: 1,
                 maximum: 10,
-                baseClass: 'symbolEditorControl'
+                baseClass: 'symbolEditorControl',
+                label: this.i18n.widgets.symbolWidthPicker.label
             }, this.createLeftHandControlsDiv() );
 
             this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
