@@ -30,9 +30,9 @@ define([
 			lang.mixin(this, options);
 
 			this.initialized = false;
-            this.editorLabel = 'Default polygon symbol';
-            this.leftHandControlsLabel = 'Fill';
-            this.rightHandControlsLabel = 'Outline';
+            this.editorLabel = this.i18n.widgets.sfsEditor.defaultEditorLabel;
+            this.leftHandControlsLabel = this.i18n.widgets.sfsEditor.leftHandControlsLabel;
+            this.rightHandControlsLabel = this.i18n.widgets.sfsEditor.rightHandControlsLabel;
 
 			this._set('symbol', this.symbol);
 
@@ -57,7 +57,8 @@ define([
 
 			this.fillStylePicker = new FillStylePicker({
 				fillStyle: this.symbol.style,
-				baseClass: 'symbolEditorControl'
+				baseClass: 'symbolEditorControl',
+                label: this.i18n.widgets.symbolStylePicker.label
 			}, this.createLeftHandControlsDiv() );
 
 			this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
@@ -96,8 +97,8 @@ define([
 			this.fillColorPicker = new SymColorPicker({
 				color: this.symbol.color,
 				baseClass: 'symbolEditorControl',
-                buttonLabel: 'Color',
-                sliderLabel: 'Transparency'
+                buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
 			}, this.createLeftHandControlsDiv() );
 
 			this.fillColorPicker.watch('color', lang.hitch(this, function () {
@@ -114,7 +115,8 @@ define([
 
 			this.outlineStylePicker = new LineStylePicker({
 				lineStyle: this.symbol.outline.style,
-				baseClass: 'symbolEditorControl'
+				baseClass: 'symbolEditorControl',
+                label: this.i18n.widgets.symbolStylePicker.label
 			}, this.createRightHandControlsDiv() );
 
 			this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
@@ -132,8 +134,8 @@ define([
 			this.outlineColorPicker = new SymColorPicker({
 				color: this.symbol.outline.color,
 				baseClass: 'symbolEditorControl',
-                buttonLabel: 'Color',
-                sliderLabel: 'Transparency'
+                buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
 			}, this.createRightHandControlsDiv() );
 
 			this.outlineColorPicker.watch('color', lang.hitch(this, function () {

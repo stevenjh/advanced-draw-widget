@@ -56,8 +56,10 @@ define({
                 rightHandControlsLabel: 'Outline properties'
             },
             sfsEditor: {
-                fill: 'Fill style',
-                outline: 'Outline style'
+                defaultEditorLabel : 'Default polygon symbol',
+                graphicEditorLabel : 'Graphic polygon symbol',
+                leftHandControlsLabel: 'Fill properties',
+                rightHandControlsLabel: 'Outline properties'
             },
             slsEditor: {
                 outline: 'Line style'
