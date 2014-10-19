@@ -5,3 +5,7 @@
 #graphicSymbolEditor_underlay {
     display: none;
 }
+
+#graphicSymbolEditor .dijitDialogCloseIcon {
+    display: none !important;
+}

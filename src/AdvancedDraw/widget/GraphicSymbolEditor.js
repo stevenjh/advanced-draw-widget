@@ -1,6 +1,7 @@
 define( [
             'dojo/_base/declare',
             'dojo/_base/lang',
+            'dijit/form/Button',
             'dijit/layout/ContentPane',
             'dijit/Dialog',
             'esri/symbols/jsonUtils',
@@ -13,6 +14,7 @@ define( [
         ],
         function( declare,
                   lang,
+                  Button,
                   ContentPane,
                   ConfirmDialog,
                   symUtil,
@@ -94,26 +96,92 @@ define( [
                     this.editor.watch('symbol', lang.hitch(this, function () {
 
                         var value = arguments[2];
-
-                        if ( this.symbol ) {
-
-                            this.graphic.symbol = symUtil.fromJson( value );
-
-                            if ( this.graphic._layer ) {
-                                this.graphic._layer.refresh();
-                            }
-
-                        }
+                        this._updateGraphicWithSymbol( value );
 
                     }));
 
-                    var cp = new ContentPane();
-                    cp.addChild( this.editor );
-                    this.addChild( cp );
+                    this._createContainers();
+                    this.editorPane.addChild( this.editor );
 
                     this.resize();
 
+                },
+
+                _updateGraphicWithSymbol: function ( value ) {
+
+                    if ( this.graphic ) {
+
+                        this.graphic.symbol = symUtil.fromJson( value );
+
+                        if ( this.graphic._layer ) {
+                            this.graphic._layer.refresh();
+                        }
+
+                    }
+
+                },
+
+                _createContainers: function () {
+
+                    this._createEditorPane();
+                    this._createActionBar();
+
+                },
+
+                _createEditorPane: function () {
+
+                    if ( !this.editorPane ) {
+                        this.editorPane = new ContentPane();
+                        this.editorPane.id = 'graphicSymbolEditorEditorsPane';
+                        this.addChild( this.editorPane );
+                    }
+
+                },
+
+                _createActionBar: function () {
+
+                    if ( !this.actionBar ) {
+                        this.actionBar = new ContentPane( { id: 'graphicSymbolEditorActionBar' } );
+                        this.addChild( this.actionBar );
+                    }
+
+                    this.okButton = new Button({
+                        label: 'Apply',
+                        onClick: lang.hitch( this, function(){
+                            this.hide();
+                        } )
+                    } );
+
+                    this.actionBar.addChild( this.okButton );
+
+                    this.cancelButton = new Button({
+                                                   label: 'Cancel',
+                                                   onClick: lang.hitch( this, function(){
+                                                       this._rollBackSymbolUpdates();
+                                                       this.hide();
+                                                   } )
+                                               } );
+
+                    this.actionBar.addChild( this.cancelButton );
+                },
+
+                _rollBackSymbolUpdates: function () {
+
+                    if ( this.graphic ) {
+                        this._updateGraphicWithSymbol( this.symbol );
+                    }
+
+                },
+
+                destroy: function () {
+
+                    this.editorPane.destroy();
+                    this.actionBar.destroy();
+                    this.inherited( arguments );
+                    
                 }
+
+
 
             } );
 
