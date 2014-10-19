@@ -6,6 +6,7 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
+            'dijit/popup',
             'dojo/text!./templates/SymColorPicker.html',
             'dojo/i18n!../nls/resource',
             'dijit/form/DropDownButton',
@@ -22,6 +23,7 @@ define( [
                   _WidgetBase,
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
+                  popup,
                   template,
                   i18n
             ) {
@@ -103,6 +105,12 @@ define( [
                     if ( this.colorSwatchNode ) {
                         domStyle.set( this.colorSwatchNode, 'backgroundColor', hexValue );
                     }
+
+                },
+
+                onClose: function () {
+
+                    popup.close( this.colorPickerTooltipDialog );
 
                 }
 

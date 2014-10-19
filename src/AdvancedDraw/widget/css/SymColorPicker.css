@@ -2,6 +2,21 @@
     margin-top: 3px;
 }
 
+.colorPickerCloseIcon {
+    background: url('../assets/dialogCloseIcon.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    height: 15px;
+    width: 21px;
+    cursor: pointer;
+}
+
+.colorPickerCloseIcon:hover {
+    background-position: -21px;
+}
+
 .colorPicker .dijitButtonText {
     padding-left: 20px;
 }

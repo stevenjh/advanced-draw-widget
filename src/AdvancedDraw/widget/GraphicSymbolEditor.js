@@ -178,7 +178,7 @@ define( [
                     this.editorPane.destroy();
                     this.actionBar.destroy();
                     this.inherited( arguments );
-                    
+
                 }
 
 

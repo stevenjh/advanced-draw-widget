@@ -10,11 +10,21 @@
                 <div>
                     ${buttonLabel}
                 </div>
-                <div data-dojo-type="dijit/TooltipDialog">
+                <div data-dojo-type="dijit/TooltipDialog" data-dojo-attach-point="colorPickerTooltipDialog">
+
                     <div data-dojo-type="dojox/widget/ColorPicker"
                          data-dojo-attach-point="colorPickerDijit"
                          data-dojo-attach-event="onChange:_onColorPickerChange"
                          data-dojo-props="value:'${color}'"></div>
+
+                    <span class="colorPickerCloseIcon"
+                          data-dojo-attach-point="closeButton"
+                          data-dojo-attach-event="onClick: onClose">
+
+                        <span data-dojo-attach-point="closeText" class="closeText" title="Close"></span>
+
+                    </span>
+
                 </div>
             </span>
 
@@ -34,6 +44,8 @@
                  class="alphaSlider"></div>
 
         </div>
+
+
 
     </div>
 
