@@ -95,8 +95,8 @@ define([], function () {
                     style: 'esriSLSSolid'
                 }
             },
-            alwaysSnap: false,
-            snapKey: 'CTRL', // key string ==> keys['CTRL']
+            alwaysSnap: true,
+            //snapKey: 'CTRL', // key string ==> keys['CTRL']
             tolerance: 15
         },
         // geom editing edit toolbar options

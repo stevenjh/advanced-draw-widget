@@ -19,6 +19,7 @@ define({
         activeDrawTool: 'Active Draw Tool:',
         none: 'None',
         options: 'Options',
+        snapping: 'Snapping',
         optionsMenu: {
             zoomAll: 'Zoom to All',
             deleteAll: 'Delete All',
@@ -33,7 +34,9 @@ define({
         },
         undoManager: {
             addGraphic: 'Add graphic',
-            deleteGraphic: 'Delete graphic'
+            deleteGraphic: 'Delete graphic',
+            editGeometry: 'Edit geometry',
+            editSymbol: 'Edit symbol'
         },
         widgets: {
             symbolColorPicker: {
