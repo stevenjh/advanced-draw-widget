@@ -40,11 +40,20 @@ define({
         },
         widgets: {
             symbolColorPicker: {
-                label: 'Color'
+                buttonLabel: 'Color',
+                sliderLabel: 'Transparency'
+            },
+            symbolStylePicker: {
+                label: 'Style'
+            },
+            symbolSizePicker: {
+                label: 'Size'
             },
             smsEditor: {
-                symbol : 'Symbol',
-                outline: 'Symbol outline'
+                defaultEditorLabel : 'Default marker symbol',
+                graphicEditorLabel : 'Graphic marker symbol',
+                leftHandControlsLabel: 'Marker properties',
+                rightHandControlsLabel: 'Outline properties'
             },
             sfsEditor: {
                 fill: 'Fill style',

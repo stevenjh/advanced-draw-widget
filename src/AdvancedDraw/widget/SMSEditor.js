@@ -30,9 +30,9 @@ define([
             lang.mixin(this, options);
 
             this.initialized = false;
-            this.editorLabel = 'Default marker symbol';
-            this.leftHandControlsLabel = 'Marker properties';
-            this.rightHandControlsLabel = 'Outline properties';
+            this.editorLabel = this.i18n.widgets.smsEditor.defaultEditorLabel;
+            this.leftHandControlsLabel = this.i18n.widgets.smsEditor.leftHandControlsLabel;
+            this.rightHandControlsLabel = this.i18n.widgets.smsEditor.rightHandControlsLabel;
 
             this._set('symbol', this.symbol);
 
@@ -63,7 +63,7 @@ define([
             this.symbolStylePicker = new MarkerStylePicker({
                 markerStyle: this.symbol.style,
                 baseClass: 'symbolEditorControl',
-                label: 'Style'
+                label: this.i18n.widgets.symbolStylePicker.label
             }, this.createLeftHandControlsDiv() );
 
             this.symbolStylePicker.watch('markerStyle', lang.hitch(this, function () {
@@ -102,8 +102,8 @@ define([
             this.symbolColorPicker = new SymColorPicker({
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl',
-                buttonLabel: 'Color',
-                sliderLabel: 'Transparency'
+                buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
             }, this.createLeftHandControlsDiv() );
 
             this.symbolColorPicker.watch('color', lang.hitch(this, function () {
@@ -122,7 +122,7 @@ define([
                 value: this.symbol.size,
                 minimum: 1,
                 maximum: 100,
-                label: 'Size:',
+                label: this.i18n.widgets.symbolSizePicker.label,
                 baseClass: 'symbolEditorControl'
             }, this.createLeftHandControlsDiv() );
 
@@ -141,7 +141,7 @@ define([
             this.outlineStylePicker = new LineStylePicker({
                 lineStyle: this.symbol.outline.style,
                 baseClass: 'symbolEditorControl',
-                label: 'Style'
+                label: this.i18n.widgets.symbolStylePicker.label
             }, this.createRightHandControlsDiv() );
 
             this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
@@ -174,8 +174,8 @@ define([
             this.outlineColorPicker = new SymColorPicker({
                 color: this.symbol.outline.color,
                 baseClass: 'symbolEditorControl',
-                buttonLabel: 'Color',
-                sliderLabel: 'Transparency'
+                buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
             }, this.createRightHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {
