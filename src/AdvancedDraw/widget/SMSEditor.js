@@ -79,16 +79,31 @@ define([
 
                 this._updateSymbolAtt();
 
-                if ( arguments[ 2 ] !== 'esriSMSCircle' ) {
-                    domStyle.set( this.symbolColorPicker.domNode, 'display', 'none' );
+                if ( !this._hasFill( arguments[ 2 ] ) ) {
+                    this._toggleSymbolColorControl( false );
                 } else {
-                    domStyle.set( this.symbolColorPicker.domNode, 'display', 'block' );
+                    this._toggleSymbolColorControl( true );
                 }
 
             }));
 
             this.symbolStylePicker.startup();
 
+        },
+
+        _toggleSymbolColorControl: function ( show ) {
+
+            var display = show ? 'block' : 'none';
+            domStyle.set( this.symbolColorPicker.domNode, 'display', display );
+
+        },
+
+        _hasFill: function ( style ) {
+
+            if ( style === 'esriSMSCross' || style === 'esriSMSX' ) {
+                return false;
+            }
+            return true;
         },
 
         _initSymbolColorPicker: function () {
@@ -148,9 +163,24 @@ define([
 
                 this._updateSymbolAtt();
 
+                if ( arguments[ 2 ] === 'esriSLSNull' ) {
+                    this._toggleOutlineControlsDisplay( false );
+                } else {
+                    this._toggleOutlineControlsDisplay( true );
+                }
+
             }));
 
             this.outlineStylePicker.startup();
+
+        },
+
+        _toggleOutlineControlsDisplay: function ( show ) {
+
+            var display = show ? 'block' : 'none';
+
+            domStyle.set ( this.outlineColorPicker.domNode, 'display', display );
+            domStyle.set ( this.outlineWidthSlider.domNode, 'display', display );
 
         },
 
