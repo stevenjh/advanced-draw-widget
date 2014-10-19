@@ -26,6 +26,8 @@ define([
             lang.mixin(this, options);
 
             this.initialized = false;
+            this.editorLabel = 'Default line symbol';
+            this.leftHandControlsLabel = 'Line properties';
 
             this._set('symbol', this.symbol);
 
