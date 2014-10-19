@@ -154,7 +154,8 @@ define([
 				value: this.symbol.outline.width,
 				minimum: 1,
 				maximum: 10,
-				baseClass: 'symbolEditorControl'
+				baseClass: 'symbolEditorControl',
+                label: this.i18n.widgets.symbolWidthPicker.label
 			}, this.createRightHandControlsDiv() );
 
 			this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
