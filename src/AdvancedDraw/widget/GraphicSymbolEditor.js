@@ -37,9 +37,9 @@ define( [
                     lang.mixin( this, options );
 
                     this.editors = {
-                        point: SMSEditor,
-                        polyline: SLSEditor,
-                        polygon: SFSEditor
+                        point: { control: SMSEditor, editorLabel: 'Selected marker symbol' },
+                        polyline: { control: SLSEditor, editorLabel: 'Selected line symbol' },
+                        polygon: { control: SFSEditor, editorLabel: 'Selected polygon symbol' }
                     };
 
                 },
@@ -86,11 +86,13 @@ define( [
 
                 },
 
-                _createEditor: function ( Editor ) {
+                _createEditor: function ( widget ) {
 
+                    var Editor = widget.control;
 
                     this.editor = new Editor ( {
-                        symbol: this.symbol
+                        symbol: this.symbol,
+                        editorLabel: widget.editorLabel
                     } );
 
                     this.editor.watch('symbol', lang.hitch(this, function () {

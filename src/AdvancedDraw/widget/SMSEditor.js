@@ -1,51 +1,42 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dojo/dom-construct',
     'dojo/dom-style',
     './_SymEditorBase',
     './SymColorPicker',
     './LineStylePicker',
     './MarkerStylePicker',
-    './NumericSlider',
-    './_ColorMixin',
-    './_SymEditorMixin',
-    'dojo/i18n!../nls/resource',
-    './../advancedDrawConfig',
-    'xstyle/css!./css/SymbolEditor.css'
+    './NumericSlider'
 ], function (
     declare,
     lang,
-    domConstruct,
     domStyle,
     _SymEditorBase,
     SymColorPicker,
     LineStylePicker,
     MarkerStylePicker,
-    NumericSlider,
-    _ColorMixin,
-    _SymEditorMixin,
-    i18n,
-    advancedDrawConfig
+    NumericSlider
 ) {
 
-    var SMSEditor = declare( [ _SymEditorBase, _ColorMixin, _SymEditorMixin ], {
-
-        i18n: i18n,
-        doLayout: false,
+    var SMSEditor = declare( _SymEditorBase, {
 
         constructor: function (options) {
 
             options = options || {};
 
             if (!options.symbol) {
-                options.symbol = advancedDrawConfig.defaultPointSymbol;
+                options.symbol = this.advancedDrawConfig.defaultPointSymbol;
             }
             lang.mixin(this, options);
 
             this.initialized = false;
+            this.editorLabel = 'Default marker symbol';
+            this.leftHandControlsLabel = 'Marker properties';
+            this.rightHandControlsLabel = 'Outline properties';
 
             this._set('symbol', this.symbol);
+
+
 
         },
 
@@ -65,15 +56,15 @@ define([
 
         },
 
-        _initSymbolStylePicker: function () {
 
-            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
+
+        _initSymbolStylePicker: function () {
 
             this.symbolStylePicker = new MarkerStylePicker({
                 markerStyle: this.symbol.style,
                 baseClass: 'symbolEditorControl',
                 label: 'Style'
-            }, div );
+            }, this.createLeftHandControlsDiv() );
 
             this.symbolStylePicker.watch('markerStyle', lang.hitch(this, function () {
 
@@ -108,14 +99,12 @@ define([
 
         _initSymbolColorPicker: function () {
 
-            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
-
             this.symbolColorPicker = new SymColorPicker({
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: 'Color',
                 sliderLabel: 'Transparency'
-            }, div );
+            }, this.createLeftHandControlsDiv() );
 
             this.symbolColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -129,15 +118,13 @@ define([
 
         _initSymbolSizeSlider: function () {
 
-            var div = domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
-
             this.symbolSizeSlider = new NumericSlider({
                 value: this.symbol.size,
                 minimum: 1,
                 maximum: 100,
                 label: 'Size:',
                 baseClass: 'symbolEditorControl'
-            }, div );
+            }, this.createLeftHandControlsDiv() );
 
             this.symbolSizeSlider.watch('value', lang.hitch(this, function () {
 
@@ -151,13 +138,11 @@ define([
 
         _initOutlineStylePicker: function () {
 
-            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
-
             this.outlineStylePicker = new LineStylePicker({
                 lineStyle: this.symbol.outline.style,
                 baseClass: 'symbolEditorControl',
                 label: 'Style'
-            }, div );
+            }, this.createRightHandControlsDiv() );
 
             this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
@@ -186,13 +171,12 @@ define([
 
         _initOutlineColorPicker: function () {
 
-            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
             this.outlineColorPicker = new SymColorPicker({
                 color: this.symbol.outline.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: 'Color',
                 sliderLabel: 'Transparency'
-            }, div );
+            }, this.createRightHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -206,14 +190,12 @@ define([
 
         _initOutlineWidthSlider: function () {
 
-            var div = domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
-
             this.outlineWidthSlider = new NumericSlider({
                 value: this.symbol.outline.width,
                 minimum: 1,
                 maximum: 10,
                 baseClass: 'symbolEditorControl'
-            }, div );
+            }, this.createRightHandControlsDiv() );
 
             this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 

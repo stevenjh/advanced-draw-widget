@@ -1,40 +1,27 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dijit/layout/AccordionContainer',
+    './_SymEditorBase',
     './SymColorPicker',
     './LineStylePicker',
-    './NumericSlider',
-    './_ColorMixin',
-    './_SymEditorMixin',
-    'dojo/i18n!../nls/resource',
-    './../advancedDrawConfig',
-    'xstyle/css!./css/SymbolEditor.css'
+    './NumericSlider'
 ], function (
     declare,
     lang,
-    AccordionContainer,
+    _SymEditorBase,
     SymColorPicker,
     LineStylePicker,
-    NumericSlider,
-    _ColorMixin,
-    _SymEditorMixin,
-    i18n,
-    advancedDrawConfig
+    NumericSlider
 ) {
 
-    var SLSEditor = declare([ AccordionContainer, _ColorMixin, _SymEditorMixin ], {
-
-        i18n: i18n,
-        doLayout: false,
-        baseClass: 'symbolEditor',
+    var SLSEditor = declare( _SymEditorBase, {
 
         constructor: function (options) {
 
             options = options || {};
 
             if (!options.symbol) {
-                options.symbol = advancedDrawConfig.defaultPolylineSymbol;
+                options.symbol = this.advancedDrawConfig.defaultPolylineSymbol;
             }
             lang.mixin(this, options);
 
@@ -48,26 +35,14 @@ define([
 
             this.inherited(arguments);
 
-            this._initContentPanes();
             this._initOutlineStylePicker();
             this._initOutlineColorPicker();
             this._initOutlineWidthSlider();
 
+            this.removeRightHandControls();
+
             this.initialized = true;
 
-        },
-
-        startup: function () {
-
-            this.inherited(arguments);
-            this.resize();
-
-        },
-
-        _initContentPanes: function () {
-
-            this.outlinePane = this._getContentPane( i18n.widgets.slsEditor.outline );
-            this.addChild(this.outlinePane);
         },
 
         _initOutlineStylePicker: function () {
@@ -75,7 +50,7 @@ define([
             this.outlineStylePicker = new LineStylePicker({
                 lineStyle: this.symbol.style,
                 baseClass: 'symbolEditorControl'
-            });
+            }, this.createLeftHandControlsDiv() );
 
             this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
@@ -83,7 +58,7 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineStylePicker);
+            this.outlineStylePicker.startup();
 
         },
 
@@ -92,7 +67,7 @@ define([
             this.outlineColorPicker = new SymColorPicker({
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl'
-            });
+            }, this.createLeftHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -100,7 +75,7 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineColorPicker);
+            this.outlineColorPicker.startup();
 
         },
 
@@ -111,7 +86,7 @@ define([
                 minimum: 1,
                 maximum: 10,
                 baseClass: 'symbolEditorControl'
-            });
+            }, this.createLeftHandControlsDiv() );
 
             this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
@@ -119,7 +94,7 @@ define([
 
             }));
 
-            this.outlinePane.addChild(this.outlineWidthSlider);
+            this.outlineWidthSlider.startup();
 
         },
 

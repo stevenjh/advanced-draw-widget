@@ -34,13 +34,13 @@ define([
         startup: function () {
             this.inherited(arguments);
             this._createSMSEditor();
-            //this._createSLSEditor();
-            //this._createSFSEditor();
+            this._createSLSEditor();
+            this._createSFSEditor();
         },
 
         _createSMSEditor: function () {
 
-            this.smsEditor = new SMSEditor( { editorLabel: 'Marker Style' });
+            this.smsEditor = new SMSEditor();
             this.smsEditor.watch('symbol', lang.hitch(this, function () {
 
                 var value = arguments[2];

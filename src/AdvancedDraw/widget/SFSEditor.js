@@ -1,55 +1,47 @@
 define([
 	'dojo/_base/declare',
 	'dojo/_base/lang',
-    'dijit/layout/AccordionContainer',
+    'dojo/dom-style',
+    './_SymEditorBase',
 	'./SymColorPicker',
 	'./LineStylePicker',
 	'./FillStylePicker',
-	'./NumericSlider',
-	'./_ColorMixin',
-	'./_SymEditorMixin',
-	'dojo/i18n!../nls/resource',
-	'./../advancedDrawConfig',
-	'xstyle/css!./css/SymbolEditor.css'
+	'./NumericSlider'
 ], function (
 	declare,
 	lang,
-    AccordionContainer,
+    domStyle,
+    _SymEditorBase,
 	SymColorPicker,
 	LineStylePicker,
 	FillStylePicker,
-	NumericSlider,
-	_ColorMixin,
-	_SymEditorMixin,
-	i18n,
-	advancedDrawConfig
+	NumericSlider
 ) {
 
-	var SFSEditor = declare([ AccordionContainer, _ColorMixin, _SymEditorMixin ], {
-
-		i18n: i18n,
-        doLayout: false,
-		baseClass: 'symbolEditor',
+	var SFSEditor = declare( _SymEditorBase, {
 
 		constructor: function (options) {
 
 			options = options || {};
 
 			if (!options.symbol) {
-				options.symbol = advancedDrawConfig.defaultPolygonSymbol;
+				options.symbol = this.advancedDrawConfig.defaultPolygonSymbol;
 			}
 			lang.mixin(this, options);
 
 			this.initialized = false;
+            this.editorLabel = 'Default polygon symbol';
+            this.leftHandControlsLabel = 'Fill';
+            this.rightHandControlsLabel = 'Outline';
 
 			this._set('symbol', this.symbol);
 
 		},
+
 		postCreate: function () {
 
 			this.inherited(arguments);
 
-			this._initContentPanes();
 			this._initFillStylePicker();
 			this._initFillColorPicker();
 
@@ -61,53 +53,60 @@ define([
 
 		},
 
-		startup: function () {
-
-			this.inherited(arguments);
-			this.resize();
-
-		},
-
-		_initContentPanes: function () {
-
-			this.fillPane = this._getContentPane( i18n.widgets.sfsEditor.fill );
-			this.outlinePane = this._getContentPane( i18n.widgets.sfsEditor.outline );
-			this.addChild(this.fillPane);
-			this.addChild(this.outlinePane);
-		},
-
 		_initFillStylePicker: function () {
 
 			this.fillStylePicker = new FillStylePicker({
 				fillStyle: this.symbol.style,
 				baseClass: 'symbolEditorControl'
-			});
+			}, this.createLeftHandControlsDiv() );
 
 			this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
 
 				this._updateSymbolAtt();
 
+                if ( !this._hasFill( arguments[ 2 ] ) ) {
+                    this._toggleSymbolColorControl( false );
+                } else {
+                    this._toggleSymbolColorControl( true );
+                }
+
 			}));
 
-			this.fillPane.addChild(this.fillStylePicker);
+			this.fillStylePicker.startup();
 
 		},
+
+        _toggleSymbolColorControl: function ( show ) {
+
+            var display = show ? 'block' : 'none';
+            domStyle.set( this.fillColorPicker.domNode, 'display', display );
+
+        },
+
+        _hasFill: function ( style ) {
+
+            if ( style === 'esriSFSSolid' ) {
+                return true;
+            }
+            return false;
+        },
 
 		_initFillColorPicker: function () {
 
 			this.fillColorPicker = new SymColorPicker({
 				color: this.symbol.color,
-				baseClass: 'symbolEditorControl'
-			});
+				baseClass: 'symbolEditorControl',
+                buttonLabel: 'Color',
+                sliderLabel: 'Transparency'
+			}, this.createLeftHandControlsDiv() );
 
 			this.fillColorPicker.watch('color', lang.hitch(this, function () {
 
 				this._updateSymbolAtt();
-                this._updateColorPickerEnabled( arguments[ 2 ] );
 
 			}));
 
-			this.fillPane.addChild(this.fillColorPicker);
+			this.fillColorPicker.startup();
 
 		},
 
@@ -116,7 +115,7 @@ define([
 			this.outlineStylePicker = new LineStylePicker({
 				lineStyle: this.symbol.outline.style,
 				baseClass: 'symbolEditorControl'
-			});
+			}, this.createRightHandControlsDiv() );
 
 			this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
@@ -124,7 +123,7 @@ define([
 
 			}));
 
-			this.outlinePane.addChild(this.outlineStylePicker);
+			this.outlineStylePicker.startup();
 
 		},
 
@@ -132,8 +131,10 @@ define([
 
 			this.outlineColorPicker = new SymColorPicker({
 				color: this.symbol.outline.color,
-				baseClass: 'symbolEditorControl'
-			});
+				baseClass: 'symbolEditorControl',
+                buttonLabel: 'Color',
+                sliderLabel: 'Transparency'
+			}, this.createRightHandControlsDiv() );
 
 			this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
@@ -141,7 +142,7 @@ define([
 
 			}));
 
-			this.outlinePane.addChild(this.outlineColorPicker);
+			this.outlineColorPicker.startup();
 
 		},
 
@@ -152,7 +153,7 @@ define([
 				minimum: 1,
 				maximum: 10,
 				baseClass: 'symbolEditorControl'
-			});
+			}, this.createRightHandControlsDiv() );
 
 			this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
@@ -160,16 +161,9 @@ define([
 
 			}));
 
-			this.outlinePane.addChild(this.outlineWidthSlider);
+			this.outlineWidthSlider.startup();
 
 		},
-
-        _updateColorPickerEnabled: function ( style ) {
-
-            var enableColorPicker = style === 'esriSFSSolid';
-            this.fillColorPicker.disabled = !enableColorPicker;
-            
-        },
 
 		_updateSymbolAtt: function () {
 
