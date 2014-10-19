@@ -54,19 +54,19 @@ define({
             },
             smsEditor: {
                 defaultEditorLabel : 'Default marker symbol',
-                graphicEditorLabel : 'Graphic marker symbol',
+                graphicEditorLabel : 'Selected marker symbol',
                 leftHandControlsLabel: 'Marker properties',
                 rightHandControlsLabel: 'Outline properties'
             },
             sfsEditor: {
                 defaultEditorLabel : 'Default polygon symbol',
-                graphicEditorLabel : 'Graphic polygon symbol',
+                graphicEditorLabel : 'Selected polygon symbol',
                 leftHandControlsLabel: 'Fill properties',
                 rightHandControlsLabel: 'Outline properties'
             },
             slsEditor: {
                 defaultEditorLabel : 'Default line symbol',
-                graphicEditorLabel : 'Graphic line symbol',
+                graphicEditorLabel : 'Selected line symbol',
                 leftHandControlsLabel: 'Line properties'
             },
             graphicSymbolEditor: {

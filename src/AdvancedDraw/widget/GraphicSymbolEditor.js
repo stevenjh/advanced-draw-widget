@@ -27,9 +27,8 @@ define( [
             var GraphicSymbolEditor = declare( ConfirmDialog, {
 
                 title: i18n.widgets.graphicSymbolEditor.title,
-                //style: 'width: 300px;',
                 id: 'graphicSymbolEditor',
-                doLayout: false,
+                i18n: i18n,
 
                 constructor: function( options ) {
 
@@ -37,9 +36,9 @@ define( [
                     lang.mixin( this, options );
 
                     this.editors = {
-                        point: { control: SMSEditor, editorLabel: 'Selected marker symbol' },
-                        polyline: { control: SLSEditor, editorLabel: 'Selected line symbol' },
-                        polygon: { control: SFSEditor, editorLabel: 'Selected polygon symbol' }
+                        point: { control: SMSEditor, editorLabel: i18n.widgets.smsEditor.graphicEditorLabel },
+                        polyline: { control: SLSEditor, editorLabel: i18n.widgets.slsEditor.graphicEditorLabel },
+                        polygon: { control: SFSEditor, editorLabel: i18n.widgets.sfsEditor.graphicEditorLabel }
                     };
 
                 },
