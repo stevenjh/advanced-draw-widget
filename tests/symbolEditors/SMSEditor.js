@@ -8,7 +8,7 @@ define ( [
          ],
          function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
 
-             var widget;
+             var widget, expected, actual;
              
              registerSuite ( {
                                  name: 'SMSEditor module test',
@@ -27,6 +27,10 @@ define ( [
 
                                  afterEach: function () {
 
+                                     console.log( 'expected/actual', expected, actual );
+                                     expected = null;
+                                     actual = null;
+                                     
                                      if ( widget ) {
                                          widget.destroy();
                                      };
@@ -39,16 +43,15 @@ define ( [
                                      if ( widget ) {
                                          widget.destroy();
                                      };
+                                     console.log( 'end of tests' );
                                      
                                  },
 
                                  'constructorOptionsTest': function () {
 
                                      
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     var actual = widget.get( 'symbol' );
-
-                                     console.log( 'expected/actual: ', expected, actual );
+                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     actual = widget.get( 'symbol' );
 
                                      assert.deepEqual ( actual,
                                                           expected,
@@ -58,12 +61,12 @@ define ( [
 
                                  'setSymbolStyleTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.style = 'esriSMSSquare';
 
                                      widget.symbolStylePicker._onSelectDijitChange( 3 );
 
-                                     var actual = widget.get( 'symbol' );
+                                     actual = widget.get( 'symbol' );
 
                                      assert.strictEqual ( actual.outline.width,
                                                           expected.outline.width,
@@ -74,12 +77,12 @@ define ( [
                                  'setOutlineWidthTest': function () {
 
                                      var width = 6.3;
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.outline.width = width;
 
                                      widget.outlineWidthSlider.set( 'value', width );
 
-                                     var actual = widget.get( 'symbol' );
+                                     actual = widget.get( 'symbol' );
 
                                      assert.strictEqual ( actual.outline.width,
                                                         expected.outline.width,
@@ -89,14 +92,12 @@ define ( [
 
                                  'alphaSliderChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.color = [ 255, 0, 0, 191 ];
 
                                      widget.symbolColorPicker._onAlphaSliderChange( 0.75 );
 
-                                     var actual = widget.get( 'symbol' );
-
-                                     console.log( 'expected/actual: ', expected, actual );
+                                     actual = widget.get( 'symbol' );
 
                                      assert.deepEqual ( actual,
                                                         expected,
@@ -106,14 +107,12 @@ define ( [
 
                                  'colorPickerChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPointSymbol );
+                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
                                      expected.color = [ 0, 0, 0, 200 ];
 
                                      widget.symbolColorPicker._onColorPickerChange( '#000000' );
 
-                                     var actual = widget.get( 'symbol' );
-
-                                     console.log( 'expected/actual: ', expected, actual );
+                                     actual = widget.get( 'symbol' );
 
                                      assert.deepEqual ( actual,
                                                         expected,

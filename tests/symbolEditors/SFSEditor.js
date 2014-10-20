@@ -11,7 +11,7 @@ define ( [
              var widget;
              
              registerSuite ( {
-                                 name: 'SMSEditor module test',
+                                 name: 'SFSEditor module test',
 
                                  setup: function () {
                                     // do nothing

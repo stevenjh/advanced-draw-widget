@@ -214,6 +214,13 @@ define([
                 return;
             }
 
+            var symbol = this._getSymbol();
+            this._set('symbol', symbol);
+
+        },
+
+        _getSymbol: function () {
+
             var symbol = lang.clone(this.symbol);
 
             var symStyle = this.symbolStylePicker.get('markerStyle');
@@ -234,7 +241,14 @@ define([
             var outlineWidth = this.outlineWidthSlider.get('value');
             symbol.outline.width = outlineWidth;
 
-            this._set('symbol', symbol);
+            return symbol;
+
+        },
+
+        _getSymbolAttr: function () {
+
+            return this._getSymbol();
+
         },
 
         _setSymbolAttr: function (value) {

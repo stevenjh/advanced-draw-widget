@@ -174,25 +174,38 @@ define([
 				return;
 			}
 
-			var symbol = lang.clone(this.symbol);
-
-			var symStyle = this.fillStylePicker.get('fillStyle');
-			symbol.style = symStyle;
-
-			var symColor = this.fillColorPicker.get('color');
-			symbol.color = symColor;
-
-			var outlineStyle = this.outlineStylePicker.get('lineStyle');
-			symbol.outline.style = outlineStyle;
-
-			var outlineColor = this.outlineColorPicker.get('color');
-			symbol.outline.color = outlineColor;
-
-			var outlineWidth = this.outlineWidthSlider.get('value');
-			symbol.outline.width = outlineWidth;
-
+			var symbol = this._getSymbol();
 			this._set('symbol', symbol);
 		},
+
+        _getSymbol: function () {
+
+            var symbol = lang.clone(this.symbol);
+
+            var symStyle = this.fillStylePicker.get('fillStyle');
+            symbol.style = symStyle;
+
+            var symColor = this.fillColorPicker.get('color');
+            symbol.color = symColor;
+
+            var outlineStyle = this.outlineStylePicker.get('lineStyle');
+            symbol.outline.style = outlineStyle;
+
+            var outlineColor = this.outlineColorPicker.get('color');
+            symbol.outline.color = outlineColor;
+
+            var outlineWidth = this.outlineWidthSlider.get('value');
+            symbol.outline.width = outlineWidth;
+
+            return symbol;
+
+        },
+
+        _getSymbolAttr: function () {
+
+            return this._getSymbol();
+
+        },
 
 		_setSymbolAttr: function (value) {
 

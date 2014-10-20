@@ -110,6 +110,13 @@ define([
                 return;
             }
 
+            var symbol = this._getSymbol();
+            this._set('symbol', symbol);
+
+        },
+
+        _getSymbol: function () {
+
             var symbol = lang.clone(this.symbol);
 
             var lineStyle = this.outlineStylePicker.get('lineStyle');
@@ -121,7 +128,13 @@ define([
             var lineWidth = this.outlineWidthSlider.get('value');
             symbol.width = lineWidth;
 
-            this._set('symbol', symbol);
+            return symbol;
+        },
+
+        _getSymbolAttr: function () {
+
+            return this._getSymbol();
+
         },
 
         _setSymbolAttr: function (value) {

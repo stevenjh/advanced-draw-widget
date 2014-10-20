@@ -43,34 +43,17 @@ define( [
 
                 },
 
-                startup: function () {
-
-                    this.inherited( arguments );
-
-                    if ( this.graphic ) {
-                        this._loadEditor();
-                    }
-
-                },
-
                 _setGraphicAttr: function ( value ) {
 
                     this.graphic = value;
-                    this._set( 'symbol', this.graphic.symbol.toJson() );
-
-                },
-
-                _setSymbolAttr: function ( value ) {
-
-                    console.dir( value );
-
+                    this.symbol = lang.clone( value.symbol.toJson() );
                     this._loadEditor();
 
                 },
 
                 _loadEditor: function () {
 
-                    if ( !this.symbol ) {
+                    if ( !this.graphic ) {
                         return;
                     }
 
@@ -92,7 +75,7 @@ define( [
                     this.editor = new Editor ( {
                         editorLabel: widget.editorLabel
                     } );
-                    this.editor.set( 'symbol', this.symbol );
+                    this.editor.set( 'symbol', this.graphic.symbol.toJson() );
 
                     this.editor.watch('symbol', lang.hitch(this, function () {
 

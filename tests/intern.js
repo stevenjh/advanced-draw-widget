@@ -90,7 +90,6 @@ define({
         'tests/symbolEditors/SMSEditor',
         'tests/symbolEditors/SLSEditor',
         'tests/symbolEditors/SFSEditor',
-        'tests/symbolEditors/_SymEditorMixin',
         'tests/symbolEditors/GraphicSymbolEditor'
     ],
 

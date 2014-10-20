@@ -2,9 +2,14 @@ define ( [
              'intern!object',
              'intern/chai!assert',
              'dojo/_base/Color',
-             'adw/widget/SymColorPicker'
+             'adw/widget/SymColorPicker',
+             'dijit/form/DropDownButton',
+             'dijit/TooltipDialog',
+             'dojox/widget/ColorPicker',
          ],
          function ( registerSuite, assert, Color, Widget ) {
+
+             var widget, expected, actual;
 
              registerSuite ( {
                                  name: 'SymColorPicker module test',
@@ -20,8 +25,13 @@ define ( [
 
                                  afterEach: function () {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
+                                     console.log( 'expected/actual', expected, actual );
+
+                                     expected = null;
+                                     actual = null;
+
+                                     if ( widget ) {
+                                         widget.destroy();
                                      };
 
                                  },
@@ -29,20 +39,20 @@ define ( [
                                  // after the suite is done (all tests)
                                  teardown: function() {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
+                                     if ( widget ) {
+                                         widget.destroy();
                                      };
 
                                  },
 
                                  'constructorOptionsTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { color: color } );
-                                     this.widget.startup();
+                                     var color = [ 255, 0, 0, 128 ];
+                                     widget = new Widget( { color: color } );
+                                     widget.startup();
 
-                                     var expected = color;
-                                     var actual = this.widget.get( 'color' );
+                                     expected = [ 255,0,0,128 ];
+                                     actual = widget.get( 'color' );
 
                                      assert.deepEqual ( actual,
                                                           expected,
@@ -52,14 +62,15 @@ define ( [
 
                                  'setColorTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );this.widget = new Widget();
-                                     this.widget.startup();
-                                     this.widget.set( 'color', color );
+                                     var color = [ 255, 0, 0, 128 ];
+                                     widget = new Widget();
+                                     widget.startup();
+                                     widget.set( 'color', color );
 
-                                     var expected = color;
-                                     var actual = this.widget.get( 'color' );
+                                     expected = [ 255, 0, 0, 128 ] ;
+                                     actual = widget.get( 'color' );
 
-                                     assert.strictEqual ( actual,
+                                     assert.deepEqual ( actual,
                                                           expected,
                                                           '.get( color ) should return same color as passed into .set( color, value ).'
                                      );
@@ -67,14 +78,14 @@ define ( [
 
                                  'alphaSliderChangeTest': function () {
 
-                                     var color = Color.fromArray( [ 255, 0, 0, 0.5 ] );
-                                     this.widget = new Widget( { color: color } );
-                                     this.widget.startup();
+                                     var color = [ 255, 0, 0, 128 ];
+                                     widget = new Widget( { color: color } );
+                                     widget.startup();
 
-                                     this.widget._onAlphaSliderChange( 0.75 );
+                                     widget._onAlphaSliderChange( 0.5 );
 
-                                     var expected = Color.fromArray( [ 255, 0, 0, 0.75 ] );
-                                     var actual = this.widget.get( 'color' );
+                                     expected = [ 255,0,0,128 ];
+                                     actual = widget.get( 'color' );
 
                                      assert.deepEqual ( actual,
                                                         expected,
@@ -82,16 +93,18 @@ define ( [
                                      );
                                  },
 
-                                 'colorPickerChangeTest': function () {
+                                 colorPickerChangeTest: function () {
 
-                                     var color = Color.fromHex( '#FF0000' );
-                                     this.widget = new Widget( { color: color } );
-                                     this.widget.startup();
+                                     var color = Color.fromHex( '#FF0000' ).toRgb();
+                                     color.push( 255 );
+                                     widget = new Widget( { color: color } );
+                                     widget.startup();
 
-                                     this.widget._onColorPickerChange( '#0000FF' );
+                                     widget._onColorPickerChange( '#0000FF' );
 
-                                     var expected = Color.fromHex( '#0000FF' );
-                                     var actual = this.widget.get( 'color' );
+                                     expected = Color.fromHex( '#0000FF' ).toRgb();
+                                     expected.push( 255 );
+                                     actual = widget.get( 'color' );
 
                                      assert.deepEqual ( actual,
                                                         expected,

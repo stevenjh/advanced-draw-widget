@@ -11,6 +11,7 @@ define( [
             'dojo/i18n!../nls/resource',
             './_ColorMixin',
             'dijit/form/DropDownButton',
+            'dijit/form/HorizontalSlider',
             'dijit/TooltipDialog',
             'dojox/widget/ColorPicker',
             'xstyle/css!dojox/widget/ColorPicker/ColorPicker.css',
@@ -38,6 +39,7 @@ define( [
 
                 widgetsInTemplate: true,
                 templateString: template,
+                defaultColor: [ 255,0,0,255 ],
                 color: null,
                 alpha: 1,
                 i18n: i18n,
@@ -48,28 +50,25 @@ define( [
 
                 constructor: function( options ) {
 
-                    options = options || {};
+                    options = options || { color: this.defaultColor };
+                    this._validateColor( options.color );
                     lang.mixin( this, options );
 
-                    if ( !this.color ){
-                        this.color = Color.fromHex( '#FFFFFF' );
-                    } else if ( !this._isDojoColor( this.color ) ) {
-                        this.color = this._esriColorArrayToDojoColor( this.color );
+                },
+
+                _validateColor: function ( color ) {
+
+                    if ( !( color instanceof Array ) ) {
+                        throw new Error( 'color is not an ESRI color array' );
                     }
 
                 },
 
                 startup: function () {
 
-                    this._updateControls( this.color );
+                    var color = this.color;
                     this.inherited( arguments );
-
-                },
-
-                _isDojoColor: function ( value ) {
-
-                    var isDojoColor = value instanceof Color;
-                    return isDojoColor;
+                    this.color = color;
 
                 },
 
