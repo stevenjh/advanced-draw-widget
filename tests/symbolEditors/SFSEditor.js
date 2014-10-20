@@ -1,128 +1,131 @@
 define ( [
-             'intern!object',
-             'intern/chai!assert',
-             'dojo/_base/lang',
-             'dojo/_base/Color',
-             'adw/widget/SFSEditor',
-             'adw/advancedDrawConfig'
-         ],
-         function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
+ 'intern!object',
+ 'intern/chai!assert',
+ 'dojo/_base/lang',
+ 'dojo/_base/Color',
+ 'adw/widget/SFSEditor',
+ 'adw/advancedDrawConfig'
+],
+function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
 
-             var widget;
-             
-             registerSuite ( {
-                                 name: 'SFSEditor module test',
+            var widget;
 
-                                 setup: function () {
-                                    // do nothing
-                                 },
+            registerSuite ( {
+                 name: 'SFSEditor module test',
 
-                                 // before each test executes
-                                 beforeEach: function() {
-                                     
-                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPolygonSymbol ) } );
-                                     widget.startup();
+                 setup     : function () {
+                     // do nothing
+                 },
 
-                                 },
+                 // before each test executes
+                 beforeEach: function () {
 
-                                 afterEach: function () {
+                     widget = new Widget ( { symbol: lang.clone ( defaultConfig.defaultPolygonSymbol ) } );
+                     widget.startup ();
 
-                                     if ( widget ) {
-                                         widget.destroy();
-                                     };
+                 },
 
-                                 },
+                 afterEach: function () {
 
-                                 // after the suite is done (all tests)
-                                 teardown: function() {
+                     if ( widget ) {
+                         widget.destroy ();
+                     }
 
-                                     if ( widget ) {
-                                         widget.destroy();
-                                     };
-                                     
-                                 },
+                 },
 
-                                 'constructorOptionsTest': function () {
+                 // after the suite is done (all tests)
+                 teardown : function () {
 
-                                     
-                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     var actual = widget.get( 'symbol' );
+                     if ( widget ) {
+                         widget.destroy ();
+                     }
 
-                                     console.log( 'expected/actual: ', expected, actual );
+                 },
 
-                                     assert.deepEqual ( actual,
-                                                          expected,
-                                                          '.get( symbol ) should return same symbol as passed into constructor.'
-                                     );
-                                 },
+                 'constructorOptionsTest': function () {
 
-                                 'setSymbolStyleTest': function () {
+                     var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
+                     var actual = widget.get ( 'symbol' );
 
-                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     expected.style = 'esriSFSDiagonalCross';
+                     console.log ( 'expected/actual: ', expected, actual );
 
-                                     widget.fillStylePicker._onSelectDijitChange( 3 );
+                     assert.deepEqual ( actual,
+                                        expected,
+                                        '.get( symbol ) should return same symbol as passed into constructor.'
+                     );
 
-                                     var actual = widget.get( 'symbol' );
+                 },
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                          expected.outline.width,
-                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
-                                     );
-                                 },
+                 'setSymbolStyleTest': function () {
 
-                                 'setOutlineWidthTest': function () {
+                     var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
+                     expected.style = 'esriSFSDiagonalCross';
 
-                                     var width = 6.3;
-                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     expected.outline.width = width;
+                     widget.fillStylePicker._onSelectDijitChange ( 3 );
 
-                                     widget.outlineWidthSlider.set( 'value', width );
+                     var actual = widget.get ( 'symbol' );
 
-                                     var actual = widget.get( 'symbol' );
+                     assert.strictEqual ( actual.outline.width,
+                                          expected.outline.width,
+                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
+                     );
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                        expected.outline.width,
-                                                          '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
-                                     );
-                                 },
+                 },
 
-                                 'alphaSliderChangeTest': function () {
+                 'setOutlineWidthTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     expected.color = [ 0, 0, 0, 191 ];
+                     var width = 6.3;
+                     var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
+                     expected.outline.width = width;
 
-                                     widget.fillColorPicker._onAlphaSliderChange( 0.75 );
+                     widget.outlineWidthSlider.set ( 'value', width );
 
-                                     var actual = widget.get( 'symbol' );
+                     var actual = widget.get ( 'symbol' );
 
-                                     console.log( 'expected/actual: ', expected, actual );
+                     assert.strictEqual ( actual.outline.width,
+                                          expected.outline.width,
+                                          '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
+                     );
 
-                                     assert.deepEqual ( actual,
-                                                        expected,
-                                                        '.get( symbol ) should return symbol with color alpha value modified by new slider value.'
-                                     );
-                                 },
+                 },
 
-                                 'colorPickerChangeTest': function () {
+                 'alphaSliderChangeTest': function () {
 
-                                     var expected = lang.clone( defaultConfig.defaultPolygonSymbol );
-                                     expected.color = [ 0, 0, 0, 64 ];
+                     var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
+                     expected.color = [ 0, 0, 0, 191];
 
-                                     widget.fillColorPicker._onColorPickerChange( '#000000' );
+                     widget.fillColorPicker._onAlphaSliderChange ( 0.75 );
 
-                                     var actual = widget.get( 'symbol' );
+                     var actual = widget.get ( 'symbol' );
 
-                                     console.log( 'expected/actual: ', expected, actual );
+                     console.log ( 'expected/actual: ', expected, actual );
 
-                                     assert.deepEqual ( actual,
-                                                        expected,
-                                                        '.get( symbol ) should return symbol with color value modified by new color picker color value.'
-                                     );
-                                 }
+                     assert.deepEqual ( actual,
+                                        expected,
+                                        '.get( symbol ) should return symbol with color alpha value modified by new slider value.'
+                     );
 
-                             }
-             );
+                 },
 
-         }
+                 'colorPickerChangeTest': function () {
+
+                     var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
+                     expected.color = [ 0, 0, 0, 64];
+
+                     widget.fillColorPicker._onColorPickerChange ( '#000000' );
+
+                     var actual = widget.get ( 'symbol' );
+
+                     console.log ( 'expected/actual: ', expected, actual );
+
+                     assert.deepEqual ( actual,
+                                        expected,
+                                        '.get( symbol ) should return symbol with color value modified by new color picker color value.'
+                     );
+                     
+                 }
+
+        } );
+
+    }
 );
