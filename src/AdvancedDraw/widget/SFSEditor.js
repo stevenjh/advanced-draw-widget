@@ -4,8 +4,7 @@ define([
     'dojo/dom-style',
     './_SymEditorBase',
     './SymColorPicker',
-    './LineStylePicker',
-    './FillStylePicker',
+    './StylePicker',
     './NumericSlider'
 ], function (
     declare,
@@ -13,8 +12,7 @@ define([
     domStyle,
     _SymEditorBase,
     SymColorPicker,
-    LineStylePicker,
-    FillStylePicker,
+    StylePicker,
     NumericSlider
 ) {
 
@@ -55,13 +53,14 @@ define([
 
         _initFillStylePicker: function () {
 
-            this.fillStylePicker = new FillStylePicker({
+            this.fillStylePicker = new StylePicker({
                 fillStyle: this.symbol.style,
                 baseClass: 'symbolEditorControl',
-                label: this.i18n.widgets.symbolStylePicker.label
+                label: this.i18n.widgets.symbolStylePicker.label,
+                styleSet: 'fill'
             }, this.createLeftHandControlsDiv() );
 
-            this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
+            this.fillStylePicker.watch('style', lang.hitch(this, function () {
 
                 this._updateSymbolAtt();
 
@@ -113,13 +112,14 @@ define([
 
         _initOutlineStylePicker: function () {
 
-            this.outlineStylePicker = new LineStylePicker({
+            this.outlineStylePicker = new StylePicker({
                 lineStyle: this.symbol.outline.style,
                 baseClass: 'symbolEditorControl',
-                label: this.i18n.widgets.symbolStylePicker.label
+                label: this.i18n.widgets.symbolStylePicker.label,
+                styleSet: 'line'
             }, this.createRightHandControlsDiv() );
 
-            this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
+            this.outlineStylePicker.watch('style', lang.hitch(this, function () {
 
                 this._updateSymbolAtt();
 
@@ -182,13 +182,13 @@ define([
 
             var symbol = lang.clone(this.symbol);
 
-            var symStyle = this.fillStylePicker.get('fillStyle');
+            var symStyle = this.fillStylePicker.get('style');
             symbol.style = symStyle;
 
             var symColor = this.fillColorPicker.get('color');
             symbol.color = symColor;
 
-            var outlineStyle = this.outlineStylePicker.get('lineStyle');
+            var outlineStyle = this.outlineStylePicker.get('style');
             symbol.outline.style = outlineStyle;
 
             var outlineColor = this.outlineColorPicker.get('color');
@@ -212,10 +212,10 @@ define([
             if (this.initialized) {
 
                 this.fillColorPicker.set('color', value.color);
-                this.fillStylePicker.set('fillStyle', value.style);
+                this.fillStylePicker.set('style', value.style);
                 this.outlineColorPicker.set('color', value.outline.color);
                 this.outlineWidthSlider.set('value', value.outline.width);
-                this.outlineStylePicker.set('lineStyle', value.outline.style);
+                this.outlineStylePicker.set('style', value.outline.style);
 
             }
 

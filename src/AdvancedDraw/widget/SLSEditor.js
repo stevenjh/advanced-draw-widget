@@ -3,14 +3,14 @@ define([
     'dojo/_base/lang',
     './_SymEditorBase',
     './SymColorPicker',
-    './LineStylePicker',
+    './StylePicker',
     './NumericSlider'
 ], function (
     declare,
     lang,
     _SymEditorBase,
     SymColorPicker,
-    LineStylePicker,
+    StylePicker,
     NumericSlider
 ) {
 
@@ -49,13 +49,14 @@ define([
 
         _initOutlineStylePicker: function () {
 
-            this.outlineStylePicker = new LineStylePicker({
+            this.outlineStylePicker = new StylePicker({
                 lineStyle: this.symbol.style,
                 baseClass: 'symbolEditorControl',
-                label: this.i18n.widgets.symbolStylePicker.label
+                label: this.i18n.widgets.symbolStylePicker.label,
+                styleSet: 'line'
             }, this.createLeftHandControlsDiv() );
 
-            this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
+            this.outlineStylePicker.watch('style', lang.hitch(this, function () {
 
                 this._updateSymbolAtt();
 
@@ -119,7 +120,7 @@ define([
 
             var symbol = lang.clone(this.symbol);
 
-            var lineStyle = this.outlineStylePicker.get('lineStyle');
+            var lineStyle = this.outlineStylePicker.get('style');
             symbol.style = lineStyle;
 
             var lineColor = this.outlineColorPicker.get('color');
@@ -143,7 +144,7 @@ define([
 
                 this.outlineColorPicker.set('color', value.color);
                 this.outlineWidthSlider.set('value', value.width);
-                this.outlineStylePicker.set('lineStyle', value.style);
+                this.outlineStylePicker.set('style', value.style);
 
             }
 
