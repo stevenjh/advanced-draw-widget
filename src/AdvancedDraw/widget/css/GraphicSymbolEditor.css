@@ -2,6 +2,10 @@
 
 }
 
+#graphicSymbolEditor #graphicSymbolEditorActionBar {
+    text-align: right;
+}
+
 #graphicSymbolEditor_underlay {
     display: none;
 }
