@@ -43,6 +43,14 @@ define( [
 
                 },
 
+                _getGraphicAttr: function () {
+
+                    var symbol = this.editor.get( 'symbol' );
+                    this._updateGraphicWithSymbol( symbol );
+                    return this.graphic;
+
+                },
+
                 _setGraphicAttr: function ( value ) {
 
                     this.graphic = value;
@@ -129,30 +137,51 @@ define( [
                         this.addChild( this.actionBar );
                     }
 
-                    this.okButton = new Button({
-                        label: 'Apply',
-                        onClick: lang.hitch( this, function(){
-                            this.hide();
-                        } )
+                    this._createApplyButton();
+                    this._createCancelButton();
+
+                },
+
+                _createApplyButton: function () {
+
+                    this.applyButton = new Button({
+                       label: 'Apply',
+                       onClick: lang.hitch( this, function(){
+                           this.hide();
+                       } )
                     } );
 
-                    this.actionBar.addChild( this.okButton );
+                    this.actionBar.addChild( this.applyButton );
+
+                },
+
+                _createCancelButton: function () {
 
                     this.cancelButton = new Button({
-                                                   label: 'Cancel',
-                                                   onClick: lang.hitch( this, function(){
-                                                       this._rollBackSymbolUpdates();
-                                                       this.hide();
-                                                   } )
-                                               } );
+                       label: 'Cancel',
+                       onClick: lang.hitch( this, function(){
+
+                           this._cancelUpdates();
+
+                       } )
+                    } );
 
                     this.actionBar.addChild( this.cancelButton );
+
+                },
+
+                _cancelUpdates: function () {
+
+                    this._rollBackSymbolUpdates();
+                    this.hide();
+
                 },
 
                 _rollBackSymbolUpdates: function () {
 
                     if ( this.graphic ) {
-                        this._updateGraphicWithSymbol( this.symbol );
+                        //this._updateGraphicWithSymbol( this.symbol );
+                        this.editor.set( 'symbol', this.symbol );
                     }
 
                 },
