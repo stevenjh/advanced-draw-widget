@@ -1,69 +1,69 @@
 define([
-	'dojo/_base/declare',
-	'dojo/_base/lang',
+    'dojo/_base/declare',
+    'dojo/_base/lang',
     'dojo/dom-style',
     './_SymEditorBase',
-	'./SymColorPicker',
-	'./LineStylePicker',
-	'./FillStylePicker',
-	'./NumericSlider'
+    './SymColorPicker',
+    './LineStylePicker',
+    './FillStylePicker',
+    './NumericSlider'
 ], function (
-	declare,
-	lang,
+    declare,
+    lang,
     domStyle,
     _SymEditorBase,
-	SymColorPicker,
-	LineStylePicker,
-	FillStylePicker,
-	NumericSlider
+    SymColorPicker,
+    LineStylePicker,
+    FillStylePicker,
+    NumericSlider
 ) {
 
-	var SFSEditor = declare( _SymEditorBase, {
+    var SFSEditor = declare( _SymEditorBase, {
 
-		constructor: function (options) {
+        constructor: function (options) {
 
-			options = options || {};
+            options = options || {};
 
-			if (!options.symbol) {
-				options.symbol = this.advancedDrawConfig.defaultPolygonSymbol;
-			}
-			lang.mixin(this, options);
+            if (!options.symbol) {
+                options.symbol = this.advancedDrawConfig.defaultPolygonSymbol;
+            }
+            lang.mixin(this, options);
 
-			this.initialized = false;
+            this.initialized = false;
             this.editorLabel = this.i18n.widgets.sfsEditor.defaultEditorLabel;
             this.leftHandControlsLabel = this.i18n.widgets.sfsEditor.leftHandControlsLabel;
             this.rightHandControlsLabel = this.i18n.widgets.sfsEditor.rightHandControlsLabel;
 
-			this._set('symbol', this.symbol);
+            this._set('symbol', this.symbol);
 
-		},
+        },
 
-		postCreate: function () {
+        postCreate: function () {
 
-			this.inherited(arguments);
+            this.inherited(arguments);
 
-			this._initFillStylePicker();
-			this._initFillColorPicker();
+            this._initFillStylePicker();
+            this._initFillColorPicker();
 
-			this._initOutlineStylePicker();
-			this._initOutlineColorPicker();
-			this._initOutlineWidthSlider();
+            this._initOutlineStylePicker();
+            this._initOutlineColorPicker();
+            this._initOutlineWidthSlider();
 
-			this.initialized = true;
+            this.initialized = true;
 
-		},
+        },
 
-		_initFillStylePicker: function () {
+        _initFillStylePicker: function () {
 
-			this.fillStylePicker = new FillStylePicker({
-				fillStyle: this.symbol.style,
-				baseClass: 'symbolEditorControl',
+            this.fillStylePicker = new FillStylePicker({
+                fillStyle: this.symbol.style,
+                baseClass: 'symbolEditorControl',
                 label: this.i18n.widgets.symbolStylePicker.label
-			}, this.createLeftHandControlsDiv() );
+            }, this.createLeftHandControlsDiv() );
 
-			this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
+            this.fillStylePicker.watch('fillStyle', lang.hitch(this, function () {
 
-				this._updateSymbolAtt();
+                this._updateSymbolAtt();
 
                 if ( !this._symbolStyleHasFill( arguments[ 2 ] ) ) {
                     this._toggleSymbolColorControl( false );
@@ -71,11 +71,11 @@ define([
                     this._toggleSymbolColorControl( true );
                 }
 
-			}));
+            }));
 
-			this.fillStylePicker.startup();
+            this.fillStylePicker.startup();
 
-		},
+        },
 
         _toggleSymbolColorControl: function ( show ) {
 
@@ -92,91 +92,91 @@ define([
             return false;
         },
 
-		_initFillColorPicker: function () {
+        _initFillColorPicker: function () {
 
-			this.fillColorPicker = new SymColorPicker({
-				color: this.symbol.color,
-				baseClass: 'symbolEditorControl',
+            this.fillColorPicker = new SymColorPicker({
+                color: this.symbol.color,
+                baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
                 sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
-			}, this.createLeftHandControlsDiv() );
+            }, this.createLeftHandControlsDiv() );
 
-			this.fillColorPicker.watch('color', lang.hitch(this, function () {
+            this.fillColorPicker.watch('color', lang.hitch(this, function () {
 
-				this._updateSymbolAtt();
+                this._updateSymbolAtt();
 
-			}));
+            }));
 
-			this.fillColorPicker.startup();
+            this.fillColorPicker.startup();
 
-		},
+        },
 
-		_initOutlineStylePicker: function () {
+        _initOutlineStylePicker: function () {
 
-			this.outlineStylePicker = new LineStylePicker({
-				lineStyle: this.symbol.outline.style,
-				baseClass: 'symbolEditorControl',
+            this.outlineStylePicker = new LineStylePicker({
+                lineStyle: this.symbol.outline.style,
+                baseClass: 'symbolEditorControl',
                 label: this.i18n.widgets.symbolStylePicker.label
-			}, this.createRightHandControlsDiv() );
+            }, this.createRightHandControlsDiv() );
 
-			this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
+            this.outlineStylePicker.watch('lineStyle', lang.hitch(this, function () {
 
-				this._updateSymbolAtt();
+                this._updateSymbolAtt();
 
-			}));
+            }));
 
-			this.outlineStylePicker.startup();
+            this.outlineStylePicker.startup();
 
-		},
+        },
 
-		_initOutlineColorPicker: function () {
+        _initOutlineColorPicker: function () {
 
-			this.outlineColorPicker = new SymColorPicker({
-				color: this.symbol.outline.color,
-				baseClass: 'symbolEditorControl',
+            this.outlineColorPicker = new SymColorPicker({
+                color: this.symbol.outline.color,
+                baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
                 sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
-			}, this.createRightHandControlsDiv() );
+            }, this.createRightHandControlsDiv() );
 
-			this.outlineColorPicker.watch('color', lang.hitch(this, function () {
+            this.outlineColorPicker.watch('color', lang.hitch(this, function () {
 
-				this._updateSymbolAtt();
+                this._updateSymbolAtt();
 
-			}));
+            }));
 
-			this.outlineColorPicker.startup();
+            this.outlineColorPicker.startup();
 
-		},
+        },
 
-		_initOutlineWidthSlider: function () {
+        _initOutlineWidthSlider: function () {
 
-			this.outlineWidthSlider = new NumericSlider({
-				value: this.symbol.outline.width,
-				minimum: 1,
-				maximum: 10,
-				baseClass: 'symbolEditorControl',
+            this.outlineWidthSlider = new NumericSlider({
+                value: this.symbol.outline.width,
+                minimum: 1,
+                maximum: 10,
+                baseClass: 'symbolEditorControl',
                 label: this.i18n.widgets.symbolWidthPicker.label
-			}, this.createRightHandControlsDiv() );
+            }, this.createRightHandControlsDiv() );
 
-			this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
+            this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
 
-				this._updateSymbolAtt();
+                this._updateSymbolAtt();
 
-			}));
+            }));
 
-			this.outlineWidthSlider.startup();
+            this.outlineWidthSlider.startup();
 
-		},
+        },
 
-		_updateSymbolAtt: function () {
+        _updateSymbolAtt: function () {
 
-			if (!this.initialized) {
-				return;
-			}
+            if (!this.initialized) {
+                return;
+            }
 
-			var symbol = this._getSymbol();
-			this._set('symbol', symbol);
-		},
+            var symbol = this._getSymbol();
+            this._set('symbol', symbol);
+        },
 
         _getSymbol: function () {
 
@@ -207,23 +207,23 @@ define([
 
         },
 
-		_setSymbolAttr: function (value) {
+        _setSymbolAttr: function (value) {
 
-			if (this.initialized) {
+            if (this.initialized) {
 
-				this.fillColorPicker.set('color', value.color);
-				this.fillStylePicker.set('fillStyle', value.style);
-				this.outlineColorPicker.set('color', value.outline.color);
-				this.outlineWidthSlider.set('value', value.outline.width);
-				this.outlineStylePicker.set('lineStyle', value.outline.style);
+                this.fillColorPicker.set('color', value.color);
+                this.fillStylePicker.set('fillStyle', value.style);
+                this.outlineColorPicker.set('color', value.outline.color);
+                this.outlineWidthSlider.set('value', value.outline.width);
+                this.outlineStylePicker.set('lineStyle', value.outline.style);
 
-			}
+            }
 
-			this.symbol = value;
+            this.symbol = value;
 
-		}
+        }
 
-	});
+    });
 
-	return SFSEditor;
+    return SFSEditor;
 });
