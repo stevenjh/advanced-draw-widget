@@ -9,6 +9,7 @@ define( [
             'dijit/popup',
             'dojo/text!./templates/SymColorPicker.html',
             'dojo/i18n!../nls/resource',
+            './_ColorMixin',
             'dijit/form/DropDownButton',
             'dijit/TooltipDialog',
             'dojox/widget/ColorPicker',
@@ -25,12 +26,14 @@ define( [
                   _WidgetsInTemplateMixin,
                   popup,
                   template,
-                  i18n
+                  i18n,
+                  _ColorMixin
             ) {
 
             var ColorPickerDialog = declare( [ _WidgetBase,
                                                 _TemplatedMixin,
-                                                _WidgetsInTemplateMixin
+                                                _WidgetsInTemplateMixin,
+                                                _ColorMixin
                                              ], {
 
                 widgetsInTemplate: true,
@@ -49,48 +52,77 @@ define( [
                     lang.mixin( this, options );
 
                     if ( !this.color ){
-                        this.color = new Color( '#FFFFFF' );
+                        this.color = Color.fromHex( '#FFFFFF' );
+                    } else if ( !this._isDojoColor( this.color ) ) {
+                        this.color = this._esriColorArrayToDojoColor( this.color );
                     }
+
+                },
+
+                startup: function () {
+
+                    this._updateControls( this.color );
+                    this.inherited( arguments );
+
+                },
+
+                _isDojoColor: function ( value ) {
+
+                    var isDojoColor = value instanceof Color;
+                    return isDojoColor;
+
+                },
+
+                _updateControls: function ( color ) {
+
+                    if ( this.colorPickerDijit && color ) {
+                        this.colorPickerDijit.set( 'value', color.toHex() );
+                    }
+
+                    if ( this.alphaSlider ) {
+                        this.alphaSlider.set( 'value', color.a );
+                    }
+
+                    this._updateColorSwatch( color.toHex() );
 
                 },
 
                 _setColorAttr: function ( value ) {
 
-                    if ( this.colorPickerDijit && value ) {
-                        this.colorPickerDijit.set( 'value', value.toHex() );
-                    }
-                    if ( this.alphaSlider ) {
-                        this.alphaSlider.set( 'value', value.a );
-                    }
-
-                    this._updateColorSwatch( value.toHex() );
-
+                    value = this._esriColorArrayToDojoColor( value );
+                    this._updateControls( value );
                     this.color = value;
+
+                },
+
+                _getColorAttr: function () {
+
+                    return this._dojoColorToEsriColorArray( this.color );
 
                 },
 
                 _onAlphaSliderChange: function( value ) {
 
-                    var colorsArray = this.color.toRgb();
-                    colorsArray.push( value );
-                    this._set( 'color', Color.fromArray( colorsArray ) );
+                    var newColor = lang.clone( this.color );
+                    newColor.a = value;
+                    this._set( 'color', newColor );
 
                 },
 
                 _onColorPickerChange: function( value ) {
 
-                    var colorsArray = Color.fromHex( value ).toRgb();
+                    var newColor = Color.fromHex( value );
+                    newColor.a = this._getAlphaValue();
 
-                    colorsArray.push( this._getAlphaValue() );
+                    this._updateColorSwatch( newColor.toHex() );
 
-                    this._set( 'color', Color.fromArray( colorsArray ) );
-                    this._updateColorSwatch( value );
+                    this._set( 'color', newColor );
 
                 },
 
                 _getAlphaValue: function () {
 
-                    var alpha = 255;
+                    var alpha = 1;
 
                     if ( this.alphaSlider ) {
                         alpha = this.alphaSlider.get( 'value' );

@@ -124,18 +124,7 @@ define([
             this._set('symbol', symbol);
         },
 
-        _getSymbolAttr: function () {
-
-            if (this.symbol) {
-                this.symbol.color = this._dojoColorToEsriColorArray(this.symbol.color);
-            }
-
-            return this.symbol;
-        },
-
         _setSymbolAttr: function (value) {
-
-            value.color = this._esriColorArrayToDojoColor(value.color);
 
             if (this.initialized) {
 

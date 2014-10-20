@@ -14,8 +14,7 @@
 
                     <div data-dojo-type="dojox/widget/ColorPicker"
                          data-dojo-attach-point="colorPickerDijit"
-                         data-dojo-attach-event="onChange:_onColorPickerChange"
-                         data-dojo-props="value:'${color}'"></div>
+                         data-dojo-attach-event="onChange:_onColorPickerChange" ></div>
 
                     <span class="colorPickerCloseIcon"
                           data-dojo-attach-point="closeButton"
@@ -39,7 +38,7 @@
 
             <div data-dojo-type="dijit/form/HorizontalSlider"
                  data-dojo-attach-point="alphaSlider"
-                 data-dojo-props="intermediateChanges: true, minimum: 0, maximum: 1, value: ${alpha}, showButtons: false"
+                 data-dojo-props="intermediateChanges: true, minimum: 0, maximum: 1, showButtons: false"
                  data-dojo-attach-event="onChange: _onAlphaSliderChange"
                  class="alphaSlider"></div>
 

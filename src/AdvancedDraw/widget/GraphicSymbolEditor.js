@@ -90,9 +90,9 @@ define( [
                     var Editor = widget.control;
 
                     this.editor = new Editor ( {
-                        symbol: this.symbol,
                         editorLabel: widget.editorLabel
                     } );
+                    this.editor.set( 'symbol', this.symbol );
 
                     this.editor.watch('symbol', lang.hitch(this, function () {
 

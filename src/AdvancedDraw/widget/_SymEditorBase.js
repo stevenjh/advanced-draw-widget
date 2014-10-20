@@ -4,7 +4,6 @@ define( [
             'dijit/_WidgetBase',
             'dijit/_TemplatedMixin',
             'dojo/i18n!../nls/resource',
-            './_ColorMixin',
             './../advancedDrawConfig',
             'dojo/text!./templates/_SymbolEditorBase.html',
             'xstyle/css!./css/_SymbolEditorBase.css',
@@ -16,12 +15,11 @@ define( [
                   _WidgetBase,
                   _TemplatedMixin,
                   i18n,
-                  _ColorMixin,
                   advancedDrawConfig,
                   template
             ) {
 
-            var _SymEditorBase = declare( [ _WidgetBase, _TemplatedMixin, _ColorMixin ], {
+            var _SymEditorBase = declare( [ _WidgetBase, _TemplatedMixin ], {
 
                 templateString: template,
                 i18n: i18n,

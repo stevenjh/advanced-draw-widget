@@ -70,7 +70,7 @@ define([
 
                 this._updateSymbolAtt();
 
-                if ( !this._hasFill( arguments[ 2 ] ) ) {
+                if ( !this._symbolStyleHasFill( arguments[ 2 ] ) ) {
                     this._toggleSymbolColorControl( false );
                 } else {
                     this._toggleSymbolColorControl( true );
@@ -89,7 +89,7 @@ define([
 
         },
 
-        _hasFill: function ( style ) {
+        _symbolStyleHasFill: function ( style ) {
 
             if ( style === 'esriSMSCross' || style === 'esriSMSX' ) {
                 return false;
@@ -237,29 +237,16 @@ define([
             this._set('symbol', symbol);
         },
 
-        _getSymbolAttr: function () {
-
-            if (this.symbol) {
-                this.symbol.color = this._dojoColorToEsriColorArray(this.symbol.color);
-                this.symbol.outline.color = this._dojoColorToEsriColorArray(this.symbol.outline.color);
-            }
-
-            return this.symbol;
-        },
-
         _setSymbolAttr: function (value) {
-
-            value.color = this._esriColorArrayToDojoColor(value.color);
-            value.outline.color = this._esriColorArrayToDojoColor(value.outline.color);
 
             if (this.initialized) {
 
                 this.symbolColorPicker.set('color', value.color);
-                this.symbolSizeSlider.set('value', this.symbol.size);
-                this.symbolStylePicker.set('markerStyle', this.symbol.style);
+                this.symbolSizeSlider.set('value', value.size);
+                this.symbolStylePicker.set('markerStyle', value.style);
                 this.outlineColorPicker.set('color', value.outline.color);
-                this.outlineWidthSlider.set('value', this.symbol.outline.width);
-                this.outlineStylePicker.set('lineStyle', this.symbol.outline.style);
+                this.outlineWidthSlider.set('value', value.outline.width);
+                this.outlineStylePicker.set('lineStyle', value.outline.style);
 
             }
 

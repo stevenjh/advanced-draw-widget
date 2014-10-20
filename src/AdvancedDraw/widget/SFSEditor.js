@@ -65,7 +65,7 @@ define([
 
 				this._updateSymbolAtt();
 
-                if ( !this._hasFill( arguments[ 2 ] ) ) {
+                if ( !this._symbolStyleHasFill( arguments[ 2 ] ) ) {
                     this._toggleSymbolColorControl( false );
                 } else {
                     this._toggleSymbolColorControl( true );
@@ -84,7 +84,7 @@ define([
 
         },
 
-        _hasFill: function ( style ) {
+        _symbolStyleHasFill: function ( style ) {
 
             if ( style === 'esriSFSSolid' ) {
                 return true;
@@ -194,28 +194,15 @@ define([
 			this._set('symbol', symbol);
 		},
 
-		_getSymbolAttr: function () {
-
-			if (this.symbol) {
-				this.symbol.color = this._dojoColorToEsriColorArray(this.symbol.color);
-				this.symbol.outline.color = this._dojoColorToEsriColorArray(this.symbol.outline.color);
-			}
-
-			return this.symbol;
-		},
-
 		_setSymbolAttr: function (value) {
-
-			value.color = this._esriColorArrayToDojoColor(value.color);
-			value.outline.color = this._esriColorArrayToDojoColor(value.outline.color);
 
 			if (this.initialized) {
 
-				this.fillColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.color));
-				this.fillStylePicker.set('value', this.symbol.style);
-				this.outlineColorPicker.set('value', this._esriColorArrayToDojoColor(this.symbol.outline.color));
-				this.outlineWidthSlider.set('value', this.symbol.outline.width);
-				this.outlineStylePicker.set('value', this.symbol.outline.style);
+				this.fillColorPicker.set('color', value.color);
+				this.fillStylePicker.set('fillStyle', value.style);
+				this.outlineColorPicker.set('color', value.outline.color);
+				this.outlineWidthSlider.set('value', value.outline.width);
+				this.outlineStylePicker.set('lineStyle', value.outline.style);
 
 			}
 
