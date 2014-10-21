@@ -70,7 +70,7 @@ function (
             var expected = lang.clone ( defaultConfig.defaultPolygonSymbol );
             expected.style = 'esriSFSDiagonalCross';
 
-            widget.fillStylePicker._onSelectDijitChange ( 3 );
+            widget.fillStylePicker.set( 'style', 'esriSFSDiagonalCross' );
 
             var actual = widget.get ( 'symbol' );
 

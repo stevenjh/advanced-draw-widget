@@ -84,6 +84,7 @@ define({
         'tests/symbolEditors/_ColorMixin',
         'tests/symbolEditors/NumericSlider',
         'tests/symbolEditors/SymColorPicker',
+        'tests/symbolEditors/StylePicker',
         'tests/symbolEditors/SMSEditor',
         'tests/symbolEditors/SLSEditor',
         'tests/symbolEditors/SFSEditor',

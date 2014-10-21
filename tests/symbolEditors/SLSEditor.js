@@ -69,7 +69,7 @@ define ( [
             var expected = lang.clone( defaultConfig.defaultPolylineSymbol );
             expected.style = 'esriSLSDashDotDot';
 
-            widget.outlineStylePicker._onSelectDijitChange( 'esriSLSDashDotDot' );
+            widget.outlineStylePicker.set( 'style', 'esriSLSDashDotDot' );
 
             var actual = widget.get( 'symbol' );
 

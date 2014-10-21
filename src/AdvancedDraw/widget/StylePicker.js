@@ -47,7 +47,7 @@ define( [
 
             this.styles = {
                 marker: [
-                    { value: 'esriSMSCirlce', label: this.i18n.esriStyles.marker.esriSMSCircle },
+                    { value: 'esriSMSCircle', label: this.i18n.esriStyles.marker.esriSMSCircle },
                     { value: 'esriSMSCross', label: this.i18n.esriStyles.marker.esriSMSCross },
                     { value: 'esriSMSDiamond', label: this.i18n.esriStyles.marker.esriSMSDiamond },
                     { value: 'esriSMSSquare', label: this.i18n.esriStyles.marker.esriSMSSquare },
@@ -89,6 +89,8 @@ define( [
 
             } ) );
             this.selectDijit.startup();
+
+            this._set( 'style', this.styles[ this.styleSet ][ 0 ].value );
 
         },
 

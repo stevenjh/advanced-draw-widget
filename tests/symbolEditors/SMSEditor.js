@@ -72,7 +72,7 @@ define ( [
             expected = lang.clone( defaultConfig.defaultPointSymbol );
             expected.style = 'esriSMSSquare';
 
-            widget.symbolStylePicker._onSelectDijitChange( 3 );
+            widget.symbolStylePicker.set( 'style', 'esriSMSSquare' );
 
             actual = widget.get( 'symbol' );
 
