@@ -1,70 +1,76 @@
 define ( [
-             'intern!object',
-             'intern/chai!assert',
-             'adw/widget/NumericSlider'
-         ],
-         function ( registerSuite, assert, Widget ) {
+    'intern!object',
+    'intern/chai!assert',
+    'adw/widget/NumericSlider'
+], function (
+        registerSuite,
+        assert,
+        Widget
+) {
 
-             registerSuite ( {
-                                 name: 'NumericSlider module test',
+    registerSuite ( {
+        name: 'NumericSlider module test',
 
-                                 setup: function () {
+        setup: function () {
 
-                                 },
+        },
 
-                                 // before each test executes
-                                 beforeEach: function() {
-                                     // do nothing
-                                 },
+        // before each test executes
+        beforeEach: function() {
+            // do nothing
+        },
 
-                                 afterEach: function () {
+        afterEach: function () {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
-                                     };
+            if ( this.widget ) {
+                this.widget.destroy();
+            };
 
-                                 },
+        },
 
-                                 // after the suite is done (all tests)
-                                 teardown: function() {
+        // after the suite is done (all tests)
+        teardown: function() {
 
-                                     if ( this.widget ) {
-                                         this.widget.destroy();
-                                     };
-                                 },
+            if ( this.widget ) {
+                this.widget.destroy();
+            };
 
-                                 'constructorOptionsTest': function () {
+        },
 
-                                     var value = 12;
-                                     this.widget = new Widget( { value: value } );
-                                     this.widget.startup();
+        'constructorOptionsTest': function () {
 
-                                     var expected = value;
-                                     var actual = this.widget.get( 'value' );
+            var value = 12;
+            this.widget = new Widget( { value: value } );
+            this.widget.startup();
 
-                                     assert.strictEqual ( actual,
-                                                          expected,
-                                                          '.get( value ) should return same value as passed into constructor.'
-                                     );
-                                 },
+            var expected = value;
+            var actual = this.widget.get( 'value' );
 
-                                 'setValueTest': function () {
+            assert.strictEqual (
+                actual,
+                expected,
+                '.get( value ) should return same value as passed into constructor.'
+            );
 
-                                     var value = 8;
-                                     this.widget = new Widget();
-                                     this.widget.startup();
-                                     this.widget.set( 'value', value );
+        },
 
-                                     var expected = value;
-                                     var actual = this.widget.get( 'value' );
+        'setValueTest': function () {
 
-                                     assert.strictEqual ( actual,
-                                                          expected,
-                                                          '.get( value ) should return same value as passed into .set( value, value ).'
-                                     );
-                                 }
-                             }
-             );
+            var value = 8;
+            this.widget = new Widget();
+            this.widget.startup();
+            this.widget.set( 'value', value );
 
-         }
-);
+            var expected = value;
+            var actual = this.widget.get( 'value' );
+
+            assert.strictEqual (
+                actual,
+                expected,
+                '.get( value ) should return same value as passed into .set( value, value ).'
+            );
+
+        }
+    } );
+
+} );

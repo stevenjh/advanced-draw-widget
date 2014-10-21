@@ -82,9 +82,6 @@ define({
     // Non-functional test suite(s) to run in each browser
     suites: [
         'tests/symbolEditors/_ColorMixin',
-        'tests/symbolEditors/FillStylePicker',
-        'tests/symbolEditors/LineStylePicker',
-        'tests/symbolEditors/MarkerStylePicker',
         'tests/symbolEditors/NumericSlider',
         'tests/symbolEditors/SymColorPicker',
         'tests/symbolEditors/SMSEditor',

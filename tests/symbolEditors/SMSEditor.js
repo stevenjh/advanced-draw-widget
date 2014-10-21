@@ -1,127 +1,139 @@
 define ( [
-             'intern!object',
-             'intern/chai!assert',
-             'dojo/_base/lang',
-             'dojo/_base/Color',
-             'adw/widget/SMSEditor',
-             'adw/advancedDrawConfig'
-         ],
-         function ( registerSuite, assert, lang, Color, Widget, defaultConfig ) {
+    'intern!object',
+    'intern/chai!assert',
+    'dojo/_base/lang',
+    'dojo/_base/Color',
+    'adw/widget/SMSEditor',
+    'adw/advancedDrawConfig'
+], function (
+    registerSuite,
+    assert,
+    lang,
+    Color,
+    Widget,
+    defaultConfig
+) {
 
-             var widget, expected, actual;
-             
-             registerSuite ( {
-                                 name: 'SMSEditor module test',
+    var widget, expected, actual;
 
-                                 setup: function () {
-                                    // do nothing
-                                 },
+    registerSuite ( {
 
-                                 // before each test executes
-                                 beforeEach: function() {
-                                     
-                                     widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
-                                     widget.startup();
+        name: 'SMSEditor module test',
 
-                                 },
+        setup: function () {
+            // do nothing
+        },
 
-                                 afterEach: function () {
+        // before each test executes
+        beforeEach: function() {
 
-                                     console.log( 'expected/actual', expected, actual );
-                                     expected = null;
-                                     actual = null;
-                                     
-                                     if ( widget ) {
-                                         widget.destroy();
-                                     };
+            widget = new Widget( { symbol: lang.clone( defaultConfig.defaultPointSymbol ) } );
+            widget.startup();
 
-                                 },
+        },
 
-                                 // after the suite is done (all tests)
-                                 teardown: function() {
+        afterEach: function () {
 
-                                     if ( widget ) {
-                                         widget.destroy();
-                                     };
-                                     console.log( 'end of tests' );
-                                     
-                                 },
+            console.log( 'expected/actual', expected, actual );
+            expected = null;
+            actual = null;
 
-                                 'constructorOptionsTest': function () {
+            if ( widget ) {
+                widget.destroy();
+            };
 
-                                     
-                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     actual = widget.get( 'symbol' );
+        },
 
-                                     assert.deepEqual ( actual,
-                                                          expected,
-                                                          '.get( symbol ) should return same symbol as passed into constructor.'
-                                     );
-                                 },
+        // after the suite is done (all tests)
+        teardown: function() {
 
-                                 'setSymbolStyleTest': function () {
+            if ( widget ) {
+                widget.destroy();
+            };
+            console.log( 'end of tests' );
 
-                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.style = 'esriSMSSquare';
+        },
 
-                                     widget.symbolStylePicker._onSelectDijitChange( 3 );
+        'constructorOptionsTest': function () {
 
-                                     actual = widget.get( 'symbol' );
+            expected = lang.clone( defaultConfig.defaultPointSymbol );
+            actual = widget.get( 'symbol' );
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                          expected.outline.width,
-                                                          '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
-                                     );
-                                 },
+            assert.deepEqual (
+                actual,
+                expected,
+                '.get( symbol ) should return same symbol as passed into constructor.'
+            );
 
-                                 'setOutlineWidthTest': function () {
+        },
 
-                                     var width = 6.3;
-                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.outline.width = width;
+        'setSymbolStyleTest': function () {
 
-                                     widget.outlineWidthSlider.set( 'value', width );
+            expected = lang.clone( defaultConfig.defaultPointSymbol );
+            expected.style = 'esriSMSSquare';
 
-                                     actual = widget.get( 'symbol' );
+            widget.symbolStylePicker._onSelectDijitChange( 3 );
 
-                                     assert.strictEqual ( actual.outline.width,
-                                                        expected.outline.width,
-                                                          '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
-                                     );
-                                 },
+            actual = widget.get( 'symbol' );
 
-                                 'alphaSliderChangeTest': function () {
+            assert.strictEqual (
+                actual.outline.width,
+                expected.outline.width,
+                '.get( symbol ) should return default symbol with the same symbol style as the test value ( esriSMSSquare ).'
+            );
+        },
 
-                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.color = [ 255, 0, 0, 191 ];
+        'setOutlineWidthTest': function () {
 
-                                     widget.symbolColorPicker._onAlphaSliderChange( 0.75 );
+            var width = 6.3;
+            expected = lang.clone( defaultConfig.defaultPointSymbol );
+            expected.outline.width = width;
 
-                                     actual = widget.get( 'symbol' );
+            widget.outlineWidthSlider.set( 'value', width );
 
-                                     assert.deepEqual ( actual,
-                                                        expected,
-                                                        '.get( symbol ) should return symbol with color alpha value modified by new slider value.'
-                                     );
-                                 },
+            actual = widget.get( 'symbol' );
 
-                                 'colorPickerChangeTest': function () {
+            assert.strictEqual (
+                actual.outline.width,
+                expected.outline.width,
+                '.get( symbol ) should return default symbol with the outline width updated to the test value ( ' + width + ' ).'
+            );
 
-                                     expected = lang.clone( defaultConfig.defaultPointSymbol );
-                                     expected.color = [ 0, 0, 0, 200 ];
+        },
 
-                                     widget.symbolColorPicker._onColorPickerChange( '#000000' );
+        'alphaSliderChangeTest': function () {
 
-                                     actual = widget.get( 'symbol' );
+            expected = lang.clone( defaultConfig.defaultPointSymbol );
+            expected.color = [ 255, 0, 0, 191 ];
 
-                                     assert.deepEqual ( actual,
-                                                        expected,
-                                                        '.get( symbol ) should return symbol with color value modified by new color picker color value.'
-                                     );
-                                 }
+            widget.symbolColorPicker._onAlphaSliderChange( 0.75 );
 
-                             }
-             );
+            actual = widget.get( 'symbol' );
 
-         }
-);
+            assert.deepEqual (
+                actual,
+                expected,
+                '.get( symbol ) should return symbol with color alpha value modified by new slider value.'
+            );
+
+        },
+
+        'colorPickerChangeTest': function () {
+
+            expected = lang.clone( defaultConfig.defaultPointSymbol );
+            expected.color = [ 0, 0, 0, 200 ];
+
+            widget.symbolColorPicker._onColorPickerChange( '#000000' );
+
+            actual = widget.get( 'symbol' );
+
+            assert.deepEqual (
+                actual,
+                expected,
+                '.get( symbol ) should return symbol with color value modified by new color picker color value.'
+            );
+        }
+
+    } );
+
+} );

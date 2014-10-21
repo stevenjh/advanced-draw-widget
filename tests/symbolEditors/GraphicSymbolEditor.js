@@ -35,7 +35,7 @@ define ( [
         name: 'GraphicSymbolEditor module tests',
 
         setup: function () {
-
+            //do nothing
         },
 
         // before each test executes
@@ -116,6 +116,7 @@ define ( [
             );
 
         }
+
     } );
 
 } );
