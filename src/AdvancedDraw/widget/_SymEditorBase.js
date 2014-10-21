@@ -1,67 +1,64 @@
 define( [
-            'dojo/_base/declare',
-            'dojo/dom-construct',
-            'dijit/_WidgetBase',
-            'dijit/_TemplatedMixin',
-            'dojo/i18n!../nls/resource',
-            './../advancedDrawConfig',
-            'dojo/text!./templates/_SymbolEditorBase.html',
-            'xstyle/css!./css/_SymbolEditorBase.css',
-            'xstyle/css!./css/SymbolEditor.css'
+    'dojo/_base/declare',
+    'dojo/dom-construct',
+    'dijit/_WidgetBase',
+    'dijit/_TemplatedMixin',
+    'dojo/i18n!../nls/resource',
+    './../advancedDrawConfig',
+    'dojo/text!./templates/_SymbolEditorBase.html',
+    'xstyle/css!./css/_SymbolEditorBase.css',
+    'xstyle/css!./css/SymbolEditor.css'
+], function(
+    declare,
+    domConstruct,
+    _WidgetBase,
+    _TemplatedMixin,
+    i18n,
+    advancedDrawConfig,
+    template
+) {
 
-        ],
-        function( declare,
-                  domConstruct,
-                  _WidgetBase,
-                  _TemplatedMixin,
-                  i18n,
-                  advancedDrawConfig,
-                  template
-            ) {
+    var _SymEditorBase = declare( [ _WidgetBase, _TemplatedMixin ], {
 
-            var _SymEditorBase = declare( [ _WidgetBase, _TemplatedMixin ], {
+        templateString: template,
+        i18n: i18n,
+        baseClass: 'symbolEditorBase',
+        advancedDrawConfig: advancedDrawConfig,
 
-                templateString: template,
-                i18n: i18n,
-                baseClass: 'symbolEditorBase',
-                advancedDrawConfig: advancedDrawConfig,
+        constructor: function() {
 
-                constructor: function() {
+            this.leftHandControlsLabel = 'Fill';
+            this.rightHandControlsLabel = 'Outline';
+            this.editorLabel = 'Symbol Editor';
 
-                    this.leftHandControlsLabel = 'Fill';
-                    this.rightHandControlsLabel = 'Outline';
-                    this.editorLabel = 'Symbol Editor';
+        },
 
-                },
+        removeLeftHandControls: function () {
 
-                removeLeftHandControls: function () {
+            domConstruct.destroy( this.leftHandControlsLI );
 
-                    domConstruct.destroy( this.leftHandControlsLI );
+        },
 
-                },
+        removeRightHandControls: function () {
 
-                removeRightHandControls: function () {
+            domConstruct.destroy( this.rightHandControlsLI );
 
-                    domConstruct.destroy( this.rightHandControlsLI );
+        },
 
-                },
+        createLeftHandControlsDiv: function () {
 
-                createLeftHandControlsDiv: function () {
+            return domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
 
-                    return domConstruct.create( 'div', {}, this.leftHandControls, 'last' );
+        },
 
-                },
+        createRightHandControlsDiv: function () {
 
-                createRightHandControlsDiv: function () {
-
-                    return domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
-
-                }
-
-            } );
-
-            return _SymEditorBase;
+            return domConstruct.create( 'div', {}, this.rightHandControls, 'last' );
 
         }
 
-);
+    } );
+
+    return _SymEditorBase;
+
+} );
