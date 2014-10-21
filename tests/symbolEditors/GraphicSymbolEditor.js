@@ -18,7 +18,7 @@ define ( [
     symUtil
 ) {
 
-    var widget, testGraphic, expected, actual;
+    var widget, expected, actual;
 
     var getTestGraphic = function () {
 
