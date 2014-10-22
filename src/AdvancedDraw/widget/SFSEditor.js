@@ -176,6 +176,7 @@ define([
 
             var symbol = this._getSymbol();
             this._set('symbol', symbol);
+
         },
 
         _getSymbol: function () {
