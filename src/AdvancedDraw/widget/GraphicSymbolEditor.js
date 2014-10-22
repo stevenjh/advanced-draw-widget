@@ -8,6 +8,7 @@ define( [
     './SMSEditor',
     './SLSEditor',
     './SFSEditor',
+    '../undo/editSymbolGraphicOp',
     'dojo/i18n!../nls/resource',
     'xstyle/css!./css/GraphicSymbolEditor.css'
 
@@ -21,6 +22,7 @@ define( [
     SMSEditor,
     SLSEditor,
     SFSEditor,
+    EditSymbolGraphicOp,
     i18n
 ) {
 
@@ -29,6 +31,7 @@ define( [
         title: i18n.widgets.graphicSymbolEditor.title,
         id: 'graphicSymbolEditor',
         i18n: i18n,
+        undoOp: null,
 
         constructor: function( options ) {
 
@@ -54,7 +57,13 @@ define( [
         _setGraphicAttr: function ( value ) {
 
             this.graphic = value;
-            this.symbol = lang.clone( value.symbol.toJson() );
+            this._initialGraphicSymbol = lang.clone( value.symbol.toJson() );
+
+            this.undoOp = new EditSymbolGraphicOp( {
+                graphic: value,
+                startSym: this._initialGraphicSymbol
+            } );
+
             this._loadEditor();
 
         },
@@ -103,12 +112,17 @@ define( [
 
             if ( this.graphic ) {
 
-                this.graphic.symbol = symUtil.fromJson( value );
+                this.graphic.setSymbol( symUtil.fromJson( value ) );
+                this._updateUndoOpEndSym( value );
 
-                if ( this.graphic._layer ) {
-                    this.graphic._layer.refresh();
-                }
+            }
 
+        },
+
+        _updateUndoOpEndSym: function ( symbol ) {
+
+            if ( this.undoOp ) {
+                this.undoOp.endSym = symbol;
             }
 
         },
@@ -178,7 +192,10 @@ define( [
         _rollBackSymbolUpdates: function () {
 
             if ( this.graphic ) {
-                this.editor.set( 'symbol', this.symbol );
+
+                this.editor.set( 'symbol', this._initialGraphicSymbol );
+                this.undoOp = null;
+
             }
 
         },

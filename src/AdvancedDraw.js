@@ -707,15 +707,25 @@ define([
         // edit graphic symbol
         _editGraphicSymbol: function (graphic) {
 
-            //capture undo point here
-            var editor = new GraphicSymbolEditor({
+            var editor = new GraphicSymbolEditor( {
                 graphic: graphic
-            });
-            on(editor, 'hide', function () {
+            } );
+
+            on(editor, 'hide', lang.hitch( this, function () {
+
+                this._addUndoOp( editor.undoOp );
                 editor.destroy();
-                //capture undo point here
-            });
+
+            } ) );
             editor.show();
+        },
+
+        _addUndoOp: function ( operation ) {
+
+            if ( operation ) {
+                this._undo.add( operation );
+            }
+
         },
 
         //////////////////////////////////
