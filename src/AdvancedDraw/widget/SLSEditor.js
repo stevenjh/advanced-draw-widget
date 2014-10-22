@@ -72,7 +72,8 @@ define([
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
-                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel,
+                colorPickerOptions: this.colorPickerOptions
             }, this.createLeftHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {

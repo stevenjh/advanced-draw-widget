@@ -22,6 +22,13 @@ define([
         doLayout: false,
         baseClass: 'defaultSymbolEditors',
         symbols: null,
+        colorPickerOptions: {
+            type: 'simple',
+            simple: {
+                paletteSize  : '7x10'
+            },
+            closeOnChange: true
+        },
 
         constructor: function (options) {
 
@@ -40,7 +47,9 @@ define([
 
         _createSMSEditor: function () {
 
-            this.smsEditor = new SMSEditor();
+            this.smsEditor = new SMSEditor( {
+                colorPickerOptions: this.colorPickerOptions
+            });
             this.smsEditor.watch('symbol', lang.hitch(this, function () {
 
                 var value = arguments[2];
@@ -58,7 +67,9 @@ define([
 
         _createSLSEditor: function () {
 
-            this.slsEditor = new SLSEditor();
+            this.slsEditor = new SLSEditor( {
+                colorPickerOptions: this.colorPickerOptions
+            });
             this.slsEditor.watch('symbol', lang.hitch(this, function () {
                 var value = arguments[2];
                 console.log('default line symbol updated: ', value);
@@ -75,7 +86,9 @@ define([
 
         _createSFSEditor: function () {
 
-            this.sfsEditor = new SFSEditor();
+            this.sfsEditor = new SFSEditor( {
+                colorPickerOptions: this.colorPickerOptions
+            });
             this.sfsEditor.watch('symbol', lang.hitch(this, function () {
 
                 var value = arguments[2];

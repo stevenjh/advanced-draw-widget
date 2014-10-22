@@ -25,6 +25,14 @@ define( [
         baseClass: 'symbolEditorBase',
         advancedDrawConfig: advancedDrawConfig,
 
+        colorPickerOptions: {
+            type: 'simple',
+            simple: {
+                paletteSize  : '7x10'
+            },
+            closeOnChange: false
+        },
+
         constructor: function() {
 
             this.leftHandControlsLabel = 'Fill';

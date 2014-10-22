@@ -32,6 +32,13 @@ define( [
         id: 'graphicSymbolEditor',
         i18n: i18n,
         undoOp: null,
+        colorPickerOptions: {
+            type: 'simple',
+            simple: {
+                paletteSize  : '7x10'
+            },
+            closeOnChange: true
+        },
 
         constructor: function( options ) {
 
@@ -90,7 +97,8 @@ define( [
             var Editor = widget.control;
 
             this.editor = new Editor ( {
-                editorLabel: widget.editorLabel
+                editorLabel: widget.editorLabel,
+                colorPickerOptions: this.colorPickerOptions
             } );
             this.editor.set( 'symbol', this.graphic.symbol.toJson() );
 

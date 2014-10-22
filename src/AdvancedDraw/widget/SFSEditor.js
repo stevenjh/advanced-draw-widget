@@ -97,7 +97,8 @@ define([
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
-                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel,
+                colorPickerOptions: this.colorPickerOptions
             }, this.createLeftHandControlsDiv() );
 
             this.fillColorPicker.watch('color', lang.hitch(this, function () {
@@ -135,7 +136,8 @@ define([
                 color: this.symbol.outline.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
-                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel,
+                colorPickerOptions: this.colorPickerOptions
             }, this.createRightHandControlsDiv() );
 
             this.outlineColorPicker.watch('color', lang.hitch(this, function () {

@@ -130,12 +130,23 @@ define([
             manualLayerLoad: false // unused - enhancement - don't _initLayers when true - add public method to init layers at devs discretion
         },
 
+        config: {
+            colorPickerOptions: {
+                type: 'simple',
+                simple: {
+                    paletteSize  : '3x4'
+                },
+                closeOnChange: true
+            }
+        },
+
         constructor: function (params) {
             // mixin params
             lang.mixin(this, this._params, params || {});
 
             // i18n for widget template
             this.i18n = i18n;
+            console.log( this );
         },
 
         postCreate: function () {
@@ -325,7 +336,8 @@ define([
             this._symbols.temp = symbolUtils.fromJson(config.defaultTempSymbol);
 
             this._defaultSymbolEditors = new DefaultSymbolEditors({
-                symbols: this._symbols
+                symbols: this._symbols,
+                colorPickerOptions: this.config.colorPickerOptions
             }, this.defaultSymbolEditorsNode);
             this._defaultSymbolEditors.startup();
         },
@@ -708,7 +720,8 @@ define([
         _editGraphicSymbol: function (graphic) {
 
             var editor = new GraphicSymbolEditor( {
-                graphic: graphic
+                graphic: graphic,
+                colorPickerOptions: this.config.colorPickerOptions
             } );
 
             on(editor, 'hide', lang.hitch( this, function () {
