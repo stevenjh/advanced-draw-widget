@@ -115,7 +115,54 @@
 
             // the widget
             app.advancedDraw = new AdvancedDraw({
-                map: app.map
+                map: app.map,
+                config: {
+                    defaultPolygonSymbol: {
+                        color: [255, 0, 0, 64],
+                        outline: {
+                            color: [255, 0, 0, 255],
+                            width: 2,
+                            type: 'esriSLS',
+                            style: 'esriSLSSolid'
+                        },
+                        type: 'esriSFS',
+                        style: 'esriSFSSolid'
+                    },
+                    defaultPolylineSymbol: {
+                        color: [0, 0, 255, 255],
+                        width: 2,
+                        type: 'esriSLS',
+                        style: 'esriSLSSolid'
+                    },
+                    defaultPointSymbol: {
+                        color: [0, 255, 0, 200],
+                        size: 10.5,
+                        type: 'esriSMS',
+                        style: 'esriSMSCircle',
+                        outline: {
+                            color: [255, 255, 255, 255],
+                            width: 1.5, //2 pixels when it becomes graphic symbol / .75 factor
+                            type: 'esriSLS',
+                            style: 'esriSLSSolid'
+                        }
+                    },
+                    defaultTextSymbol: {
+                        color: [0, 0, 0, 255],
+                        type: 'esriTS',
+                        verticalAlignment: 'middle',
+                        horizontalAlignment: 'center',
+                        text: 'New Text',
+                        rotated: false,
+                        kerning: true,
+                        font: {
+                            size: 14,
+                            style: 'normal',
+                            variant: 'normal',
+                            weight: 'bold',
+                            family: 'sans-serif'
+                        }
+                    }
+                }
             }, 'advanced-draw');
             app.advancedDraw.startup();
         });

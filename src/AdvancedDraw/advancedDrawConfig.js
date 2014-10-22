@@ -5,7 +5,7 @@ define([], function () {
         defaultPolygonSymbol: {
             color: [0, 0, 0, 64],
             outline: {
-                color: [255, 0, 0, 255],
+                color: [0, 0, 0, 255],
                 width: 2,
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
@@ -14,18 +14,18 @@ define([], function () {
             style: 'esriSFSSolid'
         },
         defaultPolylineSymbol: {
-            color: [255, 0, 0, 255],
+            color: [0, 0, 0, 255],
             width: 2,
             type: 'esriSLS',
             style: 'esriSLSSolid'
         },
         defaultPointSymbol: {
-            color: [255, 0, 0, 200],
+            color: [0, 0, 0, 255],
             size: 10.5,
             type: 'esriSMS',
             style: 'esriSMSCircle',
             outline: {
-                color: [255, 0, 0, 255],
+                color: [255, 255, 255, 255],
                 width: 1.5, //2 pixels when it becomes graphic symbol / .75 factor
                 type: 'esriSLS',
                 style: 'esriSLSSolid'
