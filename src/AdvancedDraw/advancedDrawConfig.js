@@ -51,10 +51,19 @@ define([], function () {
                 family: 'sans-serif'
             }
         },
+        // the map overlay when identifying a graphic
         defaultTempSymbol: {
             color: [255, 255, 255, 128],
             type: 'esriSFS',
             style: 'esriSFSSolid'
+        },
+        // color picker options
+        colorPickerOptions: {
+            type: 'simple', // 'simple' | 'advanced'
+            simple: {
+                paletteSize: '3x4' // '3x4' | '7x10'
+            },
+            closeOnChange: true //close color picker on selection of new color?
         },
         // advanced settings
         //   only change here or via widget params if you know what you're doing!

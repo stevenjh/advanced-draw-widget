@@ -130,16 +130,6 @@ define([
             manualLayerLoad: false // unused - enhancement - don't _initLayers when true - add public method to init layers at devs discretion
         },
 
-        config: {
-            colorPickerOptions: {
-                type: 'simple',
-                simple: {
-                    paletteSize  : '3x4'
-                },
-                closeOnChange: true
-            }
-        },
-
         constructor: function (params) {
             // mixin params
             lang.mixin(this, this._params, params || {});
