@@ -6,8 +6,8 @@
     background: url('../assets/dialogCloseIcon.png');
     background-repeat: no-repeat;
     position: absolute;
-    right: 15px;
-    top: 30px;
+    right: 10px;
+    top: 25px;
     height: 15px;
     width: 21px;
     cursor: pointer;
@@ -42,13 +42,7 @@
 
 /* claro overrides */
 
-.dijitAccordionTitle, .dijitAccordionTitleHover {
-    background-color: #efefef !important;
-    padding-bottom: 3px;
-    border-color: #efefef !important;
-}
-
-.dijitAccordionInnerContainerSelected, .dijitAccordionInnerContainerHover {
-    background-color: inherit !important;
-    border-color: #B5BCC7 !important;
+.dijitColorPalette, .dojoxColorPicker {
+    margin-top: 5px !important;
+    margin-right: 20px !important;
 }

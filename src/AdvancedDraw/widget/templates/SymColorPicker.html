@@ -12,17 +12,21 @@
                 </div>
                 <div data-dojo-type="dijit/TooltipDialog" data-dojo-attach-point="colorPickerTooltipDialog">
 
-                    <div data-dojo-type="dojox/widget/ColorPicker"
+                    <!--<div data-dojo-type="dojox/widget/ColorPicker"
                          data-dojo-attach-point="colorPickerDijit"
-                         data-dojo-attach-event="onChange:_onColorPickerChange" ></div>
+                         data-dojo-attach-event="onChange:_onColorPickerChange" ></div>-->
+                    <div style="text-align: right">
+                            <span class="colorPickerCloseIcon"
+                              data-dojo-attach-point="closeButton"
+                              data-dojo-attach-event="onClick: closeColorPickerPopup">
 
-                    <span class="colorPickerCloseIcon"
-                          data-dojo-attach-point="closeButton"
-                          data-dojo-attach-event="onClick: onClose">
+                            <span data-dojo-attach-point="closeText" class="closeText" title="Close"></span>
 
-                        <span data-dojo-attach-point="closeText" class="closeText" title="Close"></span>
+                        </span>
+                    </div>
 
-                    </span>
+                    <div data-dojo-attach-point="colorPickerNode"></div>
+
 
                 </div>
             </span>

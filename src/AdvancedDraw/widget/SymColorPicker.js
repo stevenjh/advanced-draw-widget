@@ -7,13 +7,14 @@ define( [
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
             'dijit/popup',
+            'dijit/ColorPalette',
+            'dojox/widget/ColorPicker',
             'dojo/text!./templates/SymColorPicker.html',
             'dojo/i18n!../nls/resource',
             './_ColorMixin',
             'dijit/form/DropDownButton',
             'dijit/form/HorizontalSlider',
             'dijit/TooltipDialog',
-            'dojox/widget/ColorPicker',
             'xstyle/css!dojox/widget/ColorPicker/ColorPicker.css',
             'xstyle/css!./css/SymColorPicker.css'
 
@@ -26,6 +27,8 @@ define( [
                   _TemplatedMixin,
                   _WidgetsInTemplateMixin,
                   popup,
+                  ColorPickerSimple,
+                  ColorPickerAdvanced,
                   template,
                   i18n,
                   _ColorMixin
@@ -47,6 +50,13 @@ define( [
                 label: 'Color and alpha:',
                 buttonLabel: 'Marker color',
                 sliderLabel: 'Marker transparency',
+                colorPickerOptions: {
+                    type: 'advanced',
+                    simple: {
+                        paletteSize  : '7x10'
+                    },
+                    closeOnChange: false
+                },
 
                 constructor: function( options ) {
 
@@ -64,11 +74,39 @@ define( [
 
                 },
 
+                postCreate: function () {
+
+                    this.inherited( arguments );
+
+                    if ( this.colorPickerOptions.type === 'simple' ) {
+                        this.colorPickerDijit = this._getSimpleColorPicker( this.colorPickerOptions.simple.paletteSize );
+                    } else {
+                        this.colorPickerDijit = this._getAdvancedColorPicker();
+                    }
+                    this.colorPickerDijit.on( 'change', lang.hitch( this, '_onColorPickerChange' ) );
+
+                },
+
+                _getSimpleColorPicker: function ( paletteSize ) {
+
+                    return new ColorPickerSimple( {
+                        palette: paletteSize
+                    }, this.colorPickerNode );
+
+                },
+
+                _getAdvancedColorPicker: function () {
+
+                    return new ColorPickerAdvanced( {}, this.colorPickerNode );
+
+                },
+
                 startup: function () {
 
                     var color = this.color;
                     this.inherited( arguments );
                     this.color = color;
+                    this.colorPickerDijit.startup();
 
                 },
 
@@ -117,6 +155,10 @@ define( [
 
                     this._set( 'color', newColor );
 
+                    if ( this.colorPickerOptions.closeOnChange ) {
+                        this.closeColorPickerPopup();
+                    }
+
                 },
 
                 _getAlphaValue: function () {
@@ -139,7 +181,7 @@ define( [
 
                 },
 
-                onClose: function () {
+                closeColorPickerPopup: function () {
 
                     popup.close( this.colorPickerTooltipDialog );
 

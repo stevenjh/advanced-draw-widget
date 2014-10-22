@@ -102,7 +102,14 @@ define([
                 color: this.symbol.color,
                 baseClass: 'symbolEditorControl',
                 buttonLabel: this.i18n.widgets.symbolColorPicker.buttonLabel,
-                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel
+                sliderLabel: this.i18n.widgets.symbolColorPicker.sliderLabel,
+                colorPickerOptions: {
+                    type: 'simple',
+                    simple: {
+                        paletteSize  : '3x4'
+                    },
+                    closeOnChange: true
+                }
             }, this.createLeftHandControlsDiv() );
 
             this.symbolColorPicker.watch('color', lang.hitch(this, function () {
