@@ -18,6 +18,7 @@
     padding: 2px 4px;
     border: 1px solid #B5BCC7;
 }
+.AdvancedDrawWidget .drawButtons {}
 .AdvancedDrawWidget .drawStatus {
     margin: 10px 0;
 }

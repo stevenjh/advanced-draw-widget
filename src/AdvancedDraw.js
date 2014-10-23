@@ -120,6 +120,7 @@ define([
                 text: null,
                 temp: null
             }, // hash of symbols
+            _drawButtonClickHandler: null, // click handler for draw button
             _snappingMenuItem: null, // snapping toggle
             _continuousDrawMenuItem: null, // continuous draw toggle
             _continuousDraw: false, // one and done OR user cancel draw
@@ -136,7 +137,8 @@ define([
 
             // i18n for widget template
             this.i18n = i18n;
-            console.log( this );
+            
+            //console.log(this);
         },
 
         postCreate: function () {
@@ -182,6 +184,8 @@ define([
             //   can be used elsewhere like a map context menu or a dropdown
             this._drawMenu = this._initDrawMenu();
             this.drawButton.set('dropDown', this._drawMenu);
+            // set initial draw button click event
+            this._drawButtonClickHandler = on(this.drawButton, 'click', lang.hitch(this, '_draw', 'point'));
             // init options menu
             this._optionsMenu = this._initOptionsMenu();
             this.optionsButton.set('dropDown', this._optionsMenu);
@@ -419,11 +423,24 @@ define([
             }));
         },
 
+        // set draw button click event, title and label
+        _setDrawButton: function (type) {
+            this._drawButtonClickHandler.remove();
+            this._drawButtonClickHandler = on(this.drawButton, 'click', lang.hitch(this, '_draw', type));
+            var label = i18n[type];
+            if (type === 'extent') {
+                label = i18n.rectangle;
+            }
+            this.drawButton.set('label', label);
+            this.drawButton.set('title', label);
+        },
+
         // housekeeping and activate draw toolbar
         _draw: function (type) {
             if (this._drawTb._geometryType) {
                 this._drawTb.deactivate();
             }
+            // show the appropriate default symbol editor
             switch (type) {
             case 'point':
                 this._defaultSymbolEditors.showSMSEditor();
@@ -442,6 +459,7 @@ define([
                 this._defaultSymbolEditors.showSMSEditor();
                 break;
             }
+            this._setDrawButton(type);
             this.cancelButton.set('disabled', false);
             this.snappingToggleNode.set('disabled', true);
             this.continuousToggleNode.set('disabled', true);
@@ -708,27 +726,24 @@ define([
 
         // edit graphic symbol
         _editGraphicSymbol: function (graphic) {
-
-            var editor = new GraphicSymbolEditor( {
+            var editor = new GraphicSymbolEditor({
                 graphic: graphic,
                 colorPickerOptions: this.config.colorPickerOptions
-            } );
-
-            on(editor, 'hide', lang.hitch( this, function () {
-
-                this._addUndoOp( editor.undoOp );
+            });
+            on(editor, 'hide', lang.hitch(this, function () {
+                this._addUndoOp(editor.undoOp);
                 editor.destroy();
-
-            } ) );
+            }));
             editor.show();
         },
 
-        _addUndoOp: function ( operation ) {
-
-            if ( operation ) {
-                this._undo.add( operation );
+        // add operation to undo manager
+        //  see _editGraphicSymbol for usage
+        //  eventually all undo operations will be added w/ this method
+        _addUndoOp: function (operation) {
+            if (operation) {
+                this._undo.add(operation);
             }
-
         },
 
         //////////////////////////////////
