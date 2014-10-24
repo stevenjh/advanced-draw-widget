@@ -51,7 +51,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.adw-icon-freehand-line:before {
+.adw-icon-freehand-polyline:before {
   content: "a";
 }
 .adw-icon-freehand-polygon:before {
