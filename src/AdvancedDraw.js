@@ -56,7 +56,8 @@ define([
     'dijit/form/DropDownButton',
     'dijit/form/ComboButton',
     'dijit/form/ToggleButton',
-    'xstyle/css!./AdvancedDraw/css/AdvancedDraw.css'
+    'xstyle/css!./AdvancedDraw/css/AdvancedDraw.css',
+    'xstyle/css!./AdvancedDraw/css/adw-icons.css'
 ], function (
     _WidgetBase,
     _TemplatedMixin,
@@ -341,46 +342,56 @@ define([
             var menu = new Menu();
             menu.addChild(new MenuItem({
                 label: i18n.point,
+                iconClass: 'adw-icon-point',
                 onClick: lang.hitch(this, '_draw', 'point')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.polyline,
+                iconClass: 'adw-icon-polyline',
                 onClick: lang.hitch(this, '_draw', 'polyline')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.polygon,
+                iconClass: 'adw-icon-polygon',
                 onClick: lang.hitch(this, '_draw', 'polygon')
             }));
             menu.addChild(new MenuItem({
                 label: i18n.text,
+                iconClass: 'adw-icon-text',
                 onClick: lang.hitch(this, '_draw', 'text')
             }));
             var freehand = new Menu();
             freehand.addChild(new MenuItem({
                 label: i18n.polyline,
+                iconClass: 'adw-icon-freehand-polyline',
                 onClick: lang.hitch(this, '_draw', 'freehandpolyline')
             }));
             freehand.addChild(new MenuItem({
                 label: i18n.polygon,
+                iconClass: 'adw-icon-freehand-polygon',
                 onClick: lang.hitch(this, '_draw', 'freehandpolygon')
             }));
             freehand.startup();
             menu.addChild(new PopupMenuItem({
                 label: i18n.freehand,
+                iconClass: 'adw-icon-freehand-polyline',
                 popup: freehand
             }));
             var shapes = new Menu();
             shapes.addChild(new MenuItem({
                 label: i18n.rectangle,
+                iconClass: 'adw-icon-rectangle',
                 onClick: lang.hitch(this, '_draw', 'extent')
             }));
             shapes.addChild(new MenuItem({
                 label: i18n.circle,
+                iconClass: 'adw-icon-circle',
                 onClick: lang.hitch(this, '_draw', 'circle')
             }));
             shapes.startup();
             menu.addChild(new PopupMenuItem({
                 label: i18n.shapes,
+                iconClass: 'adw-icon-rectangle',
                 popup: shapes
             }));
             menu.startup();
@@ -431,7 +442,7 @@ define([
             if (type === 'extent') {
                 label = i18n.rectangle;
             }
-            this.drawButton.set('label', label);
+            //this.drawButton.set('label', label);
             this.drawButton.set('title', label);
         },
 
@@ -441,23 +452,53 @@ define([
                 this._drawTb.deactivate();
             }
             // show the appropriate default symbol editor
+            console.log( type );
             switch (type) {
-            case 'point':
-                this._defaultSymbolEditors.showSMSEditor();
-                break;
-            case 'polyline':
-            case 'freehandpolyline':
-                this._defaultSymbolEditors.showSLSEditor();
-                break;
-            case 'polygon':
-            case 'freehandpolygon':
-            case 'extent':
-            case 'circle':
-                this._defaultSymbolEditors.showSFSEditor();
-                break;
-            default:
-                this._defaultSymbolEditors.showSMSEditor();
-                break;
+
+                case 'point':
+                    this._defaultSymbolEditors.showSMSEditor();
+                    this._updateDrawLabelClass( 'adw-icon-point' );
+                    break;
+
+                case 'polyline':
+                    this._updateDrawLabelClass( 'adw-icon-polyline' );
+                    this._defaultSymbolEditors.showSLSEditor();
+                    break;
+
+                case 'freehandpolyline':
+                    this._defaultSymbolEditors.showSLSEditor();
+                    this._updateDrawLabelClass( 'adw-icon-freehand-polyline' );
+                    break;
+
+                case 'polygon':
+                    this._updateDrawLabelClass( 'adw-icon-polygon' );
+                    this._defaultSymbolEditors.showSFSEditor();
+                    break;
+
+                case 'freehandpolygon':
+                    this._updateDrawLabelClass( 'adw-icon-freehand-polygon' );
+                    this._defaultSymbolEditors.showSFSEditor();
+                    break;
+
+                case 'extent':
+                    this._updateDrawLabelClass( 'adw-icon-rectangle' );
+                    this._defaultSymbolEditors.showSFSEditor();
+                    break;
+
+                case 'circle':
+                    this._defaultSymbolEditors.showSFSEditor();
+                    this._updateDrawLabelClass( 'adw-icon-circle' );
+                    break;
+
+                case 'text':
+                    this._defaultSymbolEditors.showSFSEditor();
+                    this._updateDrawLabelClass( 'adw-icon-text' );
+                    break;
+
+                default:
+                    this._defaultSymbolEditors.showSMSEditor();
+                    this._updateDrawLabelClass( 'adw-icon-point' );
+                    break;
             }
             this._setDrawButton(type);
             this.cancelButton.set('disabled', false);
@@ -475,6 +516,12 @@ define([
             }
             // activate tb with type
             this._drawTb.activate(type);
+        },
+
+        _updateDrawLabelClass: function ( iconClass ) {
+
+            this.drawButton.set( 'iconClass', iconClass );
+
         },
 
         // draw-complete callback
