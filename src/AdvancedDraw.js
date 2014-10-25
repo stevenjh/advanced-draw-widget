@@ -452,7 +452,6 @@ define([
                 this._drawTb.deactivate();
             }
             // show the appropriate default symbol editor
-            console.log( type );
             switch (type) {
 
                 case 'point':
