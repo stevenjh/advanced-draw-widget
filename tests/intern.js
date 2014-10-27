@@ -88,7 +88,8 @@ define({
         'tests/symbolEditors/SMSEditor',
         'tests/symbolEditors/SLSEditor',
         'tests/symbolEditors/SFSEditor',
-        'tests/symbolEditors/GraphicSymbolEditor'
+        'tests/symbolEditors/GraphicSymbolEditor',
+        'tests/symbolEditors/_ADWNotificationMixin'
     ],
 
     // Functional test suite(s) to run in each browser once non-functional tests are completed
