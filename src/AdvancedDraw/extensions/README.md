@@ -14,5 +14,18 @@ adw/symbols/default/change - triggered when the default symbology has been updat
 adw/load - triggered when ADW has finished loading
 adw/unload - triggered when ADW before ADW unloads
 
+10/26/14
+Pushed new feature branch (adw-extension-topics).  Contains an ADWNotificationsMixin class that widgets can include with methods for
+sending defined topic notifications.  It wraps topic and ADWTopicRegistry and includes a function to
+enable logging of topic publications for testing purposes.
+
+Applied the mixin to several ADW classes to enable sending of relevant ADW notifications including:
+- Default symbols edited
+- Graphic symbol edited
+- Graphic added or removed
+- Graphic geometry edited
+
+Also implemented a fully passing test suite for ADWNotificationsMixin.
+
 
 
