@@ -11,7 +11,7 @@ define([
     'dojo/_base/lang',
 
     'dojo/on', // events
-    //'dojo/topic',
+    'dojo/topic',
 
     'dojo/keys', // keys
 
@@ -40,6 +40,7 @@ define([
     './AdvancedDraw/widget/DefaultSymbolEditors',
     './AdvancedDraw/widget/GraphicSymbolEditor',
     './AdvancedDraw/widget/_ADWNotificationsMixin',
+    './AdvancedDraw/widget/ADWTopicRegistry',
 
     'dijit/popup', // programmatic dijits
     'dijit/Menu',
@@ -69,7 +70,7 @@ define([
     declare,
     lang,
     on,
-    //topic,
+    topic,
     keys,
     html,
     dom,
@@ -92,6 +93,7 @@ define([
     DefaultSymbolEditors,
     GraphicSymbolEditor,
     _ADWNotificationsMixin,
+    adwTopics,
     popup,
     Menu,
     MenuItem,
@@ -142,6 +144,33 @@ define([
             this.i18n = i18n;
             
             //console.log(this);
+
+            this.enableExtensionLogging();
+
+        },
+
+        enableExtensionLogging: function () {
+
+            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), function () {
+                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), arguments );
+            } );
+
+            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), function () {
+                console.log( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), arguments );
+            } );
+
+            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), function () {
+                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), arguments );
+            } );
+
+            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), function () {
+                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), arguments );
+            } );
+
+            topic.subscribe( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), function () {
+                console.log( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), arguments );
+            } );
+
         },
 
         postCreate: function () {
@@ -737,20 +766,32 @@ define([
         //////////////////////////////////////
         _editGraphicGeometry: function (graphic, tool, uniform) {
             var options = this.config._editGeometryOptions;
+
             if (tool === 4) {
                 options.uniformScaling = uniform;
             }
+
             var startGeom = lang.clone(graphic.geometry); // a clean starting geometry
+
             this._editTb.activate(tool, graphic, options);
+
             on.once(this.map, 'click', lang.hitch(this, function () {
+
                 if (this._editTb.getCurrentState().isModified) {
+
+                    var endGeom = this._editTb.getCurrentState().graphic.geometry;
                     this._undo.add(new EditGeometryGraphicOp({
                         graphic: graphic,
                         startGeom: startGeom,
-                        endGeom: this._editTb.getCurrentState().graphic.geometry
+                        endGeom: endGeom
                     }));
+
+                    this.sendGraphicGeometryEditedNotification( graphic, startGeom, endGeom );
+
                 }
+
                 this._editTb.deactivate();
+
             }));
         },
 
