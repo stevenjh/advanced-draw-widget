@@ -108,7 +108,6 @@ define( [
 
                 var value = arguments[2];
                 this._updateGraphicWithSymbol( value );
-                this._sendNotification();
 
             }));
 
@@ -185,6 +184,7 @@ define( [
                 label: 'Apply',
                 onClick: lang.hitch( this, function(){
                     this.hide();
+                    this._sendNotification();
                 } )
             } );
 
