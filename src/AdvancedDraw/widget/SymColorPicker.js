@@ -83,30 +83,32 @@ define( [
                     } else {
                         this.colorPickerDijit = this._getAdvancedColorPicker();
                     }
-                    this.colorPickerDijit.on( 'change', lang.hitch( this, '_onColorPickerChange' ) );
 
                 },
 
                 _getSimpleColorPicker: function ( paletteSize ) {
 
                     return new ColorPickerSimple( {
-                        palette: paletteSize
+                        palette: paletteSize,
+                        color: this.color
                     }, this.colorPickerNode );
 
                 },
 
                 _getAdvancedColorPicker: function () {
 
-                    return new ColorPickerAdvanced( {}, this.colorPickerNode );
+                    return new ColorPickerAdvanced( {
+                        color: this.color
+                    }, this.colorPickerNode );
 
                 },
 
                 startup: function () {
 
-                    var color = this.color;
                     this.inherited( arguments );
-                    this.color = color;
+
                     this.colorPickerDijit.startup();
+                    this.colorPickerDijit.on( 'change', lang.hitch( this, '_onColorPickerChange' ) );
 
                 },
 
