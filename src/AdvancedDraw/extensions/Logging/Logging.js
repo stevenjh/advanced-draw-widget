@@ -25,6 +25,15 @@ define( [
         templateString: template,
         widgetsInTemplate: true,
         baseClass: 'loggingExtension',
+        title: 'Logging',
+        buttonLabel: 'Logging',
+        description: 'Sample logging extension',
+        buttonOptions: {
+            showLabel: true,
+            label: 'Logging',
+            title: 'Sample logging extension',
+            iconClass: 'fa fa-pencil iconFixedWidth'
+        },
 
         constructor: function ( params ) {
 

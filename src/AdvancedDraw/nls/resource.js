@@ -16,6 +16,7 @@ define({
         cancel: 'Cancel',
         undo: 'Undo',
         redo: 'Redo',
+        extensions: 'Extensions',
         activeDrawTool: 'Active Draw Tool:',
         none: 'None',
         options: 'Options',

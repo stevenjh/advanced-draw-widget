@@ -5,13 +5,19 @@ define( [
 
     var _PaneManager = declare( null, {
 
-        _showExtensionPane: function () {
+        _showExtensionsPane: function () {
             this.stackNode.selectChild( this.extensionsPane );
         },
 
         _showDefaultPane: function () {
             this.stackNode.selectChild( this.defaultPane );
+        },
+
+        _showExtension: function ( extensionContentPane ) {
+            this.extensionsStackNode.selectChild( extensionContentPane );
         }
+
+
 
 
     } );
