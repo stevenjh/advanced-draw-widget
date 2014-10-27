@@ -8,6 +8,7 @@ define( [
     './SMSEditor',
     './SLSEditor',
     './SFSEditor',
+    './_ADWNotificationsMixin',
     '../undo/editSymbolGraphicOp',
     'dojo/i18n!../nls/resource',
     'xstyle/css!./css/GraphicSymbolEditor.css'
@@ -22,11 +23,12 @@ define( [
     SMSEditor,
     SLSEditor,
     SFSEditor,
+    _ADWNotificationsMixin,
     EditSymbolGraphicOp,
     i18n
 ) {
 
-    var GraphicSymbolEditor = declare( ConfirmDialog, {
+    var GraphicSymbolEditor = declare( [ ConfirmDialog, _ADWNotificationsMixin ], {
 
         title: i18n.widgets.graphicSymbolEditor.title,
         id: 'graphicSymbolEditor',
@@ -106,6 +108,7 @@ define( [
 
                 var value = arguments[2];
                 this._updateGraphicWithSymbol( value );
+                this._sendNotification();
 
             }));
 
@@ -120,7 +123,9 @@ define( [
 
             if ( this.graphic ) {
 
-                this.graphic.setSymbol( symUtil.fromJson( value ) );
+                this.graphic.setSymbol(
+                    symUtil.fromJson( value )
+                );
                 this._updateUndoOpEndSym( value );
 
             }
@@ -132,6 +137,16 @@ define( [
             if ( this.undoOp ) {
                 this.undoOp.endSym = symbol;
             }
+
+        },
+
+        _sendNotification: function () {
+
+            this.sendGraphicSymbolEditedNotification(
+                this.graphic,
+                this.undoOp.startSym,
+                this.undoOp.endSym
+            );
 
         },
 

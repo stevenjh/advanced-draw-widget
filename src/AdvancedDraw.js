@@ -39,6 +39,7 @@ define([
     './AdvancedDraw/widget/TextTooltipDialog', // advanced draw widgets
     './AdvancedDraw/widget/DefaultSymbolEditors',
     './AdvancedDraw/widget/GraphicSymbolEditor',
+    './AdvancedDraw/widget/_ADWNotificationsMixin',
 
     'dijit/popup', // programmatic dijits
     'dijit/Menu',
@@ -90,13 +91,14 @@ define([
     TextTooltipDialog,
     DefaultSymbolEditors,
     GraphicSymbolEditor,
+    _ADWNotificationsMixin,
     popup,
     Menu,
     MenuItem,
     PopupMenuItem,
     CheckedMenuItem
 ) {
-    var AdvancedDraw = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+    var AdvancedDraw = declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _ADWNotificationsMixin ], {
         // widget
         templateString: template,
         baseClass: 'AdvancedDrawWidget',
@@ -167,6 +169,7 @@ define([
             } else {
                 this.map.on('load', lang.hitch(this, '_initialize', this.config, this.map));
             }
+
         },
 
         //////////////////////////////////////////////////////
@@ -559,6 +562,8 @@ define([
                     layer: graphic.getLayer(),
                     graphic: graphic
                 }));
+
+                this.sendGraphicAddedNotification( graphic );
             }
         },
 

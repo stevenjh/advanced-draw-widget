@@ -5,6 +5,7 @@ define([
     './SMSEditor',
     './SLSEditor',
     './SFSEditor',
+    './_ADWNotificationsMixin',
     'dojo/i18n!../nls/resource',
     'esri/symbols/jsonUtils',
     'xstyle/css!./css/DefaultSymbolEditors.css'
@@ -15,10 +16,11 @@ define([
     SMSEditor,
     SLSEditor,
     SFSEditor,
+    _ADWNotificationsMixin,
     i18n,
     symUtil
 ) {
-    var DefaultSymbolEditors = declare(StackContainer, {
+    var DefaultSymbolEditors = declare( [ StackContainer, _ADWNotificationsMixin ], {
         doLayout: false,
         baseClass: 'defaultSymbolEditors',
         symbols: null,
@@ -50,16 +52,14 @@ define([
             this.smsEditor = new SMSEditor( {
                 colorPickerOptions: this.colorPickerOptions
             });
+
             this.smsEditor.watch('symbol', lang.hitch(this, function () {
 
                 var value = arguments[2];
-                console.log('default marker symbol updated: ', value);
-                if (this.symbols) {
-                    console.log('updating default point sym');
-                    this.symbols.point = symUtil.fromJson(value);
-                }
+                this._updateSymbol( 'point', value );
 
             }));
+
             this.addChild(this.smsEditor);
             this.smsEditor.set('symbol', this.symbols.point.toJson());
 
@@ -70,15 +70,14 @@ define([
             this.slsEditor = new SLSEditor( {
                 colorPickerOptions: this.colorPickerOptions
             });
+
             this.slsEditor.watch('symbol', lang.hitch(this, function () {
+
                 var value = arguments[2];
-                console.log('default line symbol updated: ', value);
-                if (this.symbols) {
-                    console.log('updating default polyline sym');
-                    this.symbols.polyline = symUtil.fromJson(value);
-                }
+                this._updateSymbol( 'polyline', value );
 
             }));
+
             this.addChild(this.slsEditor);
             this.slsEditor.set('symbol', this.symbols.polyline.toJson());
 
@@ -89,18 +88,29 @@ define([
             this.sfsEditor = new SFSEditor( {
                 colorPickerOptions: this.colorPickerOptions
             });
+
             this.sfsEditor.watch('symbol', lang.hitch(this, function () {
 
                 var value = arguments[2];
-                console.log('default fill symbol updated: ', value);
-                if (this.symbols) {
-                    console.log('updating default polygon sym');
-                    this.symbols.polygon = symUtil.fromJson(value);
-                }
+                this._updateSymbol( 'polygon', value );
 
             }));
+
             this.addChild(this.sfsEditor);
             this.sfsEditor.set('symbol', this.symbols.polygon.toJson());
+
+        },
+
+        _updateSymbol: function ( type, value ) {
+
+            var oldSymbol = {};
+            var newSymbol = value;
+            if ( this.symbols ) {
+                oldSymbol = this.symbols[ type].toJson();
+                this.symbols[ type ] = symUtil.fromJson( value );
+            }
+
+            this.sendDefaultSymbolUpdatedNotification( oldSymbol, newSymbol );
 
         },
 
