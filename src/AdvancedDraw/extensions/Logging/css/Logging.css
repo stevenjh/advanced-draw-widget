@@ -1,0 +1,11 @@
+.loggingExtension {
+    height: 100%;
+    width: 100%
+}
+
+.loggingExtension .logMessages {
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}

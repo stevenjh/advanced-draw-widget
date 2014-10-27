@@ -38,24 +38,24 @@ define ( [
             var callback = function() {
 
                 assert.isDefined(
-                    arguments[ 0 ],
-                    'Handler functions subscribing to \'adw/symbols/default/edit\' should receive the old symbol as the first argument ');
+                    arguments[ 0 ].oldSymbol,
+                    'Handler functions subscribing to \'adw/symbols/default/edit\' should receive the old symbol as a property of the first argument ');
+
+                assert.isDefined(
+                    arguments[ 0 ].newSymbol,
+                    'Handler functions subscribing to \'adw/symbols/default/edit\' should receive the new symbol as the second argument '
+                );
 
                 assert.deepEqual(
                     oldSymbol,
-                    arguments[ 0 ],
+                    arguments[ 0 ].oldSymbol,
                     'Should receive the oldSymbol test value as first argument'
                 );
 
                 assert.deepEqual(
                     newSymbol,
-                    arguments[ 1 ],
+                    arguments[ 0 ].newSymbol,
                     'Should receive the newSymbol test value as second argument'
-                );
-
-                assert.isDefined(
-                    arguments[ 1 ],
-                    'Handler functions subscribing to \'adw/symbols/default/edit\' should receive the new symbol as the second argument '
                 );
 
             };
@@ -74,12 +74,12 @@ define ( [
             var callback = function() {
 
                 assert.isDefined(
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Handler functions subscribing to \'adw/symbols/default/edit\' should receive the new graphic as the first argument ');
 
                 assert.deepEqual(
                     graphic,
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Should receive the graphic test value as first argument'
                 );
 
@@ -99,12 +99,12 @@ define ( [
             var callback = function() {
 
                 assert.isDefined(
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Handler functions subscribing to \'adw/graphic/draw/delete\' should receive the deleted graphic as the first argument ');
 
                 assert.deepEqual(
                     graphic,
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Should receive the graphic test value as first argument'
                 );
 
@@ -126,32 +126,32 @@ define ( [
             var callback = function() {
 
                 assert.isDefined(
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Handler functions subscribing to \'adw/graphic/draw/delete\' should receive the graphic as the first argument ');
 
                 assert.isDefined(
-                    arguments[ 1 ],
+                    arguments[ 0 ].oldSymbol,
                     'Handler functions subscribing to \'adw/graphic/draw/delete\' should receive the graphic\'s previous symbol as the second argument ');
 
                 assert.isDefined(
-                    arguments[ 2 ],
+                    arguments[ 0 ].newSymbol,
                     'Handler functions subscribing to \'adw/graphic/draw/delete\' should receive the graphic\'s new symbol as the third argument ');
 
                 assert.deepEqual(
                     graphic,
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Should receive the graphic test value as first argument'
                 );
 
                 assert.deepEqual(
                     oldSymbol,
-                    arguments[ 1 ],
+                    arguments[ 0 ].oldSymbol,
                     'Should receive the oldSymbol test value as first argument'
                 );
 
                 assert.deepEqual(
                     newSymbol,
-                    arguments[ 2 ],
+                    arguments[ 0 ].newSymbol,
                     'Should receive the newSymbol test value as first argument'
                 );
 
@@ -173,32 +173,32 @@ define ( [
             var callback = function() {
 
                 assert.isDefined(
-                    arguments[ 0 ],
+                    arguments[ 0].graphic,
                     'Handler functions subscribing to \'adw/graphic/draw/edit\' should receive the graphic as the first argument ');
 
                 assert.isDefined(
-                    arguments[ 1 ],
+                    arguments[ 0 ].oldGeometry,
                     'Handler functions subscribing to \'adw/graphic/draw/edit\' should receive the graphic\'s previous geometry as the second argument ');
 
                 assert.isDefined(
-                    arguments[ 2 ],
+                    arguments[ 0 ].newGeometry,
                     'Handler functions subscribing to \'adw/graphic/draw/edit\' should receive the graphic\'s new geometry as the third argument ');
 
                 assert.deepEqual(
                     graphic,
-                    arguments[ 0 ],
+                    arguments[ 0 ].graphic,
                     'Should receive the graphic test value as first argument'
                 );
 
                 assert.deepEqual(
                     oldGeom,
-                    arguments[ 1 ],
+                    arguments[ 0 ].oldGeometry,
                     'Should receive the oldGeom test value as first argument'
                 );
 
                 assert.deepEqual(
                     newGeom,
-                    arguments[ 2 ],
+                    arguments[ 0 ].newGeometry,
                     'Should receive the newGeom test value as first argument'
                 );
 

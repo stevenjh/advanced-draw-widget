@@ -2,6 +2,8 @@ define([
     'dijit/_WidgetBase', // widget mixins and template
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
+    './AdvancedDraw/_ExtensionsManager',
+    './AdvancedDraw/_PaneManager',
     'dojo/text!./AdvancedDraw/templates/AdvancedDraw.html',
 
     './AdvancedDraw/advancedDrawConfig', // default config and i18n
@@ -64,6 +66,8 @@ define([
     _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
+    _ExtensionsManager,
+    _PaneManager,
     template,
     advancedDrawConfig,
     i18n,
@@ -100,7 +104,7 @@ define([
     PopupMenuItem,
     CheckedMenuItem
 ) {
-    var AdvancedDraw = declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _ADWNotificationsMixin ], {
+    var AdvancedDraw = declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _ADWNotificationsMixin, _PaneManager, _ExtensionsManager ], {
         // widget
         templateString: template,
         baseClass: 'AdvancedDrawWidget',
@@ -145,7 +149,7 @@ define([
             
             //console.log(this);
 
-            this.enableExtensionLogging();
+            //this.enableExtensionLogging();
 
         },
 

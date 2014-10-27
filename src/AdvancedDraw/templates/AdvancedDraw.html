@@ -17,8 +17,9 @@
                 <div data-dojo-attach-point="optionsButton" data-dojo-type="dijit/form/DropDownButton" data-dojo-props="showLabel: false, iconClass: 'fa fa-cog iconFixedWidth', title: '${i18n.options}'">
                     <span>${i18n.options}</span>
                 </div>
+                <button data-dojo-attach-point="extButton" data-dojo-type="dijit/form/Button" data-dojo-props="showLabel: true, iconClass: 'fa fa-share iconFixedWidth', title: '${i18n.redo}'" data-dojo-attach-event="click: _showExtensionPane">Ext</button>
             </div>
-            
+
             <!-- draw buttons -->
 
 
@@ -35,7 +36,17 @@
 
         </div>
 
-        <!-- additional programmatic panes here -->
+        <div data-dojo-attach-point="extensionsPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="doLayout:false, title: 'Extensions'" class="stackPane">
+
+            <div data-dojo-type="dijit/Toolbar" class="drawToolbar">
+                <button data-dojo-attach-point="defaultPaneButton" data-dojo-type="dijit/form/Button" data-dojo-props="showLabel: true, iconClass: 'fa fa-reply iconFixedWidth', title: '${i18n.undo}'" data-dojo-attach-event="click: _showDefaultPane">Draw</button>
+            </div>
+
+            <div data-dojo-attach-point="extensionsStackNode" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="doLayout: false"></div>
+
+        </div>
+
+            <!-- additional programmatic panes here -->
 
     </div>
 

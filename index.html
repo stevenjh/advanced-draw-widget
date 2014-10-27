@@ -65,12 +65,14 @@
 
             'src/AdvancedDraw', // the draw widget
 
+            'src/AdvancedDraw/extensions/logging/Logging',  //a sample extension
+
             'dijit/layout/BorderContainer',
             'dijit/layout/ContentPane',
             'xstyle/css!dijit/themes/claro/claro.css',
             'xstyle/css!esri/css/esri.css',
             'dojo/domReady!'
-        ], function (Map, GraphicsLayer, FeatureLayer, AdvancedDraw, BC, CP) {
+        ], function (Map, GraphicsLayer, FeatureLayer, AdvancedDraw, Logging, BC, CP) {
             // layout
             var bc = new BC({
                 gutters: true,
@@ -168,7 +170,10 @@
                             paletteSize  : '7x10' // '3x4' | '7x10'
                         },
                         closeOnChange: true //close color picker on selection of new color?
-                    }
+                    },
+                    extensions: [
+                            Logging
+                    ]
                 }
             }, 'advanced-draw');
             app.advancedDraw.startup();

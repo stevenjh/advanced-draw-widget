@@ -12,31 +12,31 @@ define( [
 
         sendDefaultSymbolUpdatedNotification: function ( oldSymbol, newSymbol ) {
 
-            topic.publish( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), oldSymbol, newSymbol );
+            topic.publish( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), { oldSymbol: oldSymbol, newSymbol: newSymbol } );
 
         },
 
         sendGraphicAddedNotification: function ( graphic ) {
 
-            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), graphic );
+            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), { graphic: graphic } );
 
         },
 
         sendGraphicDeletedNotification: function ( graphic ) {
 
-            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), graphic );
+            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), { graphic: graphic }  );
 
         },
 
         sendGraphicGeometryEditedNotification: function ( graphic, oldGeom, newGeom ) {
 
-            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), graphic, oldGeom, newGeom );
+            topic.publish( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), { graphic: graphic, oldGeometry: oldGeom, newGeometry: newGeom } );
 
         },
 
         sendGraphicSymbolEditedNotification: function ( graphic, oldSymbol, newSymbol ) {
 
-            topic.publish( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), graphic, oldSymbol, newSymbol );
+            topic.publish( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), { graphic: graphic, oldSymbol: oldSymbol, newSymbol: newSymbol } );
 
         }
 
