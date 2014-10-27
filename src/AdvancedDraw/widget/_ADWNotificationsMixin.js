@@ -10,10 +10,6 @@ define( [
 
     var _ADWNotifier = declare( null, {
 
-        constructor: function () {
-            this.enableLogging();
-        },
-
         sendDefaultSymbolUpdatedNotification: function ( oldSymbol, newSymbol ) {
 
             topic.publish( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), oldSymbol, newSymbol );
@@ -42,32 +38,7 @@ define( [
 
             topic.publish( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), graphic, oldSymbol, newSymbol );
 
-        },
-
-        enableLogging: function () {
-
-            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), function () {
-                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_ADD' ), arguments );
-            } );
-
-            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), function () {
-                console.log( adwTopics.get( 'ADW_GRAPHIC_SYMBOL_EDIT' ), arguments );
-            } );
-
-            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), function () {
-                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_DELETE' ), arguments );
-            } );
-
-            topic.subscribe( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), function () {
-                console.log( adwTopics.get( 'ADW_GRAPHIC_DRAW_EDIT' ), arguments );
-            } );
-
-            topic.subscribe( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), function () {
-                console.log( adwTopics.get( 'ADW_SYMBOLS_DEFAULT_EDIT' ), arguments );
-            } );
-
         }
-
 
     } );
 
