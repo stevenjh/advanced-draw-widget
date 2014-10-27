@@ -55,6 +55,7 @@ define([
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
     'dijit/Toolbar',
+    'dijit/ToolbarSeparator',
     'dijit/form/CheckBox',
     'dijit/form/Button',
     'dijit/form/DropDownButton',

@@ -17,6 +17,7 @@
                 <div data-dojo-attach-point="optionsButton" data-dojo-type="dijit/form/DropDownButton" data-dojo-props="showLabel: false, iconClass: 'fa fa-cog iconFixedWidth', title: '${i18n.options}'">
                     <span>${i18n.options}</span>
                 </div>
+                <span data-dojo-type="dijit/ToolbarSeparator"></span>
                 <button data-dojo-attach-point="extButton" data-dojo-type="dijit/form/Button" data-dojo-props="showLabel: false, iconClass: 'fa fa-plug iconFixedWidth', title: '${i18n.extensions}'" data-dojo-attach-event="click: _showExtensionsPane">${i18n.extensions}</button>
             </div>
 
@@ -40,6 +41,7 @@
 
             <div data-dojo-type="dijit/Toolbar" class="drawToolbar" data-dojo-attach-point="extensionsToolbar">
                 <button data-dojo-attach-point="defaultPaneButton" data-dojo-type="dijit/form/Button" data-dojo-props="showLabel: false, iconClass: 'fa fa-reply iconFixedWidth', title: '${i18n.draw}'" data-dojo-attach-event="click: _showDefaultPane">${i18n.draw}</button>
+                <span data-dojo-type="dijit/ToolbarSeparator"></span>
             </div>
 
             <div data-dojo-attach-point="extensionsStackNode" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="doLayout: false"></div>
