@@ -451,6 +451,9 @@ define([
             if (this._drawTb._geometryType) {
                 this._drawTb.deactivate();
             }
+            // reset _isTextPoint
+            this._isTextPoint = false;
+
             // show the appropriate default symbol editor
             console.log( type );
             switch (type) {

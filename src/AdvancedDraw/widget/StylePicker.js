@@ -51,8 +51,7 @@ define( [
                     { value: 'esriSMSCross', label: this.i18n.esriStyles.marker.esriSMSCross },
                     { value: 'esriSMSDiamond', label: this.i18n.esriStyles.marker.esriSMSDiamond },
                     { value: 'esriSMSSquare', label: this.i18n.esriStyles.marker.esriSMSSquare },
-                    { value: 'esriSMSX', label: this.i18n.esriStyles.marker.esriSMSX },
-                    { value: 'esriSMSTriangle', label: this.i18n.esriStyles.marker.esriSMSTriangle }
+                    { value: 'esriSMSX', label: this.i18n.esriStyles.marker.esriSMSX }
                 ],
                 line: [
                     { value: 'esriSLSSolid', label: this.i18n.esriStyles.line.esriSLSSolid },

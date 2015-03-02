@@ -79,8 +79,7 @@ define({
                 esriSMSCross: 'Cross',
                 esriSMSDiamond: 'Diamond',
                 esriSMSSquare: 'Square',
-                esriSMSX: 'X',
-                esriSMSTriangle: 'Triangle'
+                esriSMSX: 'X'
             },
             fill: {
                 esriSFSSolid: 'Solid',

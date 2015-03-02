@@ -25,6 +25,7 @@ define( [
                     this.value = 0;
                     this.minimum = 0;
                     this.maximum = 1;
+                    this.discreteValues = ((options.maximum - options.minimum) * 2) + 1;
                     this.showButtons = false;
                     this.intermediateChanges = true;
                     this.i18n = i18n;

@@ -138,7 +138,10 @@ define( [
 
                 },
 
-                _onAlphaSliderChange: function( value ) {
+                _onAlphaSliderChange: function (value) {
+                    // update slider label
+                    this.alphaSlider.value = Math.round(this.alphaSlider.value * 100) / 100; // set to 2dp
+                    dojo.query("label", this.domNode)[0].innerHTML = this.sliderLabel + ' (' + this.alphaSlider.value + ')';
 
                     var newColor = lang.clone( this.color );
                     newColor.a = value;

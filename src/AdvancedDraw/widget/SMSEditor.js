@@ -120,12 +120,13 @@ define([
                 value: this.symbol.size,
                 minimum: 1,
                 maximum: 100,
-                label: this.i18n.widgets.symbolSizePicker.label,
+                label: this.i18n.widgets.symbolSizePicker.label + ' (' + this.symbol.size + ')',
                 baseClass: 'symbolEditorControl'
             }, this.createLeftHandControlsDiv() );
 
             this.symbolSizeSlider.watch('value', lang.hitch(this, function () {
-
+                this.symbolSizeSlider.value = Math.round(this.symbolSizeSlider.value * 10) / 10; // set to 1dp
+                dojo.query("label", this.symbolSizeSlider.domNode)[0].innerHTML = this.i18n.widgets.symbolSizePicker.label + ' (' + this.symbol.size + ')';
                 this._updateSymbolAtt();
 
             }));
@@ -195,11 +196,12 @@ define([
                 minimum: 1,
                 maximum: 10,
                 baseClass: 'symbolEditorControl',
-                label: this.i18n.widgets.symbolWidthPicker.label
+                label: this.i18n.widgets.symbolWidthPicker.label + ' (' + this.symbol.outline.width + ')'
             }, this.createRightHandControlsDiv() );
 
             this.outlineWidthSlider.watch('value', lang.hitch(this, function () {
-
+                this.outlineWidthSlider.value = Math.round(this.outlineWidthSlider.value * 10) / 10; // set to 1dp
+                dojo.query("label", this.outlineWidthSlider.domNode)[0].innerHTML = this.i18n.widgets.symbolWidthPicker.label + ' (' + this.symbol.outline.width + ')';
                 this._updateSymbolAtt();
 
             }));
